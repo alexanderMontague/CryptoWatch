@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+  background-color: #616161;
+}
+
+.appWrapper {
+  font-family: 'Muli', sans-serif;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.mainContainer {
+  display: flex;
+  height: 720px;
+  margin: 0 50px;
+  border: 2px grey solid;
+}

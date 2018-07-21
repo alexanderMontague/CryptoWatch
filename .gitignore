@@ -1,0 +1,30 @@
+### Project ###
+dist/
+log/
+config/local*
+releases/*.zip
+
+# Vim
+*.swp
+
+### Node ###
+# Logs
+logs
+*.log
+npm-debug.log*
+
+### OSX ###
+*.DS_Store
+.AppleDouble
+.LSOverride
+
+### Code ###
+# Visual Studio Code - https://code.visualstudio.com/
+.settings/
+.vscode/
+tsconfig.json
+jsconfig.json
+
+# Dependency directories
+node_modules
+jspm_packages
