@@ -6,10 +6,6 @@ import hamburgerIcon from '../../assets/burgerIcon.png';
 
 class AppBar extends Component {
 
-  showSettings (event) {
-    event.preventDefault();
-  }
-
   render() {
     return (
       <div className={css.appBarWrapper}>

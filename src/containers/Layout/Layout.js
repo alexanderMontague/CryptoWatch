@@ -2,11 +2,13 @@ import React, { Component, Fragment } from 'react';
 import css from './Layout.scss';
 
 import AppBar from '../../components/AppBar/AppBar';
+import MenuModal from '../../components/Slider/Slider';
 
 class Layout extends Component {
   render() {
     return (
       <div className={css.appWrapper}>
+        <MenuModal />
         <AppBar />
         <div className={css.mainContainer}>
           <div>Portfolio Section</div>
