@@ -1,0 +1,40 @@
+.backgroundShadow {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+}
+
+.menuModal {
+  position: fixed;
+  width: 280px;
+  max-width: 70%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: #616161;
+  padding: 32px 16px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  transition: transform 0.3s ease-out;
+  z-index: 1;
+}
+
+.menuLayer {
+  position: fixed;
+  width: 200px;
+  max-width: 70%;
+  height: 100%;
+  background-color: white;
+  padding: 32px 16px;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.Open {
+  transform: translateX(0);
+}
+
+.Close {
+  transform: translateX(-100%)
+}
