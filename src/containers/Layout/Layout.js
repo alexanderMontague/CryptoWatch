@@ -1,9 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import css from './Layout.scss';
+
 import { connect } from 'react-redux';
 import { toggleMenu } from '../../actions';
+
 import AppBar from '../../components/AppBar/AppBar';
 import MenuModal from '../../components/Slider/Slider';
+import Portfolio from '../../components/Portfolio/Portfolio';
 
 class Layout extends Component {
 
@@ -13,10 +16,16 @@ class Layout extends Component {
         <MenuModal />
         <AppBar toggleMenu={this.props.toggleMenu} />
         <div className={css.mainContainer}>
-          <div>Portfolio Section</div>
-          <div>
-            <div>Search Section</div>
-            <div>Details Section</div>
+          <div className={css.portfolioContainer}>
+            <Portfolio />
+          </div>
+          <div className={css.rightSideContainer}>
+            <div className={css.searchContainer}>
+              Search Section
+            </div>
+            <div className={css.detailsContainer}>
+              Details Section
+            </div>
           </div>
         </div>
       </div>

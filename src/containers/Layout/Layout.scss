@@ -11,7 +11,34 @@ body {
 
 .mainContainer {
   display: flex;
-  height: 720px;
+  height: 550px;
   margin: 0 50px;
   border: 2px grey solid;
+  border-radius: 10px;
+  padding: 1%;
+
+  // media @ mobile/tablet flex-direction: column
+  // set a height etc...
+}
+
+.portfolioContainer {
+  width: 50%;
+  margin: 10px 1% 10px 10px;
+  border-radius: 10px;
+  background-color: #BDBDBD;
+}
+
+.rightSideContainer {
+  width: 50%;
+  margin: 10px 10px 10px 1%;
+  border: 1px grey solid; //remove
+  border-radius: 10px;
+
+  .searchContainer {
+
+  }
+
+  .detailsContainer {
+
+  }
 }

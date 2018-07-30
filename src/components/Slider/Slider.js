@@ -16,7 +16,10 @@ const Slider = (props) => {
       <div onClick={props.toggleMenu} className={showMenu ? css.backgroundShadow : null}>
         <div className={menuSliderStyle.join(' ')}>
           <div className={css.menuLayer}>
-
+            user profile pic
+            <button>Settings</button><br />
+            <button>TBD</button><br />
+            <button>Sign Out</button><br />
           </div>
         </div>
       </div>
