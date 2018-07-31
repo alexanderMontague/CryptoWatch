@@ -1,13 +1,13 @@
 import React from 'react'
 import Header from '../SectionHeader/Header';
 
-const Portfolio = (props) => {
+const Details = (props) => {
   return (
     <div>
-      <Header title='Portfolio' />
+      <Header title='Details' />
       
     </div>
   );
 }
 
-export default Portfolio;
+export default Details;

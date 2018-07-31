@@ -7,6 +7,8 @@ import { toggleMenu } from '../../actions';
 import AppBar from '../../components/AppBar/AppBar';
 import MenuModal from '../../components/Slider/Slider';
 import Portfolio from '../../components/Portfolio/Portfolio';
+import Search from '../../components/Search/Search';
+import Details from '../../components/Details/Details';
 
 class Layout extends Component {
 
@@ -21,10 +23,10 @@ class Layout extends Component {
           </div>
           <div className={css.rightSideContainer}>
             <div className={css.searchContainer}>
-              Search Section
+              <Search />
             </div>
             <div className={css.detailsContainer}>
-              Details Section
+              <Details />
             </div>
           </div>
         </div>

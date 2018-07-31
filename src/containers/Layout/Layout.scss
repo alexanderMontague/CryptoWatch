@@ -1,5 +1,5 @@
 body {
-  margin: 0;
+  margin: 5px 0;
   background-color: #616161;
 }
 
@@ -16,9 +16,6 @@ body {
   border: 2px grey solid;
   border-radius: 10px;
   padding: 1%;
-
-  // media @ mobile/tablet flex-direction: column
-  // set a height etc...
 }
 
 .portfolioContainer {
@@ -30,15 +27,47 @@ body {
 
 .rightSideContainer {
   width: 50%;
-  margin: 10px 10px 10px 1%;
-  border: 1px grey solid; //remove
-  border-radius: 10px;
+  margin: 10px 1% 10px 10px;
+
 
   .searchContainer {
-
+    height: 48%;
+    border-radius: 10px;
+    background-color: #BDBDBD;
+    margin-bottom: 21px;
   }
 
   .detailsContainer {
+    height: 48%;
+    border-radius: 10px;
+    background-color: #BDBDBD;
+  }
+}
 
+@media(max-width: 768px) {
+  .mainContainer {
+    flex-direction: column;
+    padding: 10px;
+    height: 100%;
+  }
+
+  .portfolioContainer {
+    width: 100%;
+    margin: 0;  // reset margins from desktop view
+    margin-bottom: 21px;
+    height: 300px;
+  }
+
+  .rightSideContainer {
+    width: 100%;
+    margin: 0;
+
+    .searchContainer {
+      height: 300px;
+    }
+
+    .detailsContainer {
+      height: 300px;
+    }
   }
 }
