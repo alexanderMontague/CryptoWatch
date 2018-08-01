@@ -5,3 +5,44 @@
   align-content: center;
   text-align: center;
 }
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  padding: 5%;
+
+  .searchInput {
+    height: 40px;
+    width: 70%;
+    border-radius: 10px;
+    border: 2px solid #616161;
+    font-size: 80%;
+    margin: 15% auto;
+    text-indent: 10%;
+  }
+  .searchInput:focus {
+    outline: none;
+  }
+
+  .searchButton {
+    height: 40px;
+    width: 20%;
+    border-radius: 5px;
+    border: 2px solid #616161;
+    background-color: #64B5F6;
+  }
+  .searchButton:hover {
+    background-color: #2196F3;
+    cursor: pointer;
+  }
+  .searchButton:focus {
+    outline: none;
+  }
+  .searchButton:active {
+    border-color: white;
+  }
+
+  .searchParagraph {
+
+  }
+}

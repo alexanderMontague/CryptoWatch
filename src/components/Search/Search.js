@@ -5,10 +5,12 @@ import css from './Search.scss';
 const Search = (props) => {
   return (
     <Fragment>
-      <Header title='Search' />
+      <Header title='Find Cryptocurrencies!' />
       <div className={css.searchContainer}>
-        <p className={css.searchParagraph}>Search for a CryptoCurrency!</p>
-        <input className={css.searchInput} type='text' />
+        <div className={css.inputContainer}>
+          <input onChange={(value)=> console.log('hello' + value)} className={css.searchInput} type='text' placeholder='Start Typing a Cryptocurrency...'/>
+          <button className={css.searchButton}>Search</button>
+        </div>
       </div>
     </Fragment>
   );

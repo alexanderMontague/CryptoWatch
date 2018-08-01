@@ -1,7 +1,10 @@
 .appBarWrapper {
   height: 55px;
-  background-color: #BDBDBD;
-  border-radius: 5px;
+  background-color: #64B5F6;
+  border-top: white 2px solid;
+  border-left: white 2px solid;
+  border-right: white 2px solid;
+  border-radius: 5px 5px 0 0;
   margin: 0 50px;
   box-shadow: rgba(29, 29, 29, 0.3) 0px 0px 1.25em 0.25em;
 }
@@ -24,6 +27,7 @@
   margin: auto;
   padding-left: 10px;
   padding-right: 70px;
+  color: white;
 
   @media(max-width: 375px) {
     font-size: 7vw;
