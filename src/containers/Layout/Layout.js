@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import css from './Layout.scss';
+import axios from 'axios';
 
 import { connect } from 'react-redux';
 import { toggleMenu } from '../../actions';
@@ -12,6 +13,24 @@ import Details from '../../components/Details/Details';
 
 class Layout extends Component {
 
+  state = {
+    coinObject: {},
+    coinKeys: []
+  }
+
+  componentDidMount() {
+    // Get list of all coins
+    axios.get('https://min-api.cryptocompare.com/data/all/coinlist')
+      .then(data => {
+        const totalCoinsObject = data.Data;
+        const coinKeyArray = Object.keys(totalCoinsObject);
+        this.setState({ coinObject: totalCoinsObject, coinKeys: coinKeyArray });
+      })
+      .catch(error => {
+        console.log('Get Coinlist Error', error);
+      });
+  }
+
   render() {
     return (
       <div className={css.appWrapper}>
@@ -23,7 +42,7 @@ class Layout extends Component {
           </div>
           <div className={css.rightSideContainer}>
             <div className={css.searchContainer}>
-              <Search />
+              <Search coinObject={this.state.coinObject} coinKeys={this.state.coinKeys} />
             </div>
             <div className={css.detailsContainer}>
               <Details />

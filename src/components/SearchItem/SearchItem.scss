@@ -1,0 +1,19 @@
+.searchItem {
+  display: inline-block;
+  background-color: white;
+  width: 60%;
+  margin-top: 2px;
+  margin-left: 8%;
+  padding: 5px;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px #616161 solid;
+}
+
+.searchItem:hover {
+  background-color: #64B5F6;
+}
+
+.searchItem:active {
+  border-color: white;
+}
