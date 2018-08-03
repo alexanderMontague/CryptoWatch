@@ -4,7 +4,7 @@ import css from './SearchItem.scss';
 const SearchItem = (props) => {
   return (
     <div className={css.searchItem}>
-      Bitcoin (BTC)
+      {props.searchText}
     </div>
   )
 }
