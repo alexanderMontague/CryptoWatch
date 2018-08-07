@@ -11,7 +11,7 @@
   .searchInput {
     height: 40px;
     width: 70%;
-    border-radius: 10px;
+    border-radius: 10px 0 0 10px;
     border: 2px solid #616161;
     font-size: 80%;
     padding-left: 10%;
@@ -23,7 +23,7 @@
   .searchButton {
     height: 46px;
     width: 20%;
-    border-radius: 5px;
+    border-radius: 0 5px 5px 0;
     border: 2px solid #616161;
     background-color: #64B5F6;
   }

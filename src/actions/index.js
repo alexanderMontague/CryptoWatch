@@ -6,6 +6,13 @@ export const toggleMenu = () => {
   }
 };
 
+export const selectCoin = coinTicker => {  
+  return {
+    type: 'SELECT_COIN',
+    payload: { ticker: coinTicker }
+  }
+}
+
 // Example of action sending other data, and getting a param
 // export const useParam = (newNumParam) => {  
 //   return {

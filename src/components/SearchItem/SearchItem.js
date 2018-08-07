@@ -1,12 +1,24 @@
 import React from 'react'
 import css from './SearchItem.scss';
 
-const SearchItem = (props) => {
+import { connect } from 'react-redux';
+import { selectCoin } from '../../actions';
+
+const SearchItem = props => {
+
+  const { searchText, selectCoin } = props;
+
   return (
-    <div className={css.searchItem}>
-      {props.searchText}
+    <div className={css.searchItem} onClick={() => selectCoin(searchText)}>
+      {searchText}
     </div>
   )
 }
 
-export default SearchItem;
+const mapDispatchToProps = dispatch => {
+  return { 
+    selectCoin: searchText => dispatch(selectCoin(searchText)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(SearchItem);

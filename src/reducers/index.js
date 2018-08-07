@@ -9,6 +9,9 @@ const rootReducer = (prevState, action) => {
     case 'TOGGLE_MENU':
       return { ...prevState, showMenu: !prevState.showMenu };
     
+    case 'SELECT_COIN':      
+      return { ...prevState, selectedCoin: action.payload.ticker };
+
     // Reducer case where you get other data from the action
     // case 'USE_PARAMS:
     //  do something with action.payload 
