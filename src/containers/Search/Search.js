@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import css from './Search.scss';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import { selectCoin } from '../../actions';
 
 import Header from '../../components/SectionHeader/Header';
 import SearchItem from '../../components/SearchItem/SearchItem';
@@ -49,41 +50,34 @@ class Search extends Component {
       })
       .catch(error => {
         // DEV BELOW
-        // const totalCoinsObject = this.mockRes;
-        // const coinKeyArray = Object.keys(totalCoinsObject);
-        // this.setState({ coinObject: totalCoinsObject, coinKeys: coinKeyArray });
+        const totalCoinsObject = this.mockRes;
+        const coinKeyArray = Object.keys(totalCoinsObject);
+        this.setState({ coinObject: totalCoinsObject, coinKeys: coinKeyArray });
         console.log('Get Coinlist Error', error);
       });
   }
 
   state = {    
     searchResults: [],
+    inputValue: '',
   }
 
-  findResults = searchText => {
-    const { selectedCoin } = this.props;
+  searchCoin = searchText => {
     const { coinObject, coinKeys } = this.state;
     const resultArray = [];
-    //this.setState({ inputValue: selectedCoin });  // update current input from state
-    this.setState((prevState, prevProps) => {
-      if(prevState.inputValue !== searchText) {
-        return { inputValue: searchText };
-      }
-      else {
-        return { inputValue: selectedCoin };
-      }
-    });
+    this.setState({ inputValue: searchText });
     for(let i = 0; i < coinKeys.length; i++) {  // use for loop for performance over map
-      const { FullName } = coinObject[coinKeys[i]];
-      if(FullName.toLowerCase().includes(searchText.toLowerCase()) && (resultArray.length < 4) && searchText) {     // if a coin full name inclues any part of the input text
-        resultArray.push(<SearchItem key={i} searchText={FullName} />);
+      const { FullName, Symbol } = coinObject[coinKeys[i]]; // get info from coin object
+      if(FullName.toLowerCase().includes(searchText.toLowerCase()) && (resultArray.length < 4) && searchText) {  // if a coin full name inclues any part of the input text and is valid
+        resultArray.push(<SearchItem key={i} searchText={FullName} handleClick={this.searchForCoinHandler(FullName, Symbol)}/>);  // add to the display drop down array, only show 4 coins
       }
     }
     this.setState({ searchResults: resultArray });
   }
 
-  searchForCoinHandler = () => {
-    console.log(this.props);
+  searchForCoinHandler = (coinName, ticker) => () => {
+    this.setState({ inputValue: coinName, searchResults: [] });
+    this.props.selectCoin(ticker);
   }
   
   render() {
@@ -93,13 +87,13 @@ class Search extends Component {
         <div className={css.searchContainer}>
           <div className={css.inputContainer}>
             <input 
-              onChange={input => this.findResults(input.target.value)} 
+              onChange={input => this.searchCoin(input.target.value)} 
               className={css.searchInput} 
               type='text'
               value={this.state.inputValue} 
               placeholder='Start Typing a Cryptocurrency...'
             />
-            <button className={css.searchButton} onClick={this.searchForCoinHandler}>Search</button>
+            <button className={css.searchButton} onClick={this.props.handleSubmit}>Search</button>
           </div>
           { this.state.searchResults }
         </div>
@@ -108,10 +102,10 @@ class Search extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapDispatchToProps = dispatch => {
   return { 
-    selectedCoin: state.selectedCoin,
+    selectCoin: ticker => dispatch(selectCoin(ticker)),
   };
 };
 
-export default connect(mapStateToProps)(Search);
+export default connect(null, mapDispatchToProps)(Search);

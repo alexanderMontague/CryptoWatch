@@ -8,13 +8,17 @@ import AppBar from '../../components/AppBar/AppBar';
 import MenuModal from '../../components/Slider/Slider';
 import Portfolio from '../../components/Portfolio/Portfolio';
 import Search from '../Search/Search';
-import Details from '../../components/Details/Details';
+import Details from '../Details/Details';
 
 class Layout extends Component {
 
   state = {
     coinObject: {},
     coinKeys: []
+  }
+
+  getCoinDetails = () => {
+    console.log(this.props.selectedCoin);
   }
 
   render() {
@@ -28,7 +32,7 @@ class Layout extends Component {
           </div>
           <div className={css.rightSideContainer}>
             <div className={css.searchContainer}>
-            <Search />
+              <Search handleSubmit={this.getCoinDetails}/>
             </div>
             <div className={css.detailsContainer}>
               <Details />
@@ -43,6 +47,7 @@ class Layout extends Component {
 const mapStateToProps = state => {
   return { 
     showMenu: state.showMenu,
+    selectedCoin: state.selectedCoin
   };
 };
 

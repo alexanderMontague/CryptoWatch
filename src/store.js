@@ -3,13 +3,12 @@ import rootReducer from './reducers';
 
 const defaultState = {
   showMenu: false,
-  testVal: 10
 }
 
 const enhancers = compose(
   window.devToolsExtension()
 )
 
-const store = createStore(rootReducer, defaultState, enhancers);
+const store = createStore(rootReducer, + defaultState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 export default store;
