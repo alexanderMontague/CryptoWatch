@@ -37,6 +37,15 @@
   flex-direction: column;
   margin: auto 0;
 
+  .buttonContainers {
+    display: flex;
+    padding-bottom: 2px;
+
+    @media(max-width: 425px) {
+      flex-direction: column;
+    }
+  }
+
   .addButton {
     height: 25px;
     border-radius: 5px;
@@ -53,12 +62,30 @@
   .addButton:active {
     border-color: white;
   }
-  
+
+  h6 {
+    font-size: 10px;
+    margin: auto 0;
+    padding-right: 5px;
+  }
 
 }
 
 .detailInfoRow {
+  font-size: 20px;
+  padding: 10px;
 
+  .coinInfoRow {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+
+}
+    
+.selectCoinMessage {
+  text-align: center;
+  padding-top: 20%;
 }
 
 .coinIcon {

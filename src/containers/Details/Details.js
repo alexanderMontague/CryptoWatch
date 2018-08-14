@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import css from './Details.scss'; 
+import axios from 'axios';
+
 import testPic from '../../../btg.png';
 
 import Header from '../../components/SectionHeader/Header';
@@ -8,16 +10,59 @@ import ToggleButton from 'react-toggle-button';
 class Details extends Component {
 
   state = {
-    selectedCoin: 'Bitcoin (BTC)',
+    selectedCoin: this.props.selectedCoin,
+    coinFullName: '',
+    coinPrice: '',
+    coinMarket: '',
+    coin24hr: '',
+    coinVolume: '',
+    coinRanking: '',
+    coinImageURL: '',
     baseCurrency: '$CAD',
-    buttonType: 'Show Graph'
+    showGraph: false
+  }
+
+  // If the user selects a new coin
+  componentDidUpdate(prevProps) {
+    const { coinObject, selectedCoin } = this.props;
+    if(selectedCoin && (selectedCoin !== prevProps.selectedCoin)) {
+      // Get coin FullName and Coin Image URL
+      this.setState({ 
+        coinFullName: coinObject[selectedCoin].FullName,
+        coinImageURL: 'https://min-api.cryptocompare.com' + coinObject[selectedCoin].ImageUrl,
+      });
+      // Get coin Image      
+      axios.get('https://min-api.cryptocompare.com/data/price/' + selectedCoin)
+        .then(response => {
+
+        })
+        .catch(error => {
+          console.log('Get Price Error', error)
+        });
+    }
   }
 
   render() {
-    const borderRadiusStyle = { borderRadius: 2 }
+    const { showDetails } = this.props;
+
+    const thumbStyle = { 
+      borderRadius: 5,
+      border: '1px solid #616161',
+      left: '5px'
+    };
+    const buttonStyle = { borderRadius: 5,
+      border: '2px solid #616161'
+    };
+    const toggleColors = {
+      active: {
+        base: '#64B5F6',
+        hover: '#2196F3'
+      },
+    }
     return (
       <Fragment>
         <Header title='Details' />
+        { showDetails ?
         <div className={css.detailsContentContainer}>
           <div className={css.detailHeaderRow}>
             <div className={css.selectedCurrency}>
@@ -30,30 +75,33 @@ class Details extends Component {
                 <img className={css.coinIcon} src={testPic} alt='Coin Icon' />
               </div>
               <div>
-                {this.state.selectedCoin}
+                {this.state.coinFullName}
               </div>
             </div>
             <div className={css.addToggleCoinContainer}>
-              <button className={css.addButton}>ADD</button>
-
-              <ToggleButton
-                value={ this.state.value || false }
-                thumbStyle={borderRadiusStyle}
-                activeLabel='test'
-                trackStyle={borderRadiusStyle}
-                onToggle={(value) => {
-                  this.setState({
-                    value: !value,
-                  })
-                }}
-              />
-
-
+              <div className={css.buttonContainers}>
+                <h6>Toggle Graph: </h6>
+                <ToggleButton
+                  value={ this.state.showGraph }
+                  colors={toggleColors}
+                  thumbStyle={thumbStyle}
+                  trackStyle={buttonStyle}
+                  onToggle={(showGraph) => {
+                    this.setState({
+                      showGraph: !showGraph,
+                    })
+                  }}
+                />
+              </div>
+              <div className={css.buttonContainers}>
+                <h6>Add to Portfolio: </h6>
+                <button className={css.addButton}>ADD</button>
+              </div>
             </div>
           </div>
           <div className={css.detailInfoRow}>
             <div className={css.coinInfoRow}>
-              <span>Price: ___</span>
+              <span>Price: {this.state.coinPrice}</span>
               <span>Market Cap: ___</span>
             </div>
             <div className={css.coinInfoRow}>
@@ -64,7 +112,8 @@ class Details extends Component {
               <span>Coin Ranking: ___</span>
             </div>
           </div>
-        </div>
+        </div> :
+        <p className={css.selectCoinMessage}>Select a Coin!</p> }
       </Fragment>
     );
   }

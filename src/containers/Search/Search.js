@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import css from './Search.scss';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { selectCoin } from '../../actions';
 
@@ -9,61 +8,14 @@ import SearchItem from '../../components/SearchItem/SearchItem';
 
 class Search extends Component {
 
-  // DEV BELOW
-  mockRes = {
-    "BTC": {
-      "Id":"1182",
-      "ImageUrl":"/media/19633/btc.png",
-      "Name":"BTC",
-      "Symbol":"BTC",
-      "CoinName":"Bitcoin",
-      "FullName":"Bitcoin (BTC)",
-      "Algorithm":"SHA256",
-    },
-    "ETH": {
-      "Id":"1182",
-      "Url":"/coins/btc/overview",
-      "ImageUrl":"/media/19633/btc.png",
-      "Name":"ETH",
-      "Symbol":"ETH",
-      "CoinName":"Ethereum",
-      "FullName":"Ethereum (ETH)",
-    },"LTC": {
-      "Id":"1182",
-      "Url":"/coins/btc/overview",
-      "ImageUrl":"/media/19633/btc.png",
-      "Name":"LTC",
-      "Symbol":"LTC",
-      "CoinName":"Litecoin",
-      "FullName":"Litecoin (LTC)",
-      "Algorithm":"SHA256",
-    },
-  }
-
-  componentDidMount() {
-    // Get list of all coins from API
-    axios.get('https://min-api.cryptocompare.com/data/all/coinlist')
-      .then(response => {
-        const totalCoinsObject = response.data.Data;
-        const coinKeyArray = Object.keys(totalCoinsObject);
-        this.setState({ coinObject: totalCoinsObject, coinKeys: coinKeyArray });        
-      })
-      .catch(error => {
-        // DEV BELOW
-        const totalCoinsObject = this.mockRes;
-        const coinKeyArray = Object.keys(totalCoinsObject);
-        this.setState({ coinObject: totalCoinsObject, coinKeys: coinKeyArray });
-        console.log('Get Coinlist Error', error);
-      });
-  }
-
-  state = {    
+  state = {
     searchResults: [],
     inputValue: '',
   }
 
   searchCoin = searchText => {
-    const { coinObject, coinKeys } = this.state;
+    const { coinObject, coinKeys } = this.props;
+    
     const resultArray = [];
     !searchText ? this.props.selectCoin(undefined) : null;
     this.setState({ inputValue: searchText });
