@@ -14,7 +14,7 @@ const Slider = (props) => {
   return (
     <Fragment>
       <div onClick={props.toggleMenu} className={showMenu ? css.backgroundShadow : null}>
-        <div className={menuSliderStyle.join(' ')}>
+        <div onClick={props.toggleMenu} className={menuSliderStyle.join(' ')}>
           <div className={css.menuLayer}>
             user profile pic
             <button>Settings</button><br />

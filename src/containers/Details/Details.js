@@ -29,12 +29,12 @@ class Details extends Component {
       // Get coin FullName and Coin Image URL
       this.setState({ 
         coinFullName: coinObject[selectedCoin].FullName,
-        coinImageURL: 'https://min-api.cryptocompare.com' + coinObject[selectedCoin].ImageUrl,
-      });
-      // Get coin Image      
-      axios.get('https://min-api.cryptocompare.com/data/price/' + selectedCoin)
+        coinImageURL: 'https://www.cryptocompare.com' + coinObject[selectedCoin].ImageUrl,
+      });      
+      // Get coin Price      
+      axios.get('https://min-api.cryptocompare.com/data/price?fsym=' + selectedCoin + '&tsyms=CAD')
         .then(response => {
-
+          this.setState({ coinPrice: '$' + response.data.CAD });
         })
         .catch(error => {
           console.log('Get Price Error', error)
@@ -72,7 +72,7 @@ class Details extends Component {
             </div>
             <div className={css.coinNameContainer}>
               <div className={css.imageContainer}>
-                <img className={css.coinIcon} src={testPic} alt='Coin Icon' />
+                <img className={css.coinIcon} src={this.state.coinImageURL} alt='Coin Icon' />
               </div>
               <div>
                 {this.state.coinFullName}

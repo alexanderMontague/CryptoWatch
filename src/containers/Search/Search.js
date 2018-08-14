@@ -53,10 +53,14 @@ class Search extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return { 
-    selectCoin: ticker => dispatch(selectCoin(ticker)),
-  };
+// const mapDispatchToProps = dispatch => {
+//   return { 
+//     selectCoin: ticker => dispatch(selectCoin(ticker)),
+//   };
+// };
+// Condensed version of above ^
+const mapDispatchToProps = {
+  selectCoin
 };
 
 export default connect(null, mapDispatchToProps)(Search);
