@@ -2,8 +2,6 @@ import React, { Component, Fragment } from 'react'
 import css from './Details.scss'; 
 import axios from 'axios';
 
-import testPic from '../../../btg.png';
-
 import Header from '../../components/SectionHeader/Header';
 import ToggleButton from 'react-toggle-button';
 
@@ -39,6 +37,9 @@ class Details extends Component {
         .catch(error => {
           console.log('Get Price Error', error)
         });
+
+      // Get other coin information
+      // axios.get('')
     }
   }
 
