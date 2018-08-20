@@ -1,44 +1,73 @@
-import React, { Component, Fragment } from 'react'
-import css from './Details.scss'; 
-import axios from 'axios';
+import React, { Component, Fragment } from "react";
+import css from "./Details.scss";
+import axios from "axios";
 
-import Header from '../../components/SectionHeader/Header';
-import ToggleButton from 'react-toggle-button';
+import Header from "../../components/SectionHeader/Header";
+import DetailsInDepth from "../../components/DetailsIndepth/DetailsIndepth";
+
+const instance = axios.create({
+  baseURL:
+    "https://www.cryptocurrencychart.com/api/coin/history/363/2017-01-01/2017-01-02/marketCap/USD",
+  headers: {
+    Key: "2c16d5c3a1ddffe77e3220182c209591",
+    Secret: "35e6059cb319421202ebea9aa4f59f07"
+  }
+});
 
 class Details extends Component {
-
   state = {
-    selectedCoin: this.props.selectedCoin,
-    coinFullName: '',
-    coinPrice: '',
-    coinMarket: '',
-    coin24hr: '',
-    coinVolume: '',
-    coinRanking: '',
-    coinImageURL: '',
-    baseCurrency: '$CAD',
+    coinDetails: {
+      selectedCoin: this.props.selectedCoin,
+      coinFullName: "",
+      coinPrice: "",
+      coinMarket: "",
+      coin24hr: "",
+      coinVolume: "",
+      coinRanking: "",
+      coinImageURL: ""
+    },
+    baseCurrency: "$CAD",
     showGraph: false
-  }
+  };
 
   // If the user selects a new coin
   componentDidUpdate(prevProps) {
     const { coinObject, selectedCoin } = this.props;
-    if(selectedCoin && (selectedCoin !== prevProps.selectedCoin)) {
+    if (selectedCoin && selectedCoin !== prevProps.selectedCoin) {
+      // Coin info Needed
+      let coinFullName = "";
+      let coinImageURL = "";
+      let coinPrice = "";
+
       // Get coin FullName and Coin Image URL
-      this.setState({ 
-        coinFullName: coinObject[selectedCoin].FullName,
-        coinImageURL: 'https://www.cryptocompare.com' + coinObject[selectedCoin].ImageUrl,
-      });      
-      // Get coin Price      
-      axios.get('https://min-api.cryptocompare.com/data/price?fsym=' + selectedCoin + '&tsyms=CAD')
+      coinFullName = coinObject[selectedCoin].FullName;
+      coinImageURL =
+        "https://www.cryptocompare.com" + coinObject[selectedCoin].ImageUrl;
+
+      // Get coin Price
+      axios
+        .get(
+          "https://min-api.cryptocompare.com/data/price?fsym=" +
+            selectedCoin +
+            "&tsyms=CAD"
+        )
         .then(response => {
-          this.setState({ coinPrice: '$' + response.data.CAD });
+          coinPrice = "$" + response.data.CAD;
+          // Set state after getting all coin info
+          this.setState({
+            coinDetails: {
+              coinFullName: coinFullName,
+              coinImageURL: coinImageURL,
+              coinPrice: coinPrice
+            }
+          });
         })
         .catch(error => {
-          console.log('Get Price Error', error)
+          console.log("Get Price Error", error);
         });
 
       // Get other coin information
+
       // axios.get('')
     }
   }
@@ -46,75 +75,17 @@ class Details extends Component {
   render() {
     const { showDetails } = this.props;
 
-    const thumbStyle = { 
-      borderRadius: 5,
-      border: '1px solid #616161',
-      left: '5px'
-    };
-    const buttonStyle = { borderRadius: 5,
-      border: '2px solid #616161'
-    };
-    const toggleColors = {
-      active: {
-        base: '#64B5F6',
-        hover: '#2196F3'
-      },
-    }
     return (
       <Fragment>
-        <Header title='Details' />
-        { showDetails ?
-        <div className={css.detailsContentContainer}>
-          <div className={css.detailHeaderRow}>
-            <div className={css.selectedCurrency}>
-              Base:  
-              {<br />}
-              {this.state.baseCurrency}
-            </div>
-            <div className={css.coinNameContainer}>
-              <div className={css.imageContainer}>
-                <img className={css.coinIcon} src={this.state.coinImageURL} alt='Coin Icon' />
-              </div>
-              <div>
-                {this.state.coinFullName}
-              </div>
-            </div>
-            <div className={css.addToggleCoinContainer}>
-              <div className={css.buttonContainers}>
-                <h6>Toggle Graph: </h6>
-                <ToggleButton
-                  value={ this.state.showGraph }
-                  colors={toggleColors}
-                  thumbStyle={thumbStyle}
-                  trackStyle={buttonStyle}
-                  onToggle={(showGraph) => {
-                    this.setState({
-                      showGraph: !showGraph,
-                    })
-                  }}
-                />
-              </div>
-              <div className={css.buttonContainers}>
-                <h6>Add to Portfolio: </h6>
-                <button className={css.addButton}>ADD</button>
-              </div>
-            </div>
-          </div>
-          <div className={css.detailInfoRow}>
-            <div className={css.coinInfoRow}>
-              <span>Price: {this.state.coinPrice}</span>
-              <span>Market Cap: ___</span>
-            </div>
-            <div className={css.coinInfoRow}>
-              <span>24hr Change: ___</span>
-              <span>Volume: ___</span>
-            </div>
-            <div className={css.coinInfoRow}>
-              <span>Coin Ranking: ___</span>
-            </div>
-          </div>
-        </div> :
-        <p className={css.selectCoinMessage}>Select a Coin!</p> }
+        <Header title="Details" />
+        {showDetails ? (
+          <DetailsInDepth
+            coinDetails={this.state.coinDetails}
+            baseCurrency={this.state.baseCurrency}
+          />
+        ) : (
+          <p className={css.selectCoinMessage}>Select a Coin!</p>
+        )}
       </Fragment>
     );
   }
