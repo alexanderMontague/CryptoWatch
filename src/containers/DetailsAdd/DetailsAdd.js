@@ -2,9 +2,13 @@ import React, { Component } from "react";
 import css from "./DetailsAdd.scss";
 
 class DetailsAdd extends Component {
+  addCoinToPortfolio = e => {
+    e.preventDefault();
+    console.log("submit!");
+  };
+
   render() {
     const {
-      showGraph,
       baseCurrency,
       coinDetails: { coinImageURL, coinFullName, coinPrice }
     } = this.props;
@@ -25,26 +29,27 @@ class DetailsAdd extends Component {
                 alt="Coin Icon"
               />
             </div>
-            <div>{coinFullName}</div>
+            <div className={css.coinName}>{coinFullName}</div>
           </div>
         </div>
         <div className={css.detailInfoRow}>
-          <div className={css.coinInfoRow}>
-            <span>Price: {coinPrice}</span>
-            <span>Market Cap: ___</span>
-          </div>
-          <div className={css.coinInfoRow}>
-            <span>24hr Change: ___</span>
-            <span>Volume: ___</span>
-          </div>
-          <div className={css.coinInfoRow}>
-            <span>Coin Ranking: ___</span>
-          </div>
-        </div>
-        <div className={css.addToggleCoinContainer}>
-          <div className={css.buttonContainers}>
-            <button className={css.addButton}>Add to Portfolio</button>
-          </div>
+          <form className={css.addCoinForm} onSubmit={this.addCoinToPortfolio}>
+            <label>
+              Date Bought:
+              <input type="text" placeholder="Enter the Date Bought" />
+            </label>
+            <label>
+              Price:
+              <input type="text" placeholder="Enter a Price" />
+            </label>
+            <label>
+              Amount Bought:
+              <input type="text" placeholder="Enter an Amount" />
+            </label>
+            <button className={css.addButton} type="submit">
+              Add to Portfolio
+            </button>
+          </form>
         </div>
       </div>
     );

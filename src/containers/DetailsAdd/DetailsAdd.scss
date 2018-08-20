@@ -9,71 +9,72 @@
 
 .detailHeaderRow {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   height: 60px;
   width: 100%;
 }
 
 .selectedCurrency {
   margin: auto 0;
+  padding-left: 25px;
 }
 
 .imageContainer {
   height: 100%;
   margin: auto 0;
+  border-bottom: 1px solid black;
 }
 
 .coinNameContainer {
   display: flex;
-  margin: auto 0;
+  margin: auto;
+  padding-right: 70px;
   font-size: 20px;
   font-weight: bold;
   font-style: italic;
-  border-bottom: 1px solid black;
 }
 
-.addToggleCoinContainer {
-  display: flex;
-  flex-direction: column;
+.addButton {
+  height: 25px;
+  border-radius: 5px;
+  border: 2px solid #616161;
+  background-color: #64b5f6;
+}
+.addButton:hover {
+  background-color: #2196f3;
+  cursor: pointer;
+}
+.addButton:focus {
+  outline: none;
+}
+.addButton:active {
+  border-color: white;
+}
+
+h6 {
+  font-size: 10px;
   margin: auto 0;
-
-  .addButton {
-    height: 25px;
-    border-radius: 5px;
-    border: 2px solid #616161;
-    background-color: #64b5f6;
-  }
-  .addButton:hover {
-    background-color: #2196f3;
-    cursor: pointer;
-  }
-  .addButton:focus {
-    outline: none;
-  }
-  .addButton:active {
-    border-color: white;
-  }
-
-  h6 {
-    font-size: 10px;
-    margin: auto 0;
-    padding-right: 5px;
-  }
+  padding-right: 5px;
 }
 
 .detailInfoRow {
-  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  font-size: 15px;
   padding: 10px;
+}
 
-  .coinInfoRow {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-  }
+.addCoinForm {
+  display: flex;
+  flex-direction: column;
 }
 
 .coinIcon {
   height: auto;
   width: 30px;
   padding-right: 5px;
+}
+
+.coinName {
+  border-bottom: 1px solid black;
 }
