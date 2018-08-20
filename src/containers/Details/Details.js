@@ -4,15 +4,16 @@ import axios from "axios";
 
 import Header from "../../components/SectionHeader/Header";
 import DetailsInDepth from "../../components/DetailsIndepth/DetailsIndepth";
+import DetailsAdd from "../DetailsAdd/DetailsAdd";
 
-const instance = axios.create({
-  baseURL:
-    "https://www.cryptocurrencychart.com/api/coin/history/363/2017-01-01/2017-01-02/marketCap/USD",
-  headers: {
-    Key: "2c16d5c3a1ddffe77e3220182c209591",
-    Secret: "35e6059cb319421202ebea9aa4f59f07"
-  }
-});
+// const instance = axios.create({
+//   baseURL:
+//     "https://www.cryptocurrencychart.com/api/coin/history/363/2017-01-01/2017-01-02/marketCap/USD",
+//   headers: {
+//     Key: "2c16d5c3a1ddffe77e3220182c209591",
+//     Secret: "35e6059cb319421202ebea9aa4f59f07"
+//   }
+// });
 
 class Details extends Component {
   state = {
@@ -79,7 +80,11 @@ class Details extends Component {
       <Fragment>
         <Header title="Details" />
         {showDetails ? (
-          <DetailsInDepth
+          // <DetailsInDepth
+          //   coinDetails={this.state.coinDetails}
+          //   baseCurrency={this.state.baseCurrency}
+          // />
+          <DetailsAdd
             coinDetails={this.state.coinDetails}
             baseCurrency={this.state.baseCurrency}
           />

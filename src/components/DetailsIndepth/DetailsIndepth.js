@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import ToggleButton from "react-toggle-button";
 
 const DetailsIndepth = props => {
-  console.log(props);
   const {
     showGraph,
     baseCurrency,
