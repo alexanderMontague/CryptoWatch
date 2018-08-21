@@ -1,10 +1,22 @@
 import React, { Component } from "react";
 import css from "./DetailsAdd.scss";
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker-cssmodules.css";
+import moment from "moment";
+
 class DetailsAdd extends Component {
   addCoinToPortfolio = e => {
     e.preventDefault();
     console.log("submit!");
+  };
+
+  state = {
+    selectedDate: moment()
+  };
+
+  handleChange = date => {
+    this.setState({ selectedDate: date });
   };
 
   render() {
@@ -36,15 +48,30 @@ class DetailsAdd extends Component {
           <form className={css.addCoinForm} onSubmit={this.addCoinToPortfolio}>
             <label>
               Date Bought:
-              <input type="text" placeholder="Enter the Date Bought" />
+              <DatePicker
+                className={css.addFormInput}
+                selected={this.state.selectedDate}
+                onChange={this.handleChange}
+                maxDate={moment()}
+              />
             </label>
             <label>
               Price:
-              <input type="text" placeholder="Enter a Price" />
+              <input
+                className={css.addFormInput}
+                type="text"
+                placeholder="Enter a Price"
+                name="coinPrice"
+              />
             </label>
             <label>
               Amount Bought:
-              <input type="text" placeholder="Enter an Amount" />
+              <input
+                className={css.addFormInput}
+                type="text"
+                placeholder="Enter an Amount"
+                name="coinAmount"
+              />
             </label>
             <button className={css.addButton} type="submit">
               Add to Portfolio

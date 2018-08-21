@@ -1,13 +1,13 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
- 
-const src = path.resolve('./src');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+const src = path.resolve("./src");
 
 module.exports = {
-  entry: './src/index.js',
+  entry: "./src/index.js",
   output: {
-    path: path.join(__dirname, '/dist'),
-    filename: 'index_bundle.js'
+    path: path.join(__dirname, "/dist"),
+    filename: "index_bundle.js"
   },
   module: {
     rules: [
@@ -15,28 +15,27 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader"
         }
       },
       {
-        test: /\.s?css$/,
-        exclude: /node_modules/,
+        test: /\.(s?css)$/,
         use: [
-          'style-loader',
+          "style-loader",
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               modules: true,
-              localIdentName: '[name]__[local]__[hash:base64:5]',
+              localIdentName: "[name]__[local]__[hash:base64:5]",
               importLoaders: 1
             }
           },
           {
-            loader: 'sass-loader',
+            loader: "sass-loader",
             options: {
-              includePaths: ['node_modules']
+              includePaths: ["node_modules"]
             }
-          },
+          }
         ]
       },
       {
@@ -44,15 +43,15 @@ module.exports = {
         use: {
           loader: "url-loader",
           options: {
-            limit: 25000,
-          },
-        },
-      },
+            limit: 25000
+          }
+        }
+      }
     ]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html'
+      template: "./src/index.html"
     })
   ]
-}
+};

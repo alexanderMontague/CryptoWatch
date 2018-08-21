@@ -80,15 +80,15 @@ class Details extends Component {
       <Fragment>
         <Header title="Details" />
         {showDetails ? (
-          <DetailsInDepth
+          // <DetailsInDepth
+          //   coinDetails={this.state.coinDetails}
+          //   baseCurrency={this.state.baseCurrency}
+          // />
+          <DetailsAdd
             coinDetails={this.state.coinDetails}
             baseCurrency={this.state.baseCurrency}
           />
         ) : (
-          // <DetailsAdd
-          //   coinDetails={this.state.coinDetails}
-          //   baseCurrency={this.state.baseCurrency}
-          // />
           <p className={css.selectCoinMessage}>Select a Coin!</p>
         )}
       </Fragment>

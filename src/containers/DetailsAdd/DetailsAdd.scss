@@ -78,3 +78,18 @@ h6 {
 .coinName {
   border-bottom: 1px solid black;
 }
+
+label {
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.addFormInput {
+  height: 20px;
+  border-radius: 5px;
+  border: 2px solid #616161;
+  font-size: 80%;
+  margin-left: 5px;
+  text-indent: 10px;
+}

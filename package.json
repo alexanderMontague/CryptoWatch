@@ -4,7 +4,7 @@
   "description": "An application for viewing and Tracking your Cryptocurreny Portfolio",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open --hot",
+    "start": "webpack-dev-server --mode development --open --hot --port 3000",
     "build": "webpack --mode production"
   },
   "author": "Alex Montague",
@@ -37,7 +37,7 @@
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.9.2",
     "sass-loader": "^7.0.3",
-    "style-loader": "^0.21.0",
+    "style-loader": "^0.22.1",
     "webpack": "^4.15.1",
     "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.1.4",
