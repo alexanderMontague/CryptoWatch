@@ -51,10 +51,52 @@ class DetailsAdd extends Component {
         }
       })
       .then(response => {
-        const coinList = response.data.coin;
-        console.log(coinList);
+        const {
+          coinDetails: { selectedCoin }
+        } = this.props;
+        const coinList = response.data.coins;
+        for (let i = 0; i < coinList.length; i++) {
+          // if the current coin ticker matches in our historic API, get the coin ID
+          if (coinList[i].symbol === selectedCoin) {
+            this.setState({ selectedCoinId: coinList[i].id });
+            break;
+          }
+        }
+        // Once we have coin id, get price from that day
+        axios
+          .get(
+            `https://www.cryptocurrencychart.com/api/coin/view/${
+              this.state.selectedCoinId
+            }/${this.state.formattedDate}/CAD`,
+            {
+              headers: {
+                key: API_KEY,
+                secret: API_SECRET
+              }
+            }
+          )
+          .then(response => {
+            const historicPrice = response.data.coin.price;
+            this.setState({ selectedCoinPrice: historicPrice });
+          })
+          .catch(error =>
+            console.log("GET Historic Coin Price Error: ", error)
+          );
       })
       .catch(error => {
+        // TODO: DEV MOCK DATA
+        const {
+          coinDetails: { selectedCoin }
+        } = this.props;
+        const coinList = DEV_COIN_LIST.coins;
+        for (let i = 0; i < coinList.length; i++) {
+          // if the current coin ticker matches in our historic API, get the coin ID
+          if (coinList[i].symbol === selectedCoin) {
+            this.setState({ selectedCoinId: coinList[i].id });
+            break;
+          }
+        }
+
         console.log("Get Coin List Error: ", error);
       });
   };
@@ -69,13 +111,13 @@ class DetailsAdd extends Component {
   addCoinHandler = e => {
     e.preventDefault();
     console.log("submit!");
-    console.log(this.state.selectedDateObject, this.state.formattedDate);
+    console.log(this.state);
   };
 
   render() {
     const {
       baseCurrency,
-      coinDetails: { coinImageURL, coinFullName, coinPrice }
+      coinDetails: { coinImageURL, coinFullName, selectedCoin }
     } = this.props;
 
     return (

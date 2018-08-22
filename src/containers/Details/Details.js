@@ -9,7 +9,7 @@ import DetailsAdd from "../DetailsAdd/DetailsAdd";
 class Details extends Component {
   state = {
     coinDetails: {
-      selectedCoin: this.props.selectedCoin,
+      selectedCoin: "",
       coinFullName: "",
       coinPrice: "",
       coinMarket: "",
@@ -48,6 +48,7 @@ class Details extends Component {
           // Set state after getting all coin info
           this.setState({
             coinDetails: {
+              selectedCoin: selectedCoin,
               coinFullName: coinFullName,
               coinImageURL: coinImageURL,
               coinPrice: coinPrice
@@ -55,6 +56,15 @@ class Details extends Component {
           });
         })
         .catch(error => {
+          // TODO: DELETE DEV STUFF BELOW
+          this.setState({
+            coinDetails: {
+              selectedCoin: selectedCoin,
+              coinFullName: coinFullName,
+              coinImageURL: coinImageURL,
+              coinPrice: coinPrice
+            }
+          });
           console.log("Get Price Error", error);
         });
 
