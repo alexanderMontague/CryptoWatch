@@ -93,3 +93,14 @@ label {
   margin-left: 5px;
   text-indent: 10px;
 }
+
+.requiredLabel {
+  font-size: 10px;
+  color: red;
+  font-style: italic;
+  margin: auto 0;
+}
+
+.inputRow {
+  display: flex;
+}

@@ -37,12 +37,6 @@ class Search extends Component {
       }
     }
     this.setState({ searchResults: resultArray });
-
-    // axios
-    //   .get("https://api.coindesk.com/v1/bpi/historical/close.json")
-    //   .then(res => {
-    //     console.log(res.data);
-    //   });
   };
 
   searchForCoinHandler = (coinName, ticker) => () => {
