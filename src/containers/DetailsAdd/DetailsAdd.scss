@@ -50,6 +50,10 @@
 .addButton:active {
   border-color: white;
 }
+.addButton:disabled {
+  border: black;
+  background-color: #616161;
+}
 
 h6 {
   font-size: 10px;
@@ -94,13 +98,10 @@ label {
   text-indent: 10px;
 }
 
-.requiredLabel {
-  font-size: 10px;
-  color: red;
-  font-style: italic;
-  margin: auto 0;
-}
-
 .inputRow {
   display: flex;
+}
+
+.requiredBorder {
+  border: 3px solid red;
 }

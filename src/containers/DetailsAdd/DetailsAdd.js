@@ -6,7 +6,7 @@ import DatePicker from "react-datepicker";
 import moment from "moment";
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
 
-const CORS_PROXY = "";
+const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
 const API_KEY = "6d797299000adf7bbe9232e526f186ec";
 const API_SECRET = "4af13353f1e4b99ab299cf9f7c5e1f5f";
 
@@ -66,7 +66,7 @@ class DetailsAdd extends Component {
   componentDidMount = () => {
     // Get coin list from historical API (to get coin ID's)
     axios
-      .get("https://www.cryptocurrencychart.com/api/coin/list", {
+      .get(`${CORS_PROXY}https://www.cryptocurrencychart.com/api/coin/list1`, {
         headers: {
           key: API_KEY,
           secret: API_SECRET
@@ -88,7 +88,7 @@ class DetailsAdd extends Component {
         const { selectedCoinId, formattedDate } = this.state;
         axios
           .get(
-            `https://www.cryptocurrencychart.com/api/coin/view/${selectedCoinId}/${formattedDate}/CAD`,
+            `${CORS_PROXY}https://www.cryptocurrencychart.com/api/coin/view/${selectedCoinId}/${formattedDate}/CAD`,
             {
               headers: {
                 key: API_KEY,
@@ -226,44 +226,53 @@ class DetailsAdd extends Component {
             <label>
               Date Bought:
               <DatePicker
-                className={css.addFormInput}
+                className={
+                  renderDateRequire
+                    ? [css.addFormInput, css.requiredBorder].join(" ")
+                    : css.addFormInput
+                }
                 selected={selectedDateObject}
                 onChange={this.dateChangeHandler}
                 maxDate={moment()}
               />
-              {renderDateRequire && (
-                <span className={css.requiredLabel}>Required</span>
-              )}
             </label>
             <label>
               Price:
               <input
-                className={css.addFormInput}
-                type="text"
+                className={
+                  renderPriceRequire
+                    ? [css.addFormInput, css.requiredBorder].join(" ")
+                    : css.addFormInput
+                }
+                type="number"
                 placeholder="Enter a Price"
                 name="coinPrice"
                 value={selectedCoinPrice}
                 onChange={input => this.priceChangeHandler(input.target.value)}
               />
-              {renderPriceRequire && (
-                <span className={css.requiredLabel}>Required</span>
-              )}
             </label>
             <label>
               Amount Bought:
               <input
-                className={css.addFormInput}
-                type="text"
+                className={
+                  renderAmountRequire
+                    ? [css.addFormInput, css.requiredBorder].join(" ")
+                    : css.addFormInput
+                }
+                type="number"
                 placeholder="Enter an Amount"
                 name="coinAmount"
                 value={selectedCoinAmount}
                 onChange={input => this.amountChangeHandler(input.target.value)}
               />
-              {renderAmountRequire && (
-                <span className={css.requiredLabel}>Required</span>
-              )}
             </label>
-            <button className={css.addButton} type="submit">
+            <button
+              className={css.addButton}
+              type="submit"
+              disabled={
+                renderDateRequire || renderPriceRequire || renderAmountRequire
+              }
+            >
               Add to Portfolio
             </button>
           </form>
