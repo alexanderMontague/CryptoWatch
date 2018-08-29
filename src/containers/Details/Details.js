@@ -18,7 +18,7 @@ class Details extends Component {
       coinRanking: "",
       coinImageURL: ""
     },
-    baseCurrency: "$CAD",
+    baseCurrency: "CAD",
     showGraph: false
   };
 
@@ -44,7 +44,7 @@ class Details extends Component {
             "&tsyms=CAD"
         )
         .then(response => {
-          coinPrice = "$" + response.data.CAD;
+          coinPrice = response.data.CAD;
           // Set state after getting all coin info
           this.setState({
             coinDetails: {
@@ -56,6 +56,7 @@ class Details extends Component {
           });
         })
         .catch(error => {
+          coinPrice = response.data.CAD
           // TODO: DELETE DEV STUFF BELOW
           this.setState({
             coinDetails: {

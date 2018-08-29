@@ -6,57 +6,13 @@ import DatePicker from "react-datepicker";
 import moment from "moment";
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
 
-const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
-const API_KEY = "6d797299000adf7bbe9232e526f186ec";
-const API_SECRET = "4af13353f1e4b99ab299cf9f7c5e1f5f";
-
-// TODO: DELETE AFTER DEV DONE
-const DEV_COIN_LIST = {
-  coins: [
-    {
-      id: 363,
-      name: "Bitcoin",
-      symbol: "BTC",
-      code: "BTC"
-    },
-    {
-      id: 364,
-      name: "Ethereum",
-      symbol: "ETH",
-      code: "ETH"
-    },
-    {
-      id: 366,
-      name: "Litecoin",
-      symbol: "LTC",
-      code: "LTC"
-    }
-  ]
-};
-const DEV_BTC = {
-  coin: {
-    id: 363,
-    baseCurrency: "CAD",
-    date: "2016-08-19",
-    price: "739.06619928",
-    marketCap: "11691997709.86413765",
-    tradeVolume: "69862461.48171499",
-    rank: 1,
-    supply: "15819960",
-    tradeHealth: "0.643444",
-    sentiment: "bearish",
-    firstData: "2013-01-02",
-    mostRecentData: "2018-08-20"
-  }
-};
-
 class DetailsAdd extends Component {
   state = {
     selectedDateObject: moment(),
-    formattedDate: moment().format("YYYY-M-D"),
-    selectedCoinId: 0,
-    selectedCoinPrice: "",
+    unixDate: moment().unix(),
+    selectedCoinSymbol: this.props.coinDetails.selectedCoin,
     selectedCoinAmount: "",
+    historicCoinPrice: "",
     totalTransactionWorth: "",
     renderDateRequire: false,
     renderPriceRequire: false,
@@ -64,64 +20,9 @@ class DetailsAdd extends Component {
   };
 
   componentDidMount = () => {
-    // Get coin list from historical API (to get coin ID's)
-    axios
-      .get(`${CORS_PROXY}https://www.cryptocurrencychart.com/api/coin/list1`, {
-        headers: {
-          key: API_KEY,
-          secret: API_SECRET
-        }
-      })
-      .then(response => {
-        const {
-          coinDetails: { selectedCoin }
-        } = this.props;
-        const coinList = response.data.coins;
-        for (let i = 0; i < coinList.length; i++) {
-          // if the current coin ticker matches in our historic API, get the coin ID
-          if (coinList[i].symbol === selectedCoin) {
-            this.setState({ selectedCoinId: coinList[i].id });
-            break;
-          }
-        }
-        // Once we have coin id, get price from today's date
-        const { selectedCoinId, formattedDate } = this.state;
-        axios
-          .get(
-            `${CORS_PROXY}https://www.cryptocurrencychart.com/api/coin/view/${selectedCoinId}/${formattedDate}/CAD`,
-            {
-              headers: {
-                key: API_KEY,
-                secret: API_SECRET
-              }
-            }
-          )
-          .then(response => {
-            const historicPrice = response.data.coin.price;
-            this.setState({ selectedCoinPrice: historicPrice });
-          })
-          .catch(error => {
-            console.log("GET Historic Coin Price Error: ", error);
-          });
-      })
-      .catch(error => {
-        // TODO: DEV MOCK DATA
-        const {
-          coinDetails: { selectedCoin }
-        } = this.props;
-        const coinList = DEV_COIN_LIST.coins;
-        for (let i = 0; i < coinList.length; i++) {
-          // if the current coin ticker matches in our historic API, get the coin ID
-          if (coinList[i].symbol === selectedCoin) {
-            this.setState({ selectedCoinId: coinList[i].id });
-            break;
-          }
-        }
-        // TODO: DEV MOCK DATA BELOW
-        const historicPrice = DEV_BTC.coin.price;
-        this.setState({ selectedCoinPrice: historicPrice });
-        console.log("Get Coin List Error: ", error);
-      });
+    // On Mount, update current coin price with today's current price coming from API
+    console.log(this.props)
+    this.setState({historicCoinPrice: this.props.coinDetails.coinPrice});
   };
 
   dateChangeHandler = date => {
@@ -130,31 +31,28 @@ class DetailsAdd extends Component {
       this.setState({ renderDateRequire: true });
       return;
     }
-    const { selectedCoinId } = this.state;
-    const newFormattedDate = date.format("YYYY-M-D");
+
     // Update the selected date from the date picker
+    const newUnixDate = date.unix();
     this.setState({
       selectedDateObject: date,
-      formattedDate: newFormattedDate,
+      unixDate: newUnixDate,
       renderDateRequire: false
     });
+
     // get the price from the selected day
+    const {baseCurrency, coinDetails: {selectedCoin}} = this.props; // TODO: baseCurrency to comma separated array in future for multiple base currencies
     axios
       .get(
-        `https://www.cryptocurrencychart.com/api/coin/view/${selectedCoinId}/${newFormattedDate}/CAD`,
-        {
-          headers: {
-            key: API_KEY,
-            secret: API_SECRET
-          }
-        }
+        `https://min-api.cryptocompare.com/data/pricehistorical?fsym=${selectedCoin}&tsyms=${baseCurrency}&ts=${newUnixDate}`,
       )
       .then(response => {
         // Update the coin price from selected day
-        const historicPrice = response.data.coin.price;
-        this.setState({ selectedCoinPrice: historicPrice });
+        // response format is { SYM: { BASES: { CAD: 123, USD: 456... } } }
+        const historicPrice = response.data[selectedCoin][baseCurrency];
+        this.setState({ historicCoinPrice: historicPrice });
       })
-      .then(error => {
+      .catch(error => {
         console.log("GET updated historical coin data:", error);
         // handle manual input incorrect date
       });
@@ -162,28 +60,24 @@ class DetailsAdd extends Component {
 
   priceChangeHandler = input => {
     // update the manual price, and show required if blank
-    this.setState({ selectedCoinPrice: input });
-    if (input === "") {
-      this.setState({ renderPriceRequire: true });
-    } else {
+    this.setState({ historicCoinPrice: input });
+    input === "" ?
+      this.setState({ renderPriceRequire: true }) :
       this.setState({ renderPriceRequire: false });
-    }
   };
 
   amountChangeHandler = input => {
     // update the amount bought, and show required if blank
     this.setState({ selectedCoinAmount: input });
-    if (input === "") {
-      this.setState({ renderAmountRequire: true });
-    } else {
+    input === "" ?
+      this.setState({ renderAmountRequire: true }) :
       this.setState({ renderAmountRequire: false });
-    }
   };
 
   addCoinHandler = e => {
     e.preventDefault();
-    const { selectedCoinAmount, selectedCoinPrice } = this.state;
-    const totalTransactionWorth = selectedCoinAmount * selectedCoinPrice;
+    const { selectedCoinAmount, historicCoinPrice } = this.state;
+    const totalTransactionWorth = selectedCoinAmount * historicCoinPrice;
     this.setState({ totalTransactionWorth });
     console.log("submit(state is behind)", this.state);
   };
@@ -194,7 +88,7 @@ class DetailsAdd extends Component {
       coinDetails: { coinImageURL, coinFullName }
     } = this.props;
     const {
-      selectedCoinPrice,
+      historicCoinPrice,
       selectedDateObject,
       selectedCoinAmount,
       renderDateRequire,
@@ -247,7 +141,7 @@ class DetailsAdd extends Component {
                 type="number"
                 placeholder="Enter a Price"
                 name="coinPrice"
-                value={selectedCoinPrice}
+                value={historicCoinPrice}
                 onChange={input => this.priceChangeHandler(input.target.value)}
               />
             </label>
