@@ -13,7 +13,7 @@ class DetailsAdd extends Component {
     selectedCoinSymbol: this.props.coinDetails.selectedCoin,
     selectedCoinAmount: "",
     historicCoinPrice: "",
-    totalTransactionWorth: "",
+    totalLotWorth: "",
     renderDateRequire: false,
     renderPriceRequire: false,
     renderAmountRequire: true
@@ -77,9 +77,8 @@ class DetailsAdd extends Component {
   addCoinHandler = e => {
     e.preventDefault();
     const { selectedCoinAmount, historicCoinPrice } = this.state;
-    const totalTransactionWorth = selectedCoinAmount * historicCoinPrice;
-    this.setState({ totalTransactionWorth });
-    console.log("submit(state is behind)", this.state);
+    const totalLotWorth = selectedCoinAmount * historicCoinPrice;
+    this.setState({ totalLotWorth }, () => console.log("current state: ", this.state));
   };
 
   render() {
