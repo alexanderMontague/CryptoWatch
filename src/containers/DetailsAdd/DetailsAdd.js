@@ -1,19 +1,19 @@
-import React, { Component } from "react";
-import css from "./DetailsAdd.scss";
-import axios from "axios";
+import React, { Component } from 'react';
+import css from './DetailsAdd.scss';
+import axios from 'axios';
 
-import DatePicker from "react-datepicker";
-import moment from "moment";
-import "react-datepicker/dist/react-datepicker-cssmodules.css";
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
 class DetailsAdd extends Component {
   state = {
     selectedDateObject: moment(),
     unixDate: moment().unix(),
     selectedCoinSymbol: this.props.coinDetails.selectedCoin,
-    selectedCoinAmount: "",
-    historicCoinPrice: "",
-    totalLotWorth: "",
+    selectedCoinAmount: '',
+    historicCoinPrice: '',
+    totalLotWorth: '',
     renderDateRequire: false,
     renderPriceRequire: false,
     renderAmountRequire: true
@@ -21,8 +21,8 @@ class DetailsAdd extends Component {
 
   componentDidMount = () => {
     // On Mount, update current coin price with today's current price coming from API
-    console.log(this.props)
-    this.setState({historicCoinPrice: this.props.coinDetails.coinPrice});
+    console.log(this.props);
+    this.setState({ historicCoinPrice: this.props.coinDetails.coinPrice });
   };
 
   dateChangeHandler = date => {
@@ -41,10 +41,13 @@ class DetailsAdd extends Component {
     });
 
     // get the price from the selected day
-    const {baseCurrency, coinDetails: {selectedCoin}} = this.props; // TODO: baseCurrency to comma separated array in future for multiple base currencies
+    const {
+      baseCurrency,
+      coinDetails: { selectedCoin }
+    } = this.props; // TODO: baseCurrency to comma separated array in future for multiple base currencies
     axios
       .get(
-        `https://min-api.cryptocompare.com/data/pricehistorical?fsym=${selectedCoin}&tsyms=${baseCurrency}&ts=${newUnixDate}`,
+        `https://min-api.cryptocompare.com/data/pricehistorical?fsym=${selectedCoin}&tsyms=${baseCurrency}&ts=${newUnixDate}`
       )
       .then(response => {
         // Update the coin price from selected day
@@ -53,7 +56,7 @@ class DetailsAdd extends Component {
         this.setState({ historicCoinPrice: historicPrice });
       })
       .catch(error => {
-        console.log("GET updated historical coin data:", error);
+        console.log('GET updated historical coin data:', error);
         // handle manual input incorrect date
       });
   };
@@ -61,24 +64,26 @@ class DetailsAdd extends Component {
   priceChangeHandler = input => {
     // update the manual price, and show required if blank
     this.setState({ historicCoinPrice: input });
-    input === "" ?
-      this.setState({ renderPriceRequire: true }) :
-      this.setState({ renderPriceRequire: false });
+    input === ''
+      ? this.setState({ renderPriceRequire: true })
+      : this.setState({ renderPriceRequire: false });
   };
 
   amountChangeHandler = input => {
     // update the amount bought, and show required if blank
     this.setState({ selectedCoinAmount: input });
-    input === "" ?
-      this.setState({ renderAmountRequire: true }) :
-      this.setState({ renderAmountRequire: false });
+    input === ''
+      ? this.setState({ renderAmountRequire: true })
+      : this.setState({ renderAmountRequire: false });
   };
 
   addCoinHandler = e => {
     e.preventDefault();
     const { selectedCoinAmount, historicCoinPrice } = this.state;
     const totalLotWorth = selectedCoinAmount * historicCoinPrice;
-    this.setState({ totalLotWorth }, () => console.log("current state: ", this.state));
+    this.setState({ totalLotWorth }, () =>
+      console.log('current state: ', this.state)
+    );
   };
 
   render() {
@@ -121,7 +126,7 @@ class DetailsAdd extends Component {
               <DatePicker
                 className={
                   renderDateRequire
-                    ? [css.addFormInput, css.requiredBorder].join(" ")
+                    ? [css.addFormInput, css.requiredBorder].join(' ')
                     : css.addFormInput
                 }
                 selected={selectedDateObject}
@@ -134,7 +139,7 @@ class DetailsAdd extends Component {
               <input
                 className={
                   renderPriceRequire
-                    ? [css.addFormInput, css.requiredBorder].join(" ")
+                    ? [css.addFormInput, css.requiredBorder].join(' ')
                     : css.addFormInput
                 }
                 type="number"
@@ -149,7 +154,7 @@ class DetailsAdd extends Component {
               <input
                 className={
                   renderAmountRequire
-                    ? [css.addFormInput, css.requiredBorder].join(" ")
+                    ? [css.addFormInput, css.requiredBorder].join(' ')
                     : css.addFormInput
                 }
                 type="number"

@@ -4,7 +4,7 @@ import Layout from './Layout/Layout';
 
 class App extends Component {
   render() {
-    return <Layout />
+    return <Layout />;
   }
 }
 export default App;

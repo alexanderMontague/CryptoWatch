@@ -1,15 +1,15 @@
-import React, { Component, Fragment } from "react";
-import css from "./Search.scss";
-import { connect } from "react-redux";
-import { selectCoin } from "../../actions";
-import axios from "axios";
-import Header from "../../components/SectionHeader/Header";
-import SearchItem from "../../components/SearchItem/SearchItem";
+import React, { Component, Fragment } from 'react';
+import css from './Search.scss';
+import { connect } from 'react-redux';
+import { selectCoin } from '../../actions';
+import axios from 'axios';
+import Header from '../../components/SectionHeader/Header';
+import SearchItem from '../../components/SearchItem/SearchItem';
 
 class Search extends Component {
   state = {
     searchResults: [],
-    inputValue: ""
+    inputValue: ''
   };
 
   searchCoin = searchText => {

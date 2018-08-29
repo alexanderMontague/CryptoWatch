@@ -1,8 +1,8 @@
-import React from "react";
-import css from "./DetailsIndepth.scss";
-import PropTypes from "prop-types";
+import React from 'react';
+import css from './DetailsIndepth.scss';
+import PropTypes from 'prop-types';
 
-import ToggleButton from "react-toggle-button";
+import ToggleButton from 'react-toggle-button';
 
 const DetailsIndepth = props => {
   const {
@@ -13,17 +13,17 @@ const DetailsIndepth = props => {
 
   const thumbStyle = {
     borderRadius: 5,
-    border: "1px solid #616161",
-    left: "5px"
+    border: '1px solid #616161',
+    left: '5px'
   };
   const buttonStyle = {
     borderRadius: 5,
-    border: "2px solid #616161"
+    border: '2px solid #616161'
   };
   const toggleColors = {
     active: {
-      base: "#64B5F6",
-      hover: "#2196F3"
+      base: '#64B5F6',
+      hover: '#2196F3'
     }
   };
 
@@ -51,7 +51,7 @@ const DetailsIndepth = props => {
               trackStyle={buttonStyle}
               onToggle={showGraph => {
                 // showGraph toggle
-                console.log("toggle!");
+                console.log('toggle!');
               }}
             />
           </div>

@@ -1,24 +1,24 @@
-import React, { Component, Fragment } from "react";
-import css from "./Details.scss";
-import axios from "axios";
+import React, { Component, Fragment } from 'react';
+import css from './Details.scss';
+import axios from 'axios';
 
-import Header from "../../components/SectionHeader/Header";
-import DetailsInDepth from "../../components/DetailsIndepth/DetailsIndepth";
-import DetailsAdd from "../DetailsAdd/DetailsAdd";
+import Header from '../../components/SectionHeader/Header';
+import DetailsInDepth from '../../components/DetailsIndepth/DetailsIndepth';
+import DetailsAdd from '../DetailsAdd/DetailsAdd';
 
 class Details extends Component {
   state = {
     coinDetails: {
-      selectedCoin: "",
-      coinFullName: "",
-      coinPrice: "",
-      coinMarket: "",
-      coin24hr: "",
-      coinVolume: "",
-      coinRanking: "",
-      coinImageURL: ""
+      selectedCoin: '',
+      coinFullName: '',
+      coinPrice: '',
+      coinMarket: '',
+      coin24hr: '',
+      coinVolume: '',
+      coinRanking: '',
+      coinImageURL: ''
     },
-    baseCurrency: "CAD",
+    baseCurrency: 'CAD',
     showGraph: false
   };
 
@@ -27,21 +27,21 @@ class Details extends Component {
     const { coinObject, selectedCoin } = this.props;
     if (selectedCoin && selectedCoin !== prevProps.selectedCoin) {
       // Coin info Needed
-      let coinFullName = "";
-      let coinImageURL = "";
-      let coinPrice = "";
+      let coinFullName = '';
+      let coinImageURL = '';
+      let coinPrice = '';
 
       // Get coin FullName and Coin Image URL
       coinFullName = coinObject[selectedCoin].FullName;
       coinImageURL =
-        "https://www.cryptocompare.com" + coinObject[selectedCoin].ImageUrl;
+        'https://www.cryptocompare.com' + coinObject[selectedCoin].ImageUrl;
 
       // Get coin Price
       axios
         .get(
-          "https://min-api.cryptocompare.com/data/price?fsym=" +
+          'https://min-api.cryptocompare.com/data/price?fsym=' +
             selectedCoin +
-            "&tsyms=CAD"
+            '&tsyms=CAD'
         )
         .then(response => {
           coinPrice = response.data.CAD;
@@ -56,7 +56,7 @@ class Details extends Component {
           });
         })
         .catch(error => {
-          coinPrice = response.data.CAD
+          coinPrice = response.data.CAD;
           // TODO: DELETE DEV STUFF BELOW
           this.setState({
             coinDetails: {
@@ -66,7 +66,7 @@ class Details extends Component {
               coinPrice: coinPrice
             }
           });
-          console.log("Get Price Error", error);
+          console.log('Get Price Error', error);
         });
 
       // Get other coin information
