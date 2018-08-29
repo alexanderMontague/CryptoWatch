@@ -19,7 +19,7 @@ class Search extends Component {
     !searchText ? this.props.selectCoin(undefined) : null;
     this.setState({ inputValue: searchText });
     for (let i = 0; i < coinKeys.length; i++) {
-      // use for loop for performance over map
+      // use loop for performance over map
       const { FullName, Symbol } = coinObject[coinKeys[i]]; // get info from coin object
       if (
         FullName.toLowerCase().includes(searchText.toLowerCase()) &&

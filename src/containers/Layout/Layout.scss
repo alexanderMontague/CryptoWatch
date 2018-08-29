@@ -22,29 +22,28 @@ body {
   width: 50%;
   margin: 10px 1% 10px 10px;
   border-radius: 10px;
-  background-color: #BDBDBD;
+  background-color: #bdbdbd;
 }
 
 .rightSideContainer {
   width: 50%;
   margin: 10px 1% 10px 10px;
 
-
   .searchContainer {
     height: 48%;
     border-radius: 10px;
-    background-color: #BDBDBD;
+    background-color: #bdbdbd;
     margin-bottom: 21px;
   }
 
   .detailsContainer {
-    height: 48%;
+    height: 49%;
     border-radius: 10px;
-    background-color: #BDBDBD;
+    background-color: #bdbdbd;
   }
 }
 
-@media(max-width: 768px) {
+@media (max-width: 768px) {
   .mainContainer {
     flex-direction: column;
     padding: 10px;
@@ -53,7 +52,7 @@ body {
 
   .portfolioContainer {
     width: 100%;
-    margin: 0;  // reset margins from desktop view
+    margin: 0; // reset margins from desktop view
     margin-bottom: 21px;
     height: 300px;
   }

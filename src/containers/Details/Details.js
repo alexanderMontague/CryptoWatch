@@ -48,30 +48,32 @@ class Details extends Component {
           // Set state after getting all coin info
           this.setState({
             coinDetails: {
-              selectedCoin: selectedCoin,
-              coinFullName: coinFullName,
-              coinImageURL: coinImageURL,
-              coinPrice: coinPrice
+              selectedCoin,
+              coinFullName,
+              coinImageURL,
+              coinPrice
             }
           });
         })
         .catch(error => {
-          coinPrice = response.data.CAD;
           // TODO: DELETE DEV STUFF BELOW
+          if (selectedCoin === 'BTC') {
+            coinPrice = 8765;
+          } else if (selectedCoin === 'ETH') {
+            coinPrice = 320;
+          } else {
+            coinPrice = 169;
+          }
           this.setState({
             coinDetails: {
-              selectedCoin: selectedCoin,
-              coinFullName: coinFullName,
-              coinImageURL: coinImageURL,
-              coinPrice: coinPrice
+              selectedCoin,
+              coinFullName,
+              coinImageURL,
+              coinPrice
             }
           });
-          console.log('Get Price Error', error);
+          console.log('GET Coin Price Error', error);
         });
-
-      // Get other coin information
-
-      // axios.get('')
     }
   }
 

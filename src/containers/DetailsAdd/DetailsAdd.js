@@ -10,9 +10,9 @@ class DetailsAdd extends Component {
   state = {
     selectedDateObject: moment(),
     unixDate: moment().unix(),
-    selectedCoinSymbol: this.props.coinDetails.selectedCoin,
+    selectedCoinSymbol: this.props.coinDetails.selectedCoin, // set symbol to selected coin from search
     selectedCoinAmount: '',
-    historicCoinPrice: '',
+    historicCoinPrice: this.props.coinDetails.coinPrice, // set default price to today's price from previous API call
     totalLotWorth: '',
     renderDateRequire: false,
     renderPriceRequire: false,
@@ -20,12 +20,12 @@ class DetailsAdd extends Component {
   };
 
   componentDidMount = () => {
-    // On Mount, update current coin price with today's current price coming from API
-    console.log(this.props);
-    this.setState({ historicCoinPrice: this.props.coinDetails.coinPrice });
+    //console.log('props', this.props);
+    //this.setState({ historicCoinPrice: this.props.coinDetails.coinPrice });
   };
 
   dateChangeHandler = date => {
+    console.log(date);
     if (date === null) {
       // if the manually inputted date is blank, show required
       this.setState({ renderDateRequire: true });
@@ -64,7 +64,7 @@ class DetailsAdd extends Component {
   priceChangeHandler = input => {
     // update the manual price, and show required if blank
     this.setState({ historicCoinPrice: input });
-    input === ''
+    !parseInt(input)
       ? this.setState({ renderPriceRequire: true })
       : this.setState({ renderPriceRequire: false });
   };
@@ -72,7 +72,7 @@ class DetailsAdd extends Component {
   amountChangeHandler = input => {
     // update the amount bought, and show required if blank
     this.setState({ selectedCoinAmount: input });
-    input === ''
+    !parseInt(input)
       ? this.setState({ renderAmountRequire: true })
       : this.setState({ renderAmountRequire: false });
   };
@@ -132,6 +132,7 @@ class DetailsAdd extends Component {
                 selected={selectedDateObject}
                 onChange={this.dateChangeHandler}
                 maxDate={moment()}
+                type="number"
               />
             </label>
             <label>
