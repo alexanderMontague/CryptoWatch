@@ -15,13 +15,18 @@ class DetailsAdd extends Component {
     historicCoinPrice: this.props.coinDetails.coinPrice, // set default price to today's price from previous API call
     totalLotWorth: '',
     renderDateRequire: false,
-    renderPriceRequire: false,
-    renderAmountRequire: true
+    renderPriceRequire: true,
+    renderAmountRequire: true,
+    dataAvailable: this.props.coinDetails.dataAvailable
   };
 
   componentDidMount = () => {
-    //console.log('props', this.props);
-    //this.setState({ historicCoinPrice: this.props.coinDetails.coinPrice });
+    // check if default passed price is valid/invalid
+    if (this.state.historicCoinPrice) {
+      this.setState({ renderPriceRequire: false });
+    }
+    // console.log('props', this.props);
+    // if the coin is listed, but has no publicly traded data available
   };
 
   dateChangeHandler = date => {
@@ -52,6 +57,7 @@ class DetailsAdd extends Component {
       .then(response => {
         // Update the coin price from selected day
         // response format is { SYM: { BASES: { CAD: 123, USD: 456... } } }
+        console.log(response);
         const historicPrice = response.data[selectedCoin][baseCurrency];
         this.setState({ historicCoinPrice: historicPrice });
       })
@@ -97,7 +103,8 @@ class DetailsAdd extends Component {
       selectedCoinAmount,
       renderDateRequire,
       renderPriceRequire,
-      renderAmountRequire
+      renderAmountRequire,
+      dataAvailable
     } = this.state;
 
     return (
@@ -119,6 +126,11 @@ class DetailsAdd extends Component {
             <div className={css.coinName}>{coinFullName}</div>
           </div>
         </div>
+        {!dataAvailable && (
+          <span className={css.coinDisclaimer}>
+            This coin currently does not have any trading data available. Sorry!
+          </span>
+        )}
         <div className={css.detailInfoRow}>
           <form className={css.addCoinForm} onSubmit={this.addCoinHandler}>
             <label>
@@ -169,7 +181,10 @@ class DetailsAdd extends Component {
               className={css.addButton}
               type="submit"
               disabled={
-                renderDateRequire || renderPriceRequire || renderAmountRequire
+                renderDateRequire ||
+                renderPriceRequire ||
+                renderAmountRequire ||
+                !dataAvailable
               }
             >
               Add to Portfolio

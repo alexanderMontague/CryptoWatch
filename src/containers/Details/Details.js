@@ -16,7 +16,8 @@ class Details extends Component {
       coin24hr: '',
       coinVolume: '',
       coinRanking: '',
-      coinImageURL: ''
+      coinImageURL: '',
+      dataAvailable: true
     },
     baseCurrency: 'CAD',
     showGraph: false
@@ -30,6 +31,7 @@ class Details extends Component {
       let coinFullName = '';
       let coinImageURL = '';
       let coinPrice = '';
+      let dataAvailable = true;
 
       // Get coin FullName and Coin Image URL
       coinFullName = coinObject[selectedCoin].FullName;
@@ -44,14 +46,20 @@ class Details extends Component {
             '&tsyms=CAD'
         )
         .then(response => {
-          coinPrice = response.data.CAD;
+          // if the coin is listed, but has no publicly traded data available
+          if (response.data.Message) {
+            dataAvailable = false;
+          } else {
+            coinPrice = response.data.CAD;
+          }
           // Set state after getting all coin info
           this.setState({
             coinDetails: {
               selectedCoin,
               coinFullName,
               coinImageURL,
-              coinPrice
+              coinPrice,
+              dataAvailable
             }
           });
         })

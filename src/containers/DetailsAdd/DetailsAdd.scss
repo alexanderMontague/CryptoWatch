@@ -105,3 +105,11 @@ label {
 .requiredBorder {
   border: 2px ridge red;
 }
+
+.coinDisclaimer {
+  display: flex;
+  justify-content: center;
+  font-size: 10px;
+  font-style: italic;
+  color: red;
+}
