@@ -25,12 +25,10 @@ class DetailsAdd extends Component {
     if (this.state.historicCoinPrice) {
       this.setState({ renderPriceRequire: false });
     }
-    // console.log('props', this.props);
     // if the coin is listed, but has no publicly traded data available
   };
 
   dateChangeHandler = date => {
-    console.log(date);
     if (date === null) {
       // if the manually inputted date is blank, show required
       this.setState({ renderDateRequire: true });

@@ -13,7 +13,8 @@ import Details from '../Details/Details';
 
 class Layout extends Component {
   state = {
-    showDetails: false
+    showDetails: false,
+    isLoading: true
   };
 
   // TODO: DELETE AFTER DEV DONE BELOW
@@ -53,7 +54,11 @@ class Layout extends Component {
       .then(response => {
         const totalCoinsObject = response.data.Data;
         const coinKeyArray = Object.keys(totalCoinsObject);
-        this.setState({ coinObject: totalCoinsObject, coinKeys: coinKeyArray });
+        this.setState({
+          coinObject: totalCoinsObject,
+          coinKeys: coinKeyArray,
+          isLoading: false
+        });
       })
       .catch(error => {
         // TODO: DELETE AFTER DEV DONE BELOW
@@ -91,6 +96,7 @@ class Layout extends Component {
                 handleSubmit={this.getCoinDetails}
                 coinObject={this.state.coinObject}
                 coinKeys={this.state.coinKeys}
+                isLoading={this.state.isLoading}
               />
             </div>
             <div className={css.detailsContainer}>

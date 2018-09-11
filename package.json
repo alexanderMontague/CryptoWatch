@@ -19,6 +19,7 @@
     "react": "^16.4.1",
     "react-datepicker": "^1.6.0",
     "react-dom": "^16.4.1",
+    "react-loader-spinner": "^2.0.6",
     "react-redux": "^5.0.7",
     "react-toggle-button": "^2.2.0",
     "redux": "^4.0.0",
