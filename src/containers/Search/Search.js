@@ -40,7 +40,6 @@ class Search extends Component {
       });
       // Add the first 5 coins (as a search item component) to the result array
       for (let j = 0; j < 5; j++) {
-        console.log(rawDataArray);
         if (rawDataArray[j]) {
           const { FullName, Symbol } = rawDataArray[j];
           resultArray.push(
@@ -69,7 +68,7 @@ class Search extends Component {
         <Header title="Find Cryptocurrencies!" />
         <div className={css.inputContainer}>
           {isLoading ? (
-            <Loader type="Oval" color="#64b5f6" height="50" width="50" />
+            <Loader type="Oval" color="#64b5f6" height="40" width="40" />
           ) : (
             <input
               onChange={input => this.searchCoin(input.target.value)}
@@ -85,6 +84,11 @@ class Search extends Component {
           </button>
         </div>
         {this.state.searchResults}
+        <div className={css.searchToolTip}>
+          {/* TODO: Make a hoverable tooltip */}
+          If the coin you are searching for does not appear, try using the
+          ticker/symbol!
+        </div>
       </Fragment>
     );
   }
