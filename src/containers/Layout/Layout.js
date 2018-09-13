@@ -66,6 +66,9 @@ class Layout extends Component {
         const coinKeyArray = Object.keys(totalCoinsObject);
         this.setState({ coinObject: totalCoinsObject, coinKeys: coinKeyArray });
         console.log('Get Coinlist Error', error);
+        setTimeout(() => {
+          this.setState({ isLoading: false });
+        }, 1000);
       });
   }
 
