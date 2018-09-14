@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 // const allReducers = combineReducers({
 //   reducerOne,
-//   reduverTwo
+//   reducerTwo
 // });
 
 const rootReducer = (prevState, action) => {
