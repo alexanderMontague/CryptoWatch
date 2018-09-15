@@ -92,14 +92,17 @@ class Details extends Component {
       <Fragment>
         <Header title="Details" />
         {showDetails ? (
-          // <DetailsInDepth
-          //   coinDetails={this.state.coinDetails}
-          //   baseCurrency={this.state.baseCurrency}
-          // />
-          <DetailsAdd
-            coinDetails={this.state.coinDetails}
-            baseCurrency={this.state.baseCurrency}
-          />
+          false ? ( // have condition like isInPortfolio
+            <DetailsInDepth
+              coinDetails={this.state.coinDetails}
+              baseCurrency={this.state.baseCurrency}
+            />
+          ) : (
+            <DetailsAdd
+              coinDetails={this.state.coinDetails}
+              baseCurrency={this.state.baseCurrency}
+            />
+          )
         ) : (
           <p className={css.selectCoinMessage}>Select a Coin!</p>
         )}

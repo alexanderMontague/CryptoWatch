@@ -9,6 +9,8 @@ const Portfolio = props => {
       <Header title="Portfolio" />
       <PortfolioHeader />
       <PortfolioItem />
+      <PortfolioItem />
+      <PortfolioItem />
     </div>
   );
 };

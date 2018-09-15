@@ -1,7 +1,7 @@
 .portfolioHeaderContainer {
   display: flex;
-  justify-content: space-evenly;
-  height: 100px;
+  justify-content: space-between;
+  height: 80px;
   background: white;
   border-radius: 10px;
   border: 5px solid #616161;
@@ -15,7 +15,7 @@
   justify-content: space-evenly;
   width: 28%;
   text-align: center;
-  font-size: 13px;
+  font-size: 10px;
   font-style: italic;
   border: 1px solid black;
   border-radius: 10px;

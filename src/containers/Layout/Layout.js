@@ -65,10 +65,10 @@ class Layout extends Component {
         const totalCoinsObject = this.mockRes;
         const coinKeyArray = Object.keys(totalCoinsObject);
         this.setState({ coinObject: totalCoinsObject, coinKeys: coinKeyArray });
-        console.log('Get Coinlist Error', error);
         setTimeout(() => {
           this.setState({ isLoading: false });
         }, 1000);
+        console.log('Get Coinlist Error', error);
       });
   }
 
@@ -79,6 +79,8 @@ class Layout extends Component {
   }
 
   getCoinDetails = () => {
+    // check if coin is already in portfolio on submit
+    // if true, show details. if false, show detailsAdd
     if (this.props.selectedCoin) {
       this.setState({ showDetails: true });
     }
