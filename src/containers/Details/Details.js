@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import css from './Details.scss';
 import axios from 'axios';
+import moment from 'moment';
 
 import Header from '../../components/SectionHeader/Header';
 import DetailsInDepth from '../../components/DetailsIndepth/DetailsIndepth';
@@ -19,13 +21,13 @@ class Details extends Component {
       coinImageURL: '',
       dataAvailable: true
     },
-    baseCurrency: 'CAD',
     showGraph: false
   };
 
   // If the user selects a new coin
   componentDidUpdate(prevProps) {
-    const { coinObject, selectedCoin } = this.props;
+    const { coinObject, selectedCoin, baseCurrency } = this.props;
+    const unixDate = moment().unix();
     if (selectedCoin && selectedCoin !== prevProps.selectedCoin) {
       // Coin info Needed
       let coinFullName = '';
@@ -41,16 +43,16 @@ class Details extends Component {
       // Get coin Price
       axios
         .get(
-          'https://min-api.cryptocompare.com/data/price?fsym=' +
-            selectedCoin +
-            '&tsyms=CAD'
+          `https://min-api.cryptocompare.com/data/pricehistorical?fsym=${selectedCoin}&tsyms=${baseCurrency}&ts=${unixDate}`
         )
         .then(response => {
+          console.log(response, selectedCoin, baseCurrency, unixDate);
+
           // if the coin is listed, but has no publicly traded data available
-          if (response.data.Message) {
+          if (response.data.Response === 'Error') {
             dataAvailable = false;
           } else {
-            coinPrice = response.data.CAD;
+            coinPrice = response.data[selectedCoin][baseCurrency];
           }
           // Set state after getting all coin info
           this.setState({
@@ -86,7 +88,7 @@ class Details extends Component {
   }
 
   render() {
-    const { showDetails } = this.props;
+    const { showDetails, baseCurrency } = this.props;
 
     return (
       <Fragment>
@@ -95,12 +97,12 @@ class Details extends Component {
           false ? ( // have condition like isInPortfolio
             <DetailsInDepth
               coinDetails={this.state.coinDetails}
-              baseCurrency={this.state.baseCurrency}
+              baseCurrency={baseCurrency}
             />
           ) : (
             <DetailsAdd
               coinDetails={this.state.coinDetails}
-              baseCurrency={this.state.baseCurrency}
+              baseCurrency={baseCurrency}
             />
           )
         ) : (
@@ -111,4 +113,10 @@ class Details extends Component {
   }
 }
 
-export default Details;
+const mapStateToProps = state => {
+  return {
+    baseCurrency: state.baseCurrency
+  };
+};
+
+export default connect(mapStateToProps)(Details);

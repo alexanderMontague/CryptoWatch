@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import css from './Layout.scss';
 import axios from 'axios';
-
 import { connect } from 'react-redux';
+
 import { toggleMenu } from '../../actions';
 
 import AppBar from '../../components/AppBar/AppBar';
