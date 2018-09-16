@@ -52,32 +52,37 @@ class Details extends Component {
           `https://min-api.cryptocompare.com/data/pricehistorical?fsym=${selectedCoin}&tsyms=${baseCurrency}&ts=${unixDate}`
         )
         .then(response => {
-          console.log(response, selectedCoin, baseCurrency, unixDate);
-
           // if the coin is listed, but has no publicly traded data available
           if (response.data.Response === 'Error') {
             dataAvailable = false;
+            this.setState({
+              coinDetails: {
+                selectedCoin,
+                coinFullName,
+                coinImageURL,
+                coinPrice,
+                dataAvailable
+              }
+            });
           } else {
             const basePrice = response.data[selectedCoin][baseCurrency];
             convertCurrency(baseCurrency, selectedBaseCurrency, basePrice).then(
-              response => console.log('Method1', response)
+              // convertCurrency returns a promise as there is an API call to the currency exchange
+              newValue => {
+                const coinPrice = newValue;
+                // Set state after getting all coin info
+                this.setState({
+                  coinDetails: {
+                    selectedCoin,
+                    coinFullName,
+                    coinImageURL,
+                    coinPrice,
+                    dataAvailable
+                  }
+                });
+              }
             );
-            console.log(
-              'UPDATED PRICE: ',
-              convertCurrency(baseCurrency, selectedBaseCurrency, basePrice)
-            );
-            coinPrice = response.data[selectedCoin][baseCurrency];
           }
-          // Set state after getting all coin info
-          this.setState({
-            coinDetails: {
-              selectedCoin,
-              coinFullName,
-              coinImageURL,
-              coinPrice,
-              dataAvailable
-            }
-          });
         })
         .catch(error => {
           // TODO: DELETE DEV STUFF BELOW

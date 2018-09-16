@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-export async function convertCurrency(baseCurr, foreignCurr, amount) {
+export const convertCurrency = (baseCurr, foreignCurr, amount) => {
   // Function will convert amount from the base currency to foreign currency based on exhange rate
   // Using CurrencyConverterAPI v6
 
-  await axios
+  return axios
     .get(
       `http://free.currencyconverterapi.com/api/v6/convert?q=${baseCurr}_${foreignCurr}&compact=y`
     )
@@ -15,4 +15,4 @@ export async function convertCurrency(baseCurr, foreignCurr, amount) {
     .catch(error => {
       console.log('HELPER convertCurrency ERROR: ', convertCurrency);
     });
-}
+};

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import css from './DetailsAdd.scss';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { convertCurrency } from '../../helpers';
 
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
@@ -46,6 +48,7 @@ class DetailsAdd extends Component {
     // get the price from the selected day
     const {
       baseCurrency,
+      selectedBaseCurrency,
       coinDetails: { selectedCoin }
     } = this.props; // TODO: baseCurrency to comma separated array in future for multiple base currencies
     axios
@@ -55,8 +58,15 @@ class DetailsAdd extends Component {
       .then(response => {
         // Update the coin price from selected day
         // response format is { SYM: { BASES: { CAD: 123, USD: 456... } } }
-        const historicPrice = response.data[selectedCoin][baseCurrency];
-        this.setState({ historicCoinPrice: historicPrice });
+        const basePrice = response.data[selectedCoin][baseCurrency];
+        convertCurrency(baseCurrency, selectedBaseCurrency, basePrice).then(
+          // convertCurrency returns a promise as there is an API call to the currency exchange
+          newValue => {
+            const historicCoinPrice = newValue;
+            // Set state after getting new coin price in selectedBase
+            this.setState({ historicCoinPrice });
+          }
+        );
       })
       .catch(error => {
         console.log('GET updated historical coin data:', error);
@@ -193,4 +203,10 @@ class DetailsAdd extends Component {
   }
 }
 
-export default DetailsAdd;
+const mapStateToProps = state => {
+  return {
+    selectedBaseCurrency: state.selectedBaseCurrency
+  };
+};
+
+export default connect(mapStateToProps)(DetailsAdd);
