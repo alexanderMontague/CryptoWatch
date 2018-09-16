@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import css from './Details.scss';
 import axios from 'axios';
 import moment from 'moment';
+import { convertCurrency } from '../../helpers';
 
 import Header from '../../components/SectionHeader/Header';
 import DetailsInDepth from '../../components/DetailsIndepth/DetailsIndepth';
@@ -26,7 +27,12 @@ class Details extends Component {
 
   // If the user selects a new coin
   componentDidUpdate(prevProps) {
-    const { coinObject, selectedCoin, baseCurrency } = this.props;
+    const {
+      coinObject,
+      selectedCoin,
+      baseCurrency, // see store.js for difference and reasoning between base/selectedBaseCurr
+      selectedBaseCurrency
+    } = this.props;
     const unixDate = moment().unix();
     if (selectedCoin && selectedCoin !== prevProps.selectedCoin) {
       // Coin info Needed
@@ -52,6 +58,14 @@ class Details extends Component {
           if (response.data.Response === 'Error') {
             dataAvailable = false;
           } else {
+            const basePrice = response.data[selectedCoin][baseCurrency];
+            convertCurrency(baseCurrency, selectedBaseCurrency, basePrice).then(
+              response => console.log('Method1', response)
+            );
+            console.log(
+              'UPDATED PRICE: ',
+              convertCurrency(baseCurrency, selectedBaseCurrency, basePrice)
+            );
             coinPrice = response.data[selectedCoin][baseCurrency];
           }
           // Set state after getting all coin info
@@ -115,7 +129,8 @@ class Details extends Component {
 
 const mapStateToProps = state => {
   return {
-    baseCurrency: state.baseCurrency
+    baseCurrency: state.baseCurrency,
+    selectedBaseCurrency: state.selectedBaseCurrency
   };
 };
 
