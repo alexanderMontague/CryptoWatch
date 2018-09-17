@@ -98,7 +98,8 @@ class Details extends Component {
               selectedCoin,
               coinFullName,
               coinImageURL,
-              coinPrice
+              coinPrice,
+              dataAvailable
             }
           });
           console.log('GET Coin Price Error', error);

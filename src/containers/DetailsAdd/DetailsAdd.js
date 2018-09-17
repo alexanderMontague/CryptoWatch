@@ -77,17 +77,17 @@ class DetailsAdd extends Component {
   priceChangeHandler = input => {
     // update the manual price, and show required if blank
     this.setState({ historicCoinPrice: input });
-    !parseInt(input)
-      ? this.setState({ renderPriceRequire: true })
-      : this.setState({ renderPriceRequire: false });
+    !!input && input !== '0'
+      ? this.setState({ renderPriceRequire: false })
+      : this.setState({ renderPriceRequire: true });
   };
 
   amountChangeHandler = input => {
     // update the amount bought, and show required if blank
     this.setState({ selectedCoinAmount: input });
-    !parseInt(input)
-      ? this.setState({ renderAmountRequire: true })
-      : this.setState({ renderAmountRequire: false });
+    !!input && input !== '0'
+      ? this.setState({ renderAmountRequire: false })
+      : this.setState({ renderAmountRequire: true });
   };
 
   addCoinHandler = e => {
