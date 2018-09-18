@@ -3,6 +3,7 @@ import css from './DetailsAdd.scss';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { convertCurrency } from '../../helpers';
+import { addToPortfolio } from '../../actions';
 
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
@@ -92,10 +93,25 @@ class DetailsAdd extends Component {
 
   addCoinHandler = e => {
     e.preventDefault();
-    const { selectedCoinAmount, historicCoinPrice } = this.state;
+    const {
+      selectedCoinAmount,
+      historicCoinPrice,
+      unixDate,
+      selectedCoinSymbol
+    } = this.state;
     const totalLotWorth = selectedCoinAmount * historicCoinPrice;
+    const newLotDetails = {
+      ticker: selectedCoinSymbol,
+      details: {
+        dateBought: unixDate,
+        priceBought: historicCoinPrice,
+        amountBought: selectedCoinAmount,
+        totalLotWorth
+      }
+    };
+    this.props.addCoinToPortfolio(newLotDetails);
     this.setState({ totalLotWorth }, () =>
-      console.log('current state: ', this.state)
+      console.log('current state: ', this.state, 'newDeets', newLotDetails)
     );
   };
 
@@ -209,4 +225,13 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(DetailsAdd);
+const mapDispatchToProps = dispatch => {
+  return {
+    addCoinToPortfolio: coinDetails => dispatch(addToPortfolio(coinDetails))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DetailsAdd);

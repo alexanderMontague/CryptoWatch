@@ -1,4 +1,5 @@
 // ACTIONS
+// TODO: abstract action types to constants
 
 export const toggleMenu = () => {
   return {
@@ -10,6 +11,13 @@ export const selectCoin = coinTicker => {
   return {
     type: 'SELECT_COIN',
     payload: { ticker: coinTicker }
+  };
+};
+
+export const addToPortfolio = lotDetails => {
+  return {
+    type: 'ADD_TO_PORTFOLIO',
+    payload: { lotDetails }
   };
 };
 
