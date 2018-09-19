@@ -93,13 +93,17 @@ class DetailsAdd extends Component {
 
   addCoinHandler = e => {
     e.preventDefault();
+
     const {
       selectedCoinAmount,
       historicCoinPrice,
       unixDate,
       selectedCoinSymbol
     } = this.state;
+    const { addCoinToPortfolio, showDetailsInDepth } = this.props;
+
     const totalLotWorth = selectedCoinAmount * historicCoinPrice;
+    // set up new lot object and populate with data
     const newLotDetails = {
       ticker: selectedCoinSymbol,
       details: {
@@ -109,7 +113,11 @@ class DetailsAdd extends Component {
         totalLotWorth
       }
     };
-    this.props.addCoinToPortfolio(newLotDetails);
+
+    // add the coin/lot to the portfolio, show details screen for added coin
+    addCoinToPortfolio(newLotDetails);
+    showDetailsInDepth();
+
     this.setState({ totalLotWorth }, () =>
       console.log('current state: ', this.state, 'newDeets', newLotDetails)
     );

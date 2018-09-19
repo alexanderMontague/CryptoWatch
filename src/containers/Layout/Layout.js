@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import css from './Layout.scss';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import { isInPortfolio } from '../../helpers';
 
 import { toggleMenu } from '../../actions';
 
@@ -79,11 +80,21 @@ class Layout extends Component {
   }
 
   getCoinDetails = () => {
-    // check if coin is already in portfolio on submit
-    // if true, show details. if false, show detailsAdd
-    if (this.props.selectedCoin) {
-      this.setState({ showDetails: true });
-    }
+    const { selectedCoin, portfolio } = this.props;
+    const inPortfolio = isInPortfolio(portfolio, selectedCoin);
+    // when the search button is pressed, show the details section (details add or indepth details)
+    // then set whether the coin is in the portfolio or not
+    this.setState({ showDetails: true, inPortfolio });
+  };
+
+  addAnotherLot = () => {
+    // when a user wants to add another lot on the more details screen, go back to add details section
+    this.setState({ inPortfolio: false });
+  };
+
+  showDetailsInDepth = () => {
+    // as soon as the user submits, show the more details section
+    this.setState({ inPortfolio: true });
   };
 
   render() {
@@ -109,6 +120,9 @@ class Layout extends Component {
                 selectedCoin={this.props.selectedCoin}
                 showDetails={this.state.showDetails}
                 coinObject={this.state.coinObject}
+                inPortfolio={this.state.inPortfolio}
+                addAnotherLot={this.addAnotherLot}
+                showDetailsInDepth={this.showDetailsInDepth}
               />
             </div>
           </div>
@@ -121,7 +135,8 @@ class Layout extends Component {
 const mapStateToProps = state => {
   return {
     showMenu: state.showMenu,
-    selectedCoin: state.selectedCoin
+    selectedCoin: state.selectedCoin,
+    portfolio: state.portfolio
   };
 };
 

@@ -108,21 +108,28 @@ class Details extends Component {
   }
 
   render() {
-    const { showDetails, baseCurrency } = this.props;
-
+    const {
+      showDetails,
+      baseCurrency,
+      inPortfolio,
+      addAnotherLot,
+      showDetailsInDepth
+    } = this.props;
     return (
       <Fragment>
         <Header title="Details" />
         {showDetails ? (
-          false ? ( // have condition like isInPortfolio
+          inPortfolio ? (
             <DetailsInDepth
               coinDetails={this.state.coinDetails}
               baseCurrency={baseCurrency}
+              addAnotherLot={addAnotherLot}
             />
           ) : (
             <DetailsAdd
               coinDetails={this.state.coinDetails}
               baseCurrency={baseCurrency}
+              showDetailsInDepth={showDetailsInDepth}
             />
           )
         ) : (

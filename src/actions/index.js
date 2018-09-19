@@ -10,7 +10,7 @@ export const toggleMenu = () => {
 export const selectCoin = coinTicker => {
   return {
     type: 'SELECT_COIN',
-    payload: { ticker: coinTicker }
+    payload: { coinTicker }
   };
 };
 

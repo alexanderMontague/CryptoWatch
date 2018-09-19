@@ -8,6 +8,7 @@ const DetailsIndepth = props => {
   const {
     showGraph,
     baseCurrency,
+    addAnotherLot,
     coinDetails: { coinImageURL, coinFullName, coinPrice }
   } = props;
 
@@ -56,8 +57,10 @@ const DetailsIndepth = props => {
             />
           </div>
           <div className={css.buttonContainers}>
-            <h6>Add to Portfolio: </h6>
-            <button className={css.addButton}>ADD</button>
+            <h6>Add another lot: </h6>
+            <button className={css.addButton} onClick={addAnotherLot}>
+              ADD
+            </button>
           </div>
         </div>
       </div>

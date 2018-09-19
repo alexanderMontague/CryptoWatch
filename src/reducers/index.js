@@ -16,14 +16,14 @@ const rootReducer = (prevState, action) => {
     case 'SELECT_COIN':
       return {
         ...prevState,
-        selectedCoin: action.payload.ticker
+        selectedCoin: action.payload.coinTicker
       };
 
     case 'ADD_TO_PORTFOLIO':
       const { ticker, details } = action.payload.lotDetails;
-      const prevCoinsInPortfolio = prevState.coinsInPortfolio;
+      const prevPortfolio = prevState.portfolio;
 
-      if (!prevCoinsInPortfolio[ticker]) {
+      if (!prevPortfolio[ticker]) {
         // check if coin is in portfolio first
         // if not create the base object structure and add the first lot
         const newCoinAsset = {
@@ -32,15 +32,15 @@ const rootReducer = (prevState, action) => {
         };
         return {
           ...prevState,
-          coinsInPortfolio: { ...prevCoinsInPortfolio, [ticker]: newCoinAsset }
+          portfolio: { ...prevPortfolio, [ticker]: newCoinAsset }
         };
       }
       // if coin is already in portfolio, add new lot
-      let newCoinAsset = prevCoinsInPortfolio[ticker];
+      let newCoinAsset = prevPortfolio[ticker];
       newCoinAsset.lots.push({ ...details });
       return {
         ...prevState,
-        coinsInPortfolio: { ...prevCoinsInPortfolio, [ticker]: newCoinAsset }
+        portfolio: { ...prevPortfolio, [ticker]: newCoinAsset }
       };
 
     // Reducer case where you get other data from the action
