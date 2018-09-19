@@ -20,7 +20,7 @@ const rootReducer = (prevState, action) => {
       };
 
     case 'ADD_TO_PORTFOLIO':
-      const { ticker, details } = action.payload.lotDetails;
+      const { ticker, imageURL, details } = action.payload.lotDetails;
       const prevPortfolio = prevState.portfolio;
 
       if (!prevPortfolio[ticker]) {
@@ -28,6 +28,7 @@ const rootReducer = (prevState, action) => {
         // if not create the base object structure and add the first lot
         const newCoinAsset = {
           ticker,
+          imageURL,
           lots: [{ ...details }]
         };
         return {
@@ -36,7 +37,7 @@ const rootReducer = (prevState, action) => {
         };
       }
       // if coin is already in portfolio, add new lot
-      let newCoinAsset = prevPortfolio[ticker];
+      const newCoinAsset = prevPortfolio[ticker];
       newCoinAsset.lots.push({ ...details });
       return {
         ...prevState,

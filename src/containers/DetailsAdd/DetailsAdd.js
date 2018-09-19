@@ -16,7 +16,6 @@ class DetailsAdd extends Component {
     selectedCoinSymbol: this.props.coinDetails.selectedCoin, // set symbol to selected coin from search
     selectedCoinAmount: '',
     historicCoinPrice: this.props.coinDetails.coinPrice, // set default price to today's price from previous API call
-    totalLotWorth: '',
     renderDateRequire: false,
     renderPriceRequire: true,
     renderAmountRequire: true,
@@ -100,27 +99,27 @@ class DetailsAdd extends Component {
       unixDate,
       selectedCoinSymbol
     } = this.state;
-    const { addCoinToPortfolio, showDetailsInDepth } = this.props;
+    const {
+      addCoinToPortfolio,
+      showDetailsInDepth,
+      coinDetails: { coinImageURL }
+    } = this.props;
 
-    const totalLotWorth = selectedCoinAmount * historicCoinPrice;
     // set up new lot object and populate with data
     const newLotDetails = {
       ticker: selectedCoinSymbol,
+      imageURL: coinImageURL,
       details: {
         dateBought: unixDate,
         priceBought: historicCoinPrice,
         amountBought: selectedCoinAmount,
-        totalLotWorth
+        totalLotWorth: selectedCoinAmount * historicCoinPrice
       }
     };
 
     // add the coin/lot to the portfolio, show details screen for added coin
     addCoinToPortfolio(newLotDetails);
     showDetailsInDepth();
-
-    this.setState({ totalLotWorth }, () =>
-      console.log('current state: ', this.state, 'newDeets', newLotDetails)
-    );
   };
 
   render() {
@@ -148,11 +147,7 @@ class DetailsAdd extends Component {
           </div>
           <div className={css.coinNameContainer}>
             <div className={css.imageContainer}>
-              <img
-                className={css.coinIcon}
-                src={coinImageURL}
-                alt="Coin Icon"
-              />
+              <img className={css.coinIcon} src={coinImageURL} alt="CoinIcon" />
             </div>
             <div className={css.coinName}>{coinFullName}</div>
           </div>
