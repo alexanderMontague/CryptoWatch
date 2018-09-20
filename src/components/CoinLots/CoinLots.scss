@@ -1,0 +1,16 @@
+.lotsMainContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 0 5% 3% 5%;
+  background: white;
+  border: solid 2px #616161;
+  border-top: none;
+}
+
+.lotsHeader {
+  text-align: center;
+}
+
+.lotItemContainer {
+  display: flex;
+}

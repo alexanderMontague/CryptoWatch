@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import css from './PortfolioItem.scss';
+
+import CoinLots from '../CoinLots/CoinLots';
 
 const PortfolioItem = props => {
   const { itemIconURL, ticker, lots } = props;
@@ -11,18 +13,21 @@ const PortfolioItem = props => {
     totalItemValue += parseFloat(lot.totalLotWorth);
   });
   return (
-    <div className={css.portfolioItemContainer}>
-      <div className={css.itemLabelContainer}>
-        <img src={itemIconURL} alt="CoinIcon" className={css.icon} />
-        <span>{ticker}</span>
+    <Fragment>
+      <div className={css.portfolioItemContainer}>
+        <div className={css.itemLabelContainer}>
+          <img src={itemIconURL} alt="CoinIcon" className={css.icon} />
+          <span>{ticker}</span>
+        </div>
+        <span> | </span>
+        <div>Total Value: {totalItemValue}</div>
+        <span> | </span>
+        <div>Total Amount: {totalItemAmount}</div>
+        <span> | </span>
+        <div>Lots: {numLots}</div>
       </div>
-      <span> | </span>
-      <div>Total Value: {totalItemValue}</div>
-      <span> | </span>
-      <div>Total Amount: {totalItemAmount}</div>
-      <span> | </span>
-      <div>Lots: {numLots}</div>
-    </div>
+      <CoinLots />
+    </Fragment>
   );
 };
 
