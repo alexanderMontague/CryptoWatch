@@ -9,7 +9,7 @@ class Portfolio extends Component {
   render() {
     const { portfolio } = this.props;
     const portfolioItems = Object.keys(portfolio).map(portfolioCoinItem => {
-      const { ticker, imageURL, lots } = portfolioCoinItem;
+      const { ticker, imageURL, lots } = portfolio[portfolioCoinItem];
       return (
         <PortfolioItem
           itemIconURL={imageURL}

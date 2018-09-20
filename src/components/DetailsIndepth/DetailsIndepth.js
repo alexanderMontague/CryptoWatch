@@ -34,7 +34,7 @@ const DetailsIndepth = props => {
         <div className={css.selectedCurrency}>
           Base:
           {<br />}
-          {baseCurrency}
+          CAD
         </div>
         <div className={css.coinNameContainer}>
           <div className={css.imageContainer}>

@@ -2,12 +2,18 @@ import React from 'react';
 import css from './PortfolioItem.scss';
 
 const PortfolioItem = props => {
-  const { itemIconUrl, ticker, lots } = props;
-
+  const { itemIconURL, ticker, lots } = props;
+  let totalItemAmount = 0;
+  let totalItemValue = 0;
+  let numLots = lots.length;
+  lots.map(lot => {
+    totalItemAmount += parseFloat(lot.amountBought);
+    totalItemValue += parseFloat(lot.totalLotWorth);
+  });
   return (
     <div className={css.portfolioItemContainer}>
-      <div>
-        <img src={itemIconUrl} alt="CoinIcon" />
+      <div className={css.itemLabelContainer}>
+        <img src={itemIconURL} alt="CoinIcon" className={css.icon} />
         <span>{ticker}</span>
       </div>
       <span> | </span>
@@ -15,7 +21,7 @@ const PortfolioItem = props => {
       <span> | </span>
       <div>Total Amount: {totalItemAmount}</div>
       <span> | </span>
-      <div>Daily Gain: {itemDailyGain}</div>
+      <div>Lots: {numLots}</div>
     </div>
   );
 };
