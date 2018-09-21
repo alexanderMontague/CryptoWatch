@@ -8,12 +8,15 @@
   border: 5px solid #616161;
   border-radius: 5px;
 }
+.portfolioItemContainer:hover {
+  cursor: pointer;
+}
 
 .itemLabelContainer {
   display: flex;
 
   .icon {
-    padding-right: 10px;
+    padding: 0 10px;
     height: 30px;
     width: 30px;
   }
