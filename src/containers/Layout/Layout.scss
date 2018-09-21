@@ -23,7 +23,8 @@ body {
   margin: 10px 1% 10px 10px;
   border-radius: 10px;
   background-color: #bdbdbd;
-  overflow: scroll;
+  overflow-y: scroll;
+  padding-bottom: 5%;
 }
 
 .rightSideContainer {

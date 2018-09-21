@@ -9,5 +9,15 @@
 
 .lotsHeader {
   text-align: center;
-  padding-bottom: 5px;
+  padding: 5px;
+}
+
+.lotsTitleHeaders {
+  display: flex;
+  border-bottom: 2px solid #616161;
+}
+
+.headerItem {
+  width: 125px;
+  text-align: center;
 }

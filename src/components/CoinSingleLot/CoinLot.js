@@ -3,16 +3,19 @@ import css from './CoinLot.scss';
 import moment from 'moment';
 
 const CoinLot = props => {
-  const { dateBought, priceBought, amountBought, totalLotWorth } = props;
+  const { dateBought, priceBought, amountBought, totalLotWorth, index } = props;
+  const style =
+    index % 2 === 0
+      ? css.lotItemContainer
+      : [css.lotItemContainer, css.oddRow].join(' ');
   return (
-    <div className={css.lotItemContainer}>
-      <div>Date Added: {moment.unix(dateBought).format('MM/DD/YYYY')}</div>
-      <span> | </span>
-      <div>Value: {priceBought}</div>
-      <span> | </span>
-      <div>Amount: {amountBought}</div>
-      <span> | </span>
-      <div>Day Gain: WIP</div>
+    <div className={style}>
+      <div className={css.lotItem}>
+        {moment.unix(dateBought).format('MM/DD/YYYY')}
+      </div>
+      <div className={css.lotItem}>{priceBought}</div>
+      <div className={css.lotItem}>{amountBought}</div>
+      <div className={css.lotItem}>WIP</div>
     </div>
   );
 };

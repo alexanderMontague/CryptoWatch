@@ -7,6 +7,7 @@
   height: 50px;
   border: 5px solid #616161;
   border-radius: 5px;
+  padding: 0 10px;
 }
 .portfolioItemContainer:hover {
   cursor: pointer;
@@ -16,13 +17,13 @@
   display: flex;
 
   .icon {
-    padding: 0 10px;
     height: 30px;
     width: 30px;
   }
 
   span {
     margin: auto 0;
+    padding: 0 5px;
     font-weight: 1000;
   }
 }
