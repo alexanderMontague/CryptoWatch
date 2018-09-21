@@ -32,9 +32,15 @@ class PortfolioItem extends Component {
             <img src={itemIconURL} alt="CoinIcon" className={css.icon} />
             <span>{ticker}</span>
           </div>
-          <div>Total Value: {totalItemValue}</div>
-          <div>Total Amount: {totalItemAmount}</div>
-          <div>Lots: {numLots}</div>
+          <div className={css.headerItemContainer}>
+            <div>Total Value:</div>
+            <div>{`$${totalItemValue}`}</div>
+          </div>
+          <div className={css.headerItemContainer}>
+            <div>Total Amount: </div>
+            <div>{totalItemAmount}</div>
+          </div>
+          <div className={css.headerItemContainer}>Lots: {numLots}</div>
         </div>
         {this.state.showLots && <CoinLots lots={lots} />}
       </Fragment>
