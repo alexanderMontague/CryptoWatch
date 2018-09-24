@@ -160,6 +160,20 @@ class DetailsAdd extends Component {
         <div className={css.detailInfoRow}>
           <form className={css.addCoinForm} onSubmit={this.addCoinHandler}>
             <label>
+              Date Bought:
+              <DatePicker
+                className={
+                  renderDateRequire
+                    ? [css.addFormInput, css.requiredBorder].join(' ')
+                    : css.addFormInput
+                }
+                selected={selectedDateObject}
+                onChange={this.dateChangeHandler}
+                maxDate={moment()}
+                type="number"
+              />
+            </label>
+            <label>
               Price:
               <input
                 className={
@@ -172,20 +186,6 @@ class DetailsAdd extends Component {
                 name="coinPrice"
                 value={historicCoinPrice}
                 onChange={input => this.priceChangeHandler(input.target.value)}
-              />
-            </label>
-            <label>
-              Date Bought:
-              <DatePicker
-                className={
-                  renderDateRequire
-                    ? [css.addFormInput, css.requiredBorder].join(' ')
-                    : css.addFormInput
-                }
-                selected={selectedDateObject}
-                onChange={this.dateChangeHandler}
-                maxDate={moment()}
-                type="number"
               />
             </label>
             <label>

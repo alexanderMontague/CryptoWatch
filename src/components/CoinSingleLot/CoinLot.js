@@ -15,8 +15,10 @@ const CoinLot = props => {
       <div className={css.lotItem}>
         {moment.unix(dateBought).format('MM/DD/YYYY')}
       </div>
-      <div className={css.lotItem}>{`$${priceBought}`}</div>
-      <div className={css.lotItem}>{amountBought}</div>
+      <div className={css.lotItem}>{`$${parseFloat(priceBought).toFixed(
+        2
+      )}`}</div>
+      <div className={css.lotItem}>{parseFloat(amountBought).toFixed(8)}</div>
       <div className={css.lotItem}>WIP</div>
     </div>
   );

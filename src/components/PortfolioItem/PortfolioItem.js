@@ -34,11 +34,11 @@ class PortfolioItem extends Component {
           </div>
           <div className={css.headerItemContainer}>
             <div>Total Value:</div>
-            <div>{`$${totalItemValue}`}</div>
+            <div>{`$${totalItemValue.toFixed(2)}`}</div>
           </div>
           <div className={css.headerItemContainer}>
             <div>Total Amount: </div>
-            <div>{totalItemAmount}</div>
+            <div>{totalItemAmount.toFixed(8)}</div>
           </div>
           <div className={css.headerItemContainer}>Lots: {numLots}</div>
         </div>
