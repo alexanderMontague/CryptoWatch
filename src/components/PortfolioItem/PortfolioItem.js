@@ -40,7 +40,12 @@ class PortfolioItem extends Component {
             <div>Total Amount: </div>
             <div>{totalItemAmount.toFixed(8)}</div>
           </div>
-          <div className={css.headerItemContainer}>Lots: {numLots}</div>
+          <div className={css.headerItemContainer}>
+            <div>
+              <span>Lots: {numLots}</span>
+              <span>V</span>
+            </div>
+          </div>
         </div>
         {this.state.showLots && <CoinLots lots={lots} />}
       </Fragment>
