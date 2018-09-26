@@ -45,6 +45,13 @@ class Layout extends Component {
       CoinName: 'Litecoin',
       FullName: 'Litecoin (LTC)',
       Algorithm: 'SHA256'
+    },
+    CC: {
+      Id: '1183',
+      Name: 'CC',
+      Symbol: 'CC',
+      CoinName: 'Crapcoin',
+      FullName: 'Crapcoin (CC)'
     }
   };
 

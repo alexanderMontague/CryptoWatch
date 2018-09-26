@@ -26,8 +26,10 @@ class DetailsAdd extends Component {
     // check if default passed price is valid/invalid
     if (this.state.historicCoinPrice) {
       this.setState({ renderPriceRequire: false });
+    } else {
+      // if the coin is listed, but has no publicly traded data available
+      this.setState({ dataAvailable: false });
     }
-    // if the coin is listed, but has no publicly traded data available
   };
 
   dateChangeHandler = date => {
@@ -62,14 +64,13 @@ class DetailsAdd extends Component {
         convertCurrency(baseCurrency, selectedBaseCurrency, basePrice).then(
           // convertCurrency returns a promise as there is an API call to the currency exchange
           newValue => {
-            const historicCoinPrice = newValue;
-            // Set state after getting new coin price in selectedBase
-            this.setState({ historicCoinPrice });
+            // Set state after getting new converted coin price in selectedBase
+            this.setState({ historicCoinPrice: newValue });
           }
         );
       })
       .catch(error => {
-        console.log('GET updated historical coin data:', error);
+        console.log('GET updated historical coin data Error:', error);
         // handle manual input incorrect date
       });
   };

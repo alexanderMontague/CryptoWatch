@@ -90,6 +90,8 @@ class Details extends Component {
             coinPrice = 8765;
           } else if (selectedCoin === 'ETH') {
             coinPrice = 320;
+          } else if (selectedCoin === 'CC') {
+            coinPrice = 0;
           } else {
             coinPrice = 169;
           }
