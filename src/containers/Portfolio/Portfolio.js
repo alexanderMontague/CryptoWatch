@@ -8,8 +8,12 @@ import PortfolioItem from '../../components/PortfolioItem/PortfolioItem';
 class Portfolio extends Component {
   render() {
     const { portfolio } = this.props;
+    let totalValue = 0.0;
     const portfolioItems = Object.keys(portfolio).map(portfolioCoinItem => {
       const { ticker, imageURL, lots } = portfolio[portfolioCoinItem];
+      lots.forEach(lot => {
+        totalValue += lot.totalLotWorth;
+      });
       return (
         <PortfolioItem
           itemIconURL={imageURL}
@@ -22,7 +26,7 @@ class Portfolio extends Component {
     return (
       <Fragment>
         <Header title="Portfolio" />
-        <PortfolioHeader />
+        <PortfolioHeader totalValue={totalValue} />
         {portfolioItems}
       </Fragment>
     );

@@ -1,12 +1,14 @@
 import React from 'react';
 import css from './PortfolioHeader.scss';
 
-const PortfolioHeader = () => {
+const PortfolioHeader = props => {
+  const { totalValue } = props;
+
   return (
     <div className={css.portfolioHeaderContainer}>
       <span className={css.headerItem}>
         <div className={css.headerTitle}>Total Portfolio Value</div>
-        <div className={css.portfolioValue}>$1234.50</div>
+        <div className={css.portfolioValue}>{`$${totalValue.toFixed(2)}`}</div>
       </span>
       <span className={css.headerItem}>
         <div className={css.headerTitle}>24hr Change</div>
