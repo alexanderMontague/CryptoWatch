@@ -198,6 +198,7 @@ class DetailsAdd extends Component {
                     : css.addFormInput
                 }
                 type="number"
+                step="any"
                 placeholder="Enter an Amount"
                 name="coinAmount"
                 value={selectedCoinAmount}

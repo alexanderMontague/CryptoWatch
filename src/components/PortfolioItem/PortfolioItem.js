@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import css from './PortfolioItem.scss';
 
 import CoinLots from '../CoinLots/CoinLots';
+import chevronDown from '../../assets/chevron-arrow-down.png';
+import chevronUp from '../../assets/chevron-arrow-up.png';
 
 class PortfolioItem extends Component {
   state = {
@@ -41,9 +43,12 @@ class PortfolioItem extends Component {
             <div>{totalItemAmount.toFixed(8)}</div>
           </div>
           <div className={css.headerItemContainer}>
-            <div>
+            <div className={css.detailsContainer}>
               <span>Lots: {numLots}</span>
-              <span>V</span>
+              <img
+                className={css.chevronIcon}
+                src={this.state.showLots ? chevronUp : chevronDown}
+              />
             </div>
           </div>
         </div>

@@ -36,3 +36,13 @@
   width: 125px;
   text-align: center;
 }
+.detailsContainer {
+  display: flex;
+  justify-content: center;
+
+  .chevronIcon {
+    height: 20px;
+    width: 20px;
+    padding-left: 20px;
+  }
+}
