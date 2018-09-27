@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import css from './PortfolioItem.scss';
 
+import { numberWithCommas } from '../../helpers';
 import CoinLots from '../CoinLots/CoinLots';
 import chevronDown from '../../assets/chevron-arrow-down.png';
 import chevronUp from '../../assets/chevron-arrow-up.png';
@@ -36,7 +37,7 @@ class PortfolioItem extends Component {
           </div>
           <div className={css.headerItemContainer}>
             <div>Total Value:</div>
-            <div>{`$${totalItemValue.toFixed(2)}`}</div>
+            <div>{`$${numberWithCommas(totalItemValue.toFixed(2))}`}</div>
           </div>
           <div className={css.headerItemContainer}>
             <div>Total Amount: </div>

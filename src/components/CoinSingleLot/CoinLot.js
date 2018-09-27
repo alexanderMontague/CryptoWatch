@@ -2,6 +2,8 @@ import React from 'react';
 import css from './CoinLot.scss';
 import moment from 'moment';
 
+import { numberWithCommas } from '../../helpers';
+
 const CoinLot = props => {
   const { dateBought, priceBought, amountBought, totalLotWorth, index } = props;
 
@@ -15,8 +17,8 @@ const CoinLot = props => {
       <div className={css.lotItem}>
         {moment.unix(dateBought).format('MM/DD/YYYY')}
       </div>
-      <div className={css.lotItem}>{`$${parseFloat(priceBought).toFixed(
-        2
+      <div className={css.lotItem}>{`$${numberWithCommas(
+        parseFloat(priceBought).toFixed(2)
       )}`}</div>
       <div className={css.lotItem}>{parseFloat(amountBought).toFixed(8)}</div>
       <div className={css.lotItem}>WIP</div>

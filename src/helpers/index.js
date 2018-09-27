@@ -25,3 +25,8 @@ export const isInPortfolio = (state, searchCoin) => {
   }
   return false;
 };
+
+// Add commas to seperate thousandths
+export const numberWithCommas = number => {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
