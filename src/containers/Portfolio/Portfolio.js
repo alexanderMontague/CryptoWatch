@@ -6,6 +6,10 @@ import PortfolioHeader from '../../components/PortfolioHeader/PortfolioHeader';
 import PortfolioItem from '../../components/PortfolioItem/PortfolioItem';
 
 class Portfolio extends Component {
+  loadPortfolioGains = () => {};
+
+  setPortfolioValue = totalValue => {};
+
   render() {
     const { portfolio } = this.props;
     let totalValue = 0.0;
@@ -23,6 +27,8 @@ class Portfolio extends Component {
         />
       );
     });
+    this.setPortfolioValue(totalValue);
+
     return (
       <Fragment>
         <Header title="Portfolio" />
