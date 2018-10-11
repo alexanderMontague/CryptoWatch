@@ -4,7 +4,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { isInPortfolio } from '../../helpers';
 
-import { toggleMenu } from '../../actions';
+import { toggleMenu, showDetails, hideDetails } from '../../actions';
 
 import AppBar from '../../components/AppBar/AppBar';
 import MenuSlider from '../../components/Slider/Slider';
@@ -14,7 +14,6 @@ import Details from '../Details/Details';
 
 class Layout extends Component {
   state = {
-    showDetails: false,
     isLoading: true
   };
 
@@ -81,17 +80,19 @@ class Layout extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.selectedCoin !== prevProps.selectedCoin) {
-      this.setState({ showDetails: false });
+    const { selectedCoin, portfolio } = this.props;
+    if (selectedCoin !== prevProps.selectedCoin) {
+      this.setState({ inPortfolio: isInPortfolio(portfolio, selectedCoin) });
     }
   }
 
   getCoinDetails = () => {
-    const { selectedCoin, portfolio } = this.props;
+    const { selectedCoin, portfolio, showDetails } = this.props;
     const inPortfolio = isInPortfolio(portfolio, selectedCoin);
     // when the search button is pressed, show the details section (details add or indepth details)
     // then set whether the coin is in the portfolio or not
-    this.setState({ showDetails: true, inPortfolio });
+    this.setState({ inPortfolio });
+    showDetails();
   };
 
   addAnotherLot = () => {
@@ -149,7 +150,9 @@ const mapStateToProps = state => {
 
 // Condensed version of MDTP
 const mapDispatchToProps = {
-  toggleMenu
+  toggleMenu,
+  showDetails,
+  hideDetails
 };
 
 export default connect(

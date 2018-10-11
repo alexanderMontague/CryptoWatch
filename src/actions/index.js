@@ -21,6 +21,18 @@ export const addToPortfolio = lotDetails => {
   };
 };
 
+export const showDetails = () => {
+  return {
+    type: 'SHOW_DETAILS'
+  };
+};
+
+export const hideDetails = () => {
+  return {
+    type: 'HIDE_DETAILS'
+  };
+};
+
 // Example of action sending other data, and getting a param
 // export const useParam = (newNumParam) => {
 //   return {

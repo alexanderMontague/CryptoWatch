@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import css from './Search.scss';
 
 import { connect } from 'react-redux';
-import { selectCoin } from '../../actions';
+import { selectCoin, hideDetails } from '../../actions';
 
 import Header from '../../components/SectionHeader/Header';
 import SearchItem from '../../components/SearchItem/SearchItem';
@@ -18,7 +18,13 @@ class Search extends Component {
     const { coinObject, coinKeys } = this.props;
     const rawDataArray = [];
     const resultArray = [];
-    !searchText ? this.props.selectCoin(undefined) : null;
+
+    if (!searchText) {
+      const { selectCoin, hideDetails } = this.props;
+      selectCoin(undefined);
+      hideDetails();
+    }
+
     this.setState({ inputValue: searchText });
     for (let i = 0; i < coinKeys.length; i++) {
       // use loop for performance over map
@@ -101,7 +107,8 @@ class Search extends Component {
 // };
 // Condensed version of above ^
 const mapDispatchToProps = {
-  selectCoin
+  selectCoin,
+  hideDetails
 };
 
 export default connect(

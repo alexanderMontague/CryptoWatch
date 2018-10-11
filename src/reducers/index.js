@@ -44,11 +44,11 @@ const rootReducer = (prevState, action) => {
         portfolio: { ...prevPortfolio, [ticker]: newCoinAsset }
       };
 
-    // Reducer case where you get other data from the action
-    // case 'USE_PARAMS:
-    //  do something with action.payload
-    //  const newNumber = action.payload.number
-    //  return { ...prevState, number: prevState.number + newNumber }
+    case 'SHOW_DETAILS':
+      return { ...prevState, showDetails: true };
+
+    case 'HIDE_DETAILS':
+      return { ...prevState, showDetails: false };
 
     default:
       return prevState;
