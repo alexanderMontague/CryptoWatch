@@ -54,34 +54,37 @@ class Details extends Component {
         .then(response => {
           // if the coin is listed, but has no publicly traded data available
           if (response.data.Response === 'Error') {
-            dataAvailable = false;
             this.setState({
               coinDetails: {
                 selectedCoin,
                 coinFullName,
                 coinImageURL,
                 coinPrice,
-                dataAvailable
+                dataAvailable: false
               }
             });
           } else {
             const basePrice = response.data[selectedCoin][baseCurrency];
-            convertCurrency(baseCurrency, selectedBaseCurrency, basePrice).then(
-              // convertCurrency returns a promise as there is an API call to the currency exchange
-              newValue => {
-                const coinPrice = newValue;
-                // Set state after getting all coin info
-                this.setState({
-                  coinDetails: {
-                    selectedCoin,
-                    coinFullName,
-                    coinImageURL,
-                    coinPrice,
-                    dataAvailable
-                  }
-                });
-              }
-            );
+            convertCurrency(baseCurrency, selectedBaseCurrency, basePrice)
+              .then(
+                // convertCurrency returns a promise as there is an API call to the currency exchange
+                newValue => {
+                  const coinPrice = newValue;
+                  // Set state after getting all coin info
+                  this.setState({
+                    coinDetails: {
+                      selectedCoin,
+                      coinFullName,
+                      coinImageURL,
+                      coinPrice,
+                      dataAvailable
+                    }
+                  });
+                }
+              )
+              .catch(err => {
+                console.log('GET Exchange API Error', err);
+              });
           }
         })
         .catch(error => {

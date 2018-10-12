@@ -22,7 +22,20 @@ class DetailsAdd extends Component {
     dataAvailable: this.props.coinDetails.dataAvailable
   };
 
+  componentWillReceiveProps = newProps => {
+    // if the selected coin gets updated in anyway, reflect those changes right away
+    const {
+      coinDetails: { selectedCoin, coinPrice, dataAvailable }
+    } = newProps;
+    this.setState({
+      selectedCoinSymbol: selectedCoin,
+      historicCoinPrice: coinPrice,
+      dataAvailable: dataAvailable
+    });
+  };
+
   componentDidMount = () => {
+    // set up state with passed in props
     // check if default passed price is valid/invalid
     if (this.state.historicCoinPrice) {
       this.setState({ renderPriceRequire: false });
