@@ -15,6 +15,7 @@ class Search extends Component {
   };
 
   searchCoin = searchText => {
+    // this function searches for a coin from the input and displays the dropdown results
     const { coinObject, coinKeys } = this.props;
     const rawDataArray = [];
     const resultArray = [];
@@ -23,6 +24,7 @@ class Search extends Component {
       const { selectCoin, hideDetails } = this.props;
       selectCoin(undefined);
       hideDetails();
+      // dont return right away, won't be able to delete last character in input
     }
 
     this.setState({ inputValue: searchText });
@@ -67,8 +69,15 @@ class Search extends Component {
     this.props.selectCoin(ticker);
   };
 
+  onSearchHandler = () => {
+    // this function is so the selected coin is updated by clicking the search button
+    this.searchCoin(this.state.inputValue); // see if the input is valid and can be mapped to a coin
+    this.props.handleSubmit(); // then run the show details portion for the input in the Layout component
+    this.setState({ searchResults: [] });
+  };
+
   render() {
-    const { isLoading, handleSubmit } = this.props;
+    const { isLoading } = this.props;
     return (
       <Fragment>
         <Header title="Find Cryptocurrencies!" />
@@ -85,7 +94,7 @@ class Search extends Component {
               disabled={isLoading}
             />
           )}
-          <button className={css.searchButton} onClick={handleSubmit}>
+          <button className={css.searchButton} onClick={this.onSearchHandler}>
             Search
           </button>
         </div>

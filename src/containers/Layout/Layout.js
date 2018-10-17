@@ -88,11 +88,13 @@ class Layout extends Component {
 
   getCoinDetails = () => {
     const { selectedCoin, portfolio, showDetails } = this.props;
-    const inPortfolio = isInPortfolio(portfolio, selectedCoin);
-    // when the search button is pressed, show the details section (details add or indepth details)
-    // then set whether the coin is in the portfolio or not
-    this.setState({ inPortfolio });
-    showDetails();
+    if (selectedCoin) {
+      const inPortfolio = isInPortfolio(portfolio, selectedCoin);
+      // when the search button is pressed, show the details section (details add or indepth details)
+      // then set whether the coin is in the portfolio or not
+      this.setState({ inPortfolio });
+      showDetails();
+    }
   };
 
   addAnotherLot = () => {
@@ -112,7 +114,7 @@ class Layout extends Component {
         <AppBar toggleMenu={this.props.toggleMenu} />
         <div className={css.mainContainer}>
           <div className={css.portfolioContainer}>
-            <Portfolio />
+            <Portfolio portfolio={this.props.portfolio} />
           </div>
           <div className={css.rightSideContainer}>
             <div className={css.searchContainer}>

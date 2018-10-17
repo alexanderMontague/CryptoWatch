@@ -21,8 +21,7 @@ const rootReducer = (prevState, action) => {
 
     case 'ADD_TO_PORTFOLIO':
       const { ticker, imageURL, details } = action.payload.lotDetails;
-      const prevPortfolio = prevState.portfolio;
-
+      const prevPortfolio = JSON.parse(JSON.stringify(prevState.portfolio)); // creates deep immutable copy
       if (!prevPortfolio[ticker]) {
         // check if coin is in portfolio first
         // if not create the base object structure and add the first lot

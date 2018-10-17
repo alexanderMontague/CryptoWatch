@@ -6,18 +6,19 @@ import PortfolioHeader from '../../components/PortfolioHeader/PortfolioHeader';
 import PortfolioItem from '../../components/PortfolioItem/PortfolioItem';
 
 class Portfolio extends Component {
-  loadPortfolioGains = () => {};
+  state = {
+    portfolio: this.props.portfolio,
+    totalValue: 0.0
+  };
 
+  // TODO db stuff
+  loadPortfolioGains = () => {};
   setPortfolioValue = totalValue => {};
 
-  render() {
+  renderPortfolioItems = () => {
     const { portfolio } = this.props;
-    let totalValue = 0.0;
-    const portfolioItems = Object.keys(portfolio).map(portfolioCoinItem => {
+    return Object.keys(portfolio).map(portfolioCoinItem => {
       const { ticker, imageURL, lots } = portfolio[portfolioCoinItem];
-      lots.forEach(lot => {
-        totalValue += lot.totalLotWorth;
-      });
       return (
         <PortfolioItem
           itemIconURL={imageURL}
@@ -27,13 +28,14 @@ class Portfolio extends Component {
         />
       );
     });
-    this.setPortfolioValue(totalValue);
+  };
 
+  render() {
     return (
       <Fragment>
         <Header title="Portfolio" />
-        <PortfolioHeader totalValue={totalValue} />
-        {portfolioItems}
+        <PortfolioHeader totalValue={this.state.totalValue} />
+        {this.renderPortfolioItems()}
       </Fragment>
     );
   }
