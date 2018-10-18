@@ -15,6 +15,25 @@ class Portfolio extends Component {
   loadPortfolioGains = () => {};
   setPortfolioValue = totalValue => {};
 
+  componentDidUpdate = () => {
+    if (this.props.portfolio) {
+      const newPortfolio = this.props.portfolio;
+      let newTotalValue = 0;
+
+      for (let coin in newPortfolio) {
+        // calculate updated portfolio price
+        newPortfolio[coin].lots.forEach(lot => {
+          newTotalValue += lot.totalLotWorth;
+        });
+      }
+
+      if (this.state.totalValue !== newTotalValue) {
+        // if the total value did change, update it
+        this.setState({ totalValue: newTotalValue });
+      }
+    }
+  };
+
   renderPortfolioItems = () => {
     const { portfolio } = this.props;
     return Object.keys(portfolio).map(portfolioCoinItem => {

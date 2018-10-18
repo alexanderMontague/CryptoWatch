@@ -1,6 +1,6 @@
 import React from 'react';
 import css from './DetailsIndepth.scss';
-import PropTypes from 'prop-types';
+import { numberWithCommas } from '../../helpers';
 
 import ToggleButton from 'react-toggle-button';
 
@@ -66,7 +66,7 @@ const DetailsIndepth = props => {
       </div>
       <div className={css.detailInfoRow}>
         <div className={css.coinInfoRow}>
-          <span>Price: {coinPrice}</span>
+          <span>Price: {numberWithCommas(coinPrice.toFixed(2))}</span>
           <span>Market Cap: ___</span>
         </div>
         <div className={css.coinInfoRow}>

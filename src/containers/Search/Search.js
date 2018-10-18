@@ -70,10 +70,13 @@ class Search extends Component {
   };
 
   onSearchHandler = () => {
+    const { inputValue } = this.state;
+    const { handleSubmit, selectedCoin } = this.props;
+
     // this function is so the selected coin is updated by clicking the search button
-    this.searchCoin(this.state.inputValue); // see if the input is valid and can be mapped to a coin
-    this.props.handleSubmit(); // then run the show details portion for the input in the Layout component
-    this.setState({ searchResults: [] });
+    this.searchCoin(inputValue); // see if the input is valid and can be mapped to a coin
+    handleSubmit(); // then run the show details portion for the input in the Layout component
+    if (selectedCoin) this.setState({ searchResults: [] });
   };
 
   render() {
@@ -109,6 +112,10 @@ class Search extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  selectedCoin: state.selectedCoin
+});
+
 // const mapDispatchToProps = dispatch => {
 //   return {
 //     selectCoin: ticker => dispatch(selectCoin(ticker)),
@@ -121,6 +128,6 @@ const mapDispatchToProps = {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Search);
