@@ -35,6 +35,7 @@ const DetailsIndepth = props => {
           Base:
           {<br />}
           CAD
+          {/* CAD {baseCurrency} */}
         </div>
         <div className={css.coinNameContainer}>
           <div className={css.imageContainer}>
@@ -66,7 +67,7 @@ const DetailsIndepth = props => {
       </div>
       <div className={css.detailInfoRow}>
         <div className={css.coinInfoRow}>
-          <span>Price: {numberWithCommas(coinPrice.toFixed(2))}</span>
+          <span>Price: ${numberWithCommas(coinPrice.toFixed(2))}</span>
           <span>Market Cap: ___</span>
         </div>
         <div className={css.coinInfoRow}>
