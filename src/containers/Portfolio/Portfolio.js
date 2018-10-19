@@ -12,8 +12,13 @@ class Portfolio extends Component {
   };
 
   // TODO db stuff
-  loadPortfolioGains = () => {};
-  setPortfolioValue = totalValue => {};
+  componentDidMount = () => {
+    // load portfolio from DB
+  };
+  updatePortfolio = (newPortfolio, newTotalValue) => {
+    // update db with new portfolio
+    console.log(newPortfolio, newTotalValue);
+  };
 
   componentDidUpdate = () => {
     if (this.props.portfolio) {
@@ -29,7 +34,14 @@ class Portfolio extends Component {
 
       if (this.state.totalValue !== newTotalValue) {
         // if the total value did change, update it
-        this.setState({ totalValue: newTotalValue });
+        this.setState(() => {
+          // setState is async so set db before updating
+          this.updatePortfolio(newPortfolio, newTotalValue);
+          return {
+            portfolio: newPortfolio,
+            totalValue: newTotalValue
+          };
+        });
       }
     }
   };
