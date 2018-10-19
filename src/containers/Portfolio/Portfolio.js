@@ -15,10 +15,6 @@ class Portfolio extends Component {
   componentDidMount = () => {
     // load portfolio from DB
   };
-  updatePortfolio = (newPortfolio, newTotalValue) => {
-    // update db with new portfolio
-    console.log(newPortfolio, newTotalValue);
-  };
 
   componentDidUpdate = () => {
     if (this.props.portfolio) {
@@ -44,6 +40,11 @@ class Portfolio extends Component {
         });
       }
     }
+  };
+
+  updatePortfolio = (newPortfolio, newTotalValue) => {
+    // update db with new portfolio
+    console.log(newPortfolio, newTotalValue);
   };
 
   renderPortfolioItems = () => {
