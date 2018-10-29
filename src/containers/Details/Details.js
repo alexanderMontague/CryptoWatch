@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
 import css from './Details.scss';
-import axios from 'axios';
+import { connect } from 'react-redux';
 import moment from 'moment';
 import { convertCurrency } from '../../helpers';
+import { getCoinPrice } from '../../helpers/requests';
 
 import Header from '../../components/SectionHeader/Header';
 import DetailsInDepth from '../../components/DetailsIndepth/DetailsIndepth';
@@ -26,7 +26,7 @@ class Details extends Component {
   };
 
   // If the user selects a new coin
-  componentDidUpdate(prevProps) {
+  async componentDidUpdate(prevProps) {
     const {
       coinObject,
       selectedCoin,
@@ -47,68 +47,56 @@ class Details extends Component {
         'https://www.cryptocompare.com' + coinObject[selectedCoin].ImageUrl;
 
       // Get coin Price
-      axios
-        .get(
-          `https://min-api.cryptocompare.com/data/pricehistorical?fsym=${selectedCoin}&tsyms=${baseCurrency}&ts=${unixDate}`
-        )
-        .then(response => {
-          // if the coin is listed, but has no publicly traded data available
-          if (response.data.Response === 'Error') {
-            this.setState({
-              coinDetails: {
-                selectedCoin,
-                coinFullName,
-                coinImageURL,
-                coinPrice,
-                dataAvailable: false
-              }
-            });
-          } else {
-            const basePrice = response.data[selectedCoin][baseCurrency];
-            convertCurrency(baseCurrency, selectedBaseCurrency, basePrice)
-              .then(
-                // convertCurrency returns a promise as there is an API call to the currency exchange
-                newValue => {
-                  const coinPrice = newValue;
-                  // Set state after getting all coin info
-                  this.setState({
-                    coinDetails: {
-                      selectedCoin,
-                      coinFullName,
-                      coinImageURL,
-                      coinPrice,
-                      dataAvailable
-                    }
-                  });
-                }
-              )
-              .catch(err => {
-                console.log('GET Exchange API Error', err);
-              });
+      const newCoinPrice = await getCoinPrice(
+        selectedCoin,
+        baseCurrency,
+        unixDate
+      );
+
+      // if the coin is listed, but has no publicly traded data available
+      if (newCoinPrice.error) {
+        this.setState({
+          coinDetails: {
+            selectedCoin,
+            coinFullName,
+            coinImageURL,
+            coinPrice,
+            dataAvailable: false
           }
-        })
-        .catch(error => {
-          // TODO: DELETE DEV STUFF BELOW
-          if (selectedCoin === 'BTC') {
-            coinPrice = 8765;
-          } else if (selectedCoin === 'ETH') {
-            coinPrice = 320;
-          } else if (selectedCoin === 'CC') {
-            coinPrice = 0;
-          } else {
-            coinPrice = 169;
-          }
+        });
+        // TODO: DELETE DEV STUFF BELOW
+        if (selectedCoin === 'BTC') {
+          coinPrice = 8765;
+        } else if (selectedCoin === 'ETH') {
+          coinPrice = 320;
+        } else if (selectedCoin === 'CC') {
+          coinPrice = 0;
+        } else {
+          coinPrice = 169;
+        }
+        console.log('GET Coin Price Error', error);
+      } else {
+        const basePrice = newCoinPrice.data[selectedCoin][baseCurrency];
+        const convertedCoinPrice = await convertCurrency(
+          baseCurrency,
+          selectedBaseCurrency,
+          basePrice
+        );
+        if (convertedCoinPrice.error) {
+          console.log('GET Exchange API Error', convertedCoinPrice.error);
+        } else {
+          // Set state after getting all coin info
           this.setState({
             coinDetails: {
               selectedCoin,
               coinFullName,
               coinImageURL,
-              coinPrice,
+              coinPrice: convertedCoinPrice.data,
               dataAvailable
             }
           });
-          console.log('GET Coin Price Error', error);
-        });
+        }
+      }
     }
   }
 

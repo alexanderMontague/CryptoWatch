@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import css from './Layout.scss';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { isInPortfolio } from '../../helpers';
+import { getCoinList } from '../../helpers/requests';
 
 import { toggleMenu, showDetails, hideDetails } from '../../actions';
 
@@ -56,9 +56,12 @@ class Layout extends Component {
 
   componentDidMount() {
     // Get list of all coins from API
-    axios
-      .get('https://min-api.cryptocompare.com/data/all/coinlist')
+    getCoinList()
       .then(response => {
+        if (response.error) {
+          console.log('GET Coin List Error: ', response.error);
+          return;
+        }
         const totalCoinsObject = response.data.Data;
         const coinKeyArray = Object.keys(totalCoinsObject);
         this.setState({

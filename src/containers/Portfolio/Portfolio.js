@@ -44,7 +44,6 @@ class Portfolio extends Component {
 
   updatePortfolio = (newPortfolio, newTotalValue) => {
     // update db with new portfolio
-    console.log(newPortfolio, newTotalValue);
   };
 
   renderPortfolioItems = () => {
