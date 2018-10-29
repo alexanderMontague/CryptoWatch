@@ -9,10 +9,10 @@ export const convertCurrency = (baseCurr, foreignCurr, amount) => {
     )
     .then(response => {
       const exchangeRate = response.data[`${baseCurr}_${foreignCurr}`].val;
-      return amount * exchangeRate;
+      return { data: amount * exchangeRate };
     })
     .catch(error => {
-      console.log('HELPER convertCurrency ERROR: ', convertCurrency);
+      return { error };
     });
 };
 
