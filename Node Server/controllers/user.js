@@ -60,7 +60,8 @@ exports.postLogin = (req, res, next) => {
 exports.logout = (req, res) => {
   req.logout();
   req.session.destroy(err => {
-    if (err) console.log('Error : Failed to destroy the session during logout.', err);
+    if (err)
+      console.log('Error : Failed to destroy the session during logout.', err);
     req.user = null;
     res.redirect('/');
   });
@@ -86,7 +87,9 @@ exports.getSignup = (req, res) => {
 exports.postSignup = (req, res, next) => {
   req.assert('email', 'Email is not valid').isEmail();
   req.assert('password', 'Password must be at least 4 characters long').len(4);
-  req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
+  req
+    .assert('confirmPassword', 'Passwords do not match')
+    .equals(req.body.password);
   req.sanitize('email').normalizeEmail({ gmail_remove_dots: false });
 
   const errors = req.validationErrors();
@@ -98,7 +101,7 @@ exports.postSignup = (req, res, next) => {
 
   const user = new User({
     email: req.body.email,
-    password: req.body.password,
+    password: req.body.password
   });
 
   User.findOne({ email: req.body.email }, (err, existingUser) => {
@@ -106,7 +109,9 @@ exports.postSignup = (req, res, next) => {
       return next(err);
     }
     if (existingUser) {
-      req.flash('errors', { msg: 'Account with that email address already exists.' });
+      req.flash('errors', {
+        msg: 'Account with that email address already exists.'
+      });
       return res.redirect('/signup');
     }
     user.save(err => {
@@ -161,7 +166,8 @@ exports.postUpdateProfile = (req, res, next) => {
       if (err) {
         if (err.code === 11000) {
           req.flash('errors', {
-            msg: 'The email address you have entered is already associated with an account.',
+            msg:
+              'The email address you have entered is already associated with an account.'
           });
           return res.redirect('/account');
         }
@@ -179,7 +185,9 @@ exports.postUpdateProfile = (req, res, next) => {
  */
 exports.postUpdatePassword = (req, res, next) => {
   req.assert('password', 'Password must be at least 4 characters long').len(4);
-  req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
+  req
+    .assert('confirmPassword', 'Passwords do not match')
+    .equals(req.body.password);
 
   const errors = req.validationErrors();
 
@@ -256,7 +264,9 @@ exports.getReset = (req, res, next) => {
         return next(err);
       }
       if (!user) {
-        req.flash('errors', { msg: 'Password reset token is invalid or has expired.' });
+        req.flash('errors', {
+          msg: 'Password reset token is invalid or has expired.'
+        });
         return res.redirect('/forgot');
       }
       // res.render('account/reset', {
@@ -286,7 +296,9 @@ exports.postReset = (req, res, next) => {
       .gt(Date.now())
       .then(user => {
         if (!user) {
-          req.flash('errors', { msg: 'Password reset token is invalid or has expired.' });
+          req.flash('errors', {
+            msg: 'Password reset token is invalid or has expired.'
+          });
           return res.redirect('back');
         }
         user.password = req.body.password;
@@ -313,8 +325,8 @@ exports.postReset = (req, res, next) => {
       service: 'SendGrid',
       auth: {
         user: process.env.SENDGRID_USER,
-        pass: process.env.SENDGRID_PASSWORD,
-      },
+        pass: process.env.SENDGRID_PASSWORD
+      }
     });
     const mailOptions = {
       to: user.email,
@@ -322,12 +334,14 @@ exports.postReset = (req, res, next) => {
       subject: 'Your Hackathon Starter password has been changed',
       text: `Hello,\n\nThis is a confirmation that the password for your account ${
         user.email
-      } has just been changed.\n`,
+      } has just been changed.\n`
     };
     return transporter
       .sendMail(mailOptions)
       .then(() => {
-        req.flash('success', { msg: 'Success! Your password has been changed.' });
+        req.flash('success', {
+          msg: 'Success! Your password has been changed.'
+        });
       })
       .catch(err => {
         if (err.message === 'self signed certificate in certificate chain') {
@@ -338,14 +352,16 @@ exports.postReset = (req, res, next) => {
             service: 'SendGrid',
             auth: {
               user: process.env.SENDGRID_USER,
-              pass: process.env.SENDGRID_PASSWORD,
+              pass: process.env.SENDGRID_PASSWORD
             },
             tls: {
-              rejectUnauthorized: false,
-            },
+              rejectUnauthorized: false
+            }
           });
           return transporter.sendMail(mailOptions).then(() => {
-            req.flash('success', { msg: 'Success! Your password has been changed.' });
+            req.flash('success', {
+              msg: 'Success! Your password has been changed.'
+            });
           });
         }
         console.log(
@@ -354,7 +370,7 @@ exports.postReset = (req, res, next) => {
         );
         req.flash('warning', {
           msg:
-            'Your password has been changed, however we were unable to send you a confirmation email. We will be looking into it shortly.',
+            'Your password has been changed, however we were unable to send you a confirmation email. We will be looking into it shortly.'
         });
         return err;
       });
@@ -396,12 +412,16 @@ exports.postForgot = (req, res, next) => {
     return res.redirect('/forgot');
   }
 
-  const createRandomToken = randomBytesAsync(16).then(buf => buf.toString('hex'));
+  const createRandomToken = randomBytesAsync(16).then(buf =>
+    buf.toString('hex')
+  );
 
   const setRandomToken = token =>
     User.findOne({ email: req.body.email }).then(user => {
       if (!user) {
-        req.flash('errors', { msg: 'Account with that email address does not exist.' });
+        req.flash('errors', {
+          msg: 'Account with that email address does not exist.'
+        });
       } else {
         user.passwordResetToken = token;
         user.passwordResetExpires = Date.now() + 3600000; // 1 hour
@@ -419,8 +439,8 @@ exports.postForgot = (req, res, next) => {
       service: 'SendGrid',
       auth: {
         user: process.env.SENDGRID_USER,
-        pass: process.env.SENDGRID_PASSWORD,
-      },
+        pass: process.env.SENDGRID_PASSWORD
+      }
     });
     const mailOptions = {
       to: user.email,
@@ -429,13 +449,15 @@ exports.postForgot = (req, res, next) => {
       text: `You are receiving this email because you (or someone else) have requested the reset of the password for your account.\n\n
         Please click on the following link, or paste this into your browser to complete the process:\n\n
         http://${req.headers.host}/reset/${token}\n\n
-        If you did not request this, please ignore this email and your password will remain unchanged.\n`,
+        If you did not request this, please ignore this email and your password will remain unchanged.\n`
     };
     return transporter
       .sendMail(mailOptions)
       .then(() => {
         req.flash('info', {
-          msg: `An e-mail has been sent to ${user.email} with further instructions.`,
+          msg: `An e-mail has been sent to ${
+            user.email
+          } with further instructions.`
         });
       })
       .catch(err => {
@@ -447,21 +469,27 @@ exports.postForgot = (req, res, next) => {
             service: 'SendGrid',
             auth: {
               user: process.env.SENDGRID_USER,
-              pass: process.env.SENDGRID_PASSWORD,
+              pass: process.env.SENDGRID_PASSWORD
             },
             tls: {
-              rejectUnauthorized: false,
-            },
+              rejectUnauthorized: false
+            }
           });
           return transporter.sendMail(mailOptions).then(() => {
             req.flash('info', {
-              msg: `An e-mail has been sent to ${user.email} with further instructions.`,
+              msg: `An e-mail has been sent to ${
+                user.email
+              } with further instructions.`
             });
           });
         }
-        console.log('ERROR: Could not send forgot password email after security downgrade.\n', err);
+        console.log(
+          'ERROR: Could not send forgot password email after security downgrade.\n',
+          err
+        );
         req.flash('errors', {
-          msg: 'Error sending the password reset message. Please try again shortly.',
+          msg:
+            'Error sending the password reset message. Please try again shortly.'
         });
         return err;
       });

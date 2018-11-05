@@ -13,7 +13,7 @@ exports.index = (req, res) => {
 exports.test = (req, res, next) => {
   const user = new User({
     email: 'test@test.ca',
-    password: '123456789',
+    password: '123456789'
   });
 
   user.save((err, user) => {

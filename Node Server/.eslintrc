@@ -1,0 +1,23 @@
+{
+  "extends": ["prettier"],
+  "env": {
+    "node": true,
+    "mocha": true,
+    "es6": true
+  },
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": ["error"],
+    "comma-dangle": ["error", "always-multiline"],
+    "consistent-return": 0,
+    "implicit-arrow-linebreak": ["off"],
+    "no-param-reassign": 0,
+    "no-underscore-dangle": 0,
+    "no-shadow": 0,
+    "no-console": 0,
+    "no-plusplus": 0,
+    "no-unused-expressions": 0,
+    "no-unused-vars": ["error", { "argsIgnorePattern": "next" }],
+    "function-paren-newline": ["error", "always"]
+  }
+}
