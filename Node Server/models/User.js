@@ -17,7 +17,11 @@ const userSchema = new mongoose.Schema(
       picture: String,
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    collection: 'users',
+    autoIndex: true,
+  }
 );
 
 /**

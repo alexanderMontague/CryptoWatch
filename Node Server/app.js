@@ -24,7 +24,7 @@ const upload = multer({ dest: path.join(__dirname, 'uploads') });
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
-dotenv.load({ path: '.env.example' });
+dotenv.load({ path: '.env.keys' });
 
 /**
  * Controllers (route handlers).
@@ -59,7 +59,7 @@ mongoose
  * Express configuration.
  */
 app.set('host', process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0');
-app.set('port', process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 3001);
+app.set('port', process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 3003);
 app.use(expressStatusMonitor());
 app.use(compression());
 app.use(logger('dev'));
@@ -125,7 +125,11 @@ app.post('/account/profile', passportConfig.isAuthenticated, userController.post
 app.post('/account/password', passportConfig.isAuthenticated, userController.postUpdatePassword);
 app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
-app.get('/test', homeController.test);
+
+// TEST
+app.get('/test', homeController.getTest);
+app.post('/test', homeController.postTest);
+app.post('/lookup', homeController.postLookup);
 
 /**
  * Error Handler.
