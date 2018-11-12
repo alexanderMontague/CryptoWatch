@@ -8,7 +8,6 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const chalk = require('chalk');
 const errorHandler = require('errorhandler');
-const lusca = require('lusca');
 const dotenv = require('dotenv');
 const MongoStore = require('connect-mongo')(session);
 const flash = require('express-flash');
@@ -18,6 +17,7 @@ const passport = require('passport');
 const expressValidator = require('express-validator');
 const expressStatusMonitor = require('express-status-monitor');
 const multer = require('multer');
+const cors = require('cors');
 
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
@@ -88,8 +88,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-app.use(lusca.xframe('SAMEORIGIN'));
-app.use(lusca.xssProtection(true));
+app.use(cors()); // todo set CORS up
 app.disable('x-powered-by');
 app.use((req, res, next) => {
   res.locals.user = req.user;
@@ -144,7 +143,7 @@ app.use('/', express.static(path.join(__dirname, 'public'), { maxAge: 3155760000
 app.use(BASE_URL + '/public', publicRoutes);
 
 // For authenticated requests
-//app.use(BASE_URL + '/auth', authRoutes);
+app.use(BASE_URL + '/auth', authRoutes);
 
 /**
  * Error Handler.

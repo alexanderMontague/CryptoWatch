@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import css from './DetailsIndepth.scss';
 import { numberWithCommas } from '../../helpers';
 
+import { savePortfolio } from '../../helpers/requests';
 import ToggleButton from 'react-toggle-button';
 
 const DetailsIndepth = props => {
@@ -28,6 +30,11 @@ const DetailsIndepth = props => {
     }
   };
 
+  const showGraphHandler = () => {
+    console.log('toggle graph!');
+    savePortfolio(null, props.portfolio).then(res => console.log(res));
+  };
+
   return (
     <div className={css.detailsContentContainer}>
       <div className={css.detailHeaderRow}>
@@ -51,10 +58,7 @@ const DetailsIndepth = props => {
               colors={toggleColors}
               thumbStyle={thumbStyle}
               trackStyle={buttonStyle}
-              onToggle={showGraph => {
-                // showGraph toggle
-                console.log('toggle!');
-              }}
+              onToggle={showGraphHandler}
             />
           </div>
           <div className={css.buttonContainers}>
@@ -84,4 +88,8 @@ const DetailsIndepth = props => {
 
 DetailsIndepth.propTypes = {};
 
-export default DetailsIndepth;
+const mapStateToProps = state => ({
+  portfolio: state.portfolio
+});
+
+export default connect(mapStateToProps)(DetailsIndepth);

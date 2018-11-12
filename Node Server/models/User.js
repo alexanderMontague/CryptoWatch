@@ -16,6 +16,8 @@ const userSchema = new mongoose.Schema(
       website: String,
       picture: String,
     },
+
+    portfolio: {},
   },
   {
     timestamps: true,
