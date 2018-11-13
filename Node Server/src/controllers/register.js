@@ -3,12 +3,14 @@ const User = require('../../models/User');
 /*
 *   POST /api/v1/public/register
 *
+*   ENCODED
 *   REQ: {
 *     register: {
 *       email: String,
 *       username: String,
-*       password: String,
-*       terms: Boolean
+*       passwordOne: String,
+*       passwordTwo: String,
+*       terms: String (true / false)
 *     }
 *   }
 *
@@ -16,11 +18,15 @@ const User = require('../../models/User');
 *     response: {
 *       code: Integer,
 *       message: String,
-*       error: Boolean
+*       error: Boolean || null
 *     }
 *   }
 */
-exports.postRegisterUser = (req, res) => {
-  const { email, username, password, terms } = req.register;
-  console.log(req.register);
+postRegisterUser = (req, res) => {
+  //res.send(req.body);
+  res.send(new Buffer(req.body.register, 'base64').toString('ascii'));
+};
+
+module.exports = {
+  postRegisterUser,
 };

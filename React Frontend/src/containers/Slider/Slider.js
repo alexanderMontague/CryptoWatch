@@ -3,6 +3,9 @@ import css from './Slider.scss';
 import { connect } from 'react-redux';
 import { toggleMenu } from '../../actions';
 
+import { encodeBase64 } from '../../helpers';
+import { registerUser } from '../../helpers/requests';
+import { encode } from 'punycode';
 class Slider extends Component {
   state = {
     email: '',
@@ -14,6 +17,7 @@ class Slider extends Component {
 
   validateEmail = input => {
     // validate email
+    this.setState({ email: input.value });
   };
 
   validatePasswords = (passwordOne, passwordTwo) => {
@@ -24,10 +28,28 @@ class Slider extends Component {
         return { passwordTwo };
       }
     });
-    console.log('one', passwordOne, 'two', passwordTwo);
+    // do a passwords must match l8r
+    // maybe enforce password rules
   };
 
-  validate;
+  registerUser = event => {
+    event.preventDefault();
+    const { email, username, passwordOne, passwordTwo, terms } = this.state;
+    // encode register params
+    const registerObject = encodeBase64({
+      email,
+      username,
+      passwordOne,
+      passwordTwo,
+      terms
+    });
+
+    registerUser(registerObject)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {});
+  };
 
   render() {
     const { showMenu, isLoggedIn = false } = this.props; // TODO auth in redux
@@ -37,12 +59,6 @@ class Slider extends Component {
 
     const amountChangeHandler = input => {
       //console.log('From: ' + input.name, input.value);
-    };
-
-    const registerUser = event => {
-      event.preventDefault();
-      //const {}
-      console.log(event.target);
     };
 
     return (
@@ -70,7 +86,7 @@ class Slider extends Component {
                 <h3>Create an Account!</h3>
                 <form
                   className={css.addCoinForm}
-                  onSubmit={event => registerUser(event)}
+                  onSubmit={event => this.registerUser(event)}
                 >
                   <label>
                     Email:
@@ -78,7 +94,7 @@ class Slider extends Component {
                       type="text"
                       placeholder="Enter an Email"
                       name="email"
-                      onChange={input => amountChangeHandler(input.target)}
+                      onChange={input => this.validateEmail(input.target)}
                       className={
                         // renderPriceRequire
                         //   ? [css.addFormInput, css.requiredBorder].join(' ')
@@ -99,7 +115,9 @@ class Slider extends Component {
                       type="text"
                       placeholder="Enter a username"
                       name="username"
-                      onChange={input => amountChangeHandler(input.target)}
+                      onChange={input =>
+                        this.setState({ username: input.target.value })
+                      }
                     />
                   </label>
                   <label>

@@ -30,3 +30,13 @@ export const isInPortfolio = (state, searchCoin) => {
 export const numberWithCommas = number => {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
+
+// Base64 Encode Function
+// Can encode objects, arrays or strings
+export const encodeBase64 = plainData => {
+  let formattedData = plainData;
+  if (typeof plainData === Object || typeof plainData === Array) {
+    formattedData = JSON.stringify(plainData);
+  }
+  return btoa(JSON.stringify(formattedData));
+};

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { encode } from 'punycode';
 
 // External API's
 export const getCoinPrice = (ticker, baseCurrency, timeStamp) => {
@@ -37,10 +38,8 @@ export const savePortfolio = (user, portfolio) => {
 
 export const registerUser = encodedRegisterData => {
   return axios
-    .post('http://localhost:3003/api/v1/auth/register', {
-      register: {
-        ...encodedRegisterData
-      }
+    .post('http://localhost:3003/api/v1/public/register', {
+      register: encodedRegisterData
     })
     .then(res => res)
     .catch(err => err);
