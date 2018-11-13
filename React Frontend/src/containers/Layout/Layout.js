@@ -7,7 +7,7 @@ import { getCoinList } from '../../helpers/requests';
 import { toggleMenu, showDetails, hideDetails } from '../../actions';
 
 import AppBar from '../../components/AppBar/AppBar';
-import MenuSlider from '../../components/Slider/Slider';
+import MenuSlider from '../Slider/Slider';
 import Portfolio from '../Portfolio/Portfolio';
 import Search from '../Search/Search';
 import Details from '../Details/Details';
