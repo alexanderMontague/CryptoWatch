@@ -4,4 +4,5 @@ module.exports = {
   index: require('./home'),
   getTest: require('./home'),
   portfolio: require('./portfolio'),
+  register: require('./register'),
 };
