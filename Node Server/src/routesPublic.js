@@ -4,12 +4,13 @@ const router = require('express').Router();
 // const multer = require('multer');  // for file upload
 // const middleware = require('./middleware'); // for when we need middleware
 
-const { index, getTest, register } = require('./controllers');
+const { home, register } = require('./controllers');
 
-router.route('/').get(index.index);
-
-router.route('/getTest').get(getTest.getTest);
+router.route('/').get(home.index);
 
 router.route('/register').post(register.postRegisterUser);
+
+// WARNING DONT FUCK WITH THIS DEV STUFF ONLY IT WILL DELETE ALL USERS
+router.route('/deleteAllUsers').get(home.deleteAllUsers);
 
 module.exports = router;

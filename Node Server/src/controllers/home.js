@@ -8,43 +8,20 @@ index = (req, res) => {
   res.send('HELLO WORLD! you hit "/"');
 };
 
-// GET TEST
-getTest = (req, res, next) => {
-  const user = new User({
-    email: 'user@test.ca',
-    password: '12345',
-  });
-
-  user.save((err, user) => {
-    if (err) {
-      res.json(err);
-    }
-    res.setHeader('Content-Type', 'application/json');
-    res.json(user);
+/**
+ * GET /deleteAllUsers
+ * DO NOT FUCK WITH THIS
+ * DELETE ASAP
+ */
+deleteAllUsers = (req, res) => {
+  console.log('HERE');
+  User.remove({}, err => {
+    console.log('delete all users error: ' + err);
+    res.send('Successfully deleted all users. I hope you meant to do that');
   });
 };
 
-// POST TEST
-exports.postTest = (req, res, next) => {
-  // if (errors) {
-  //   res.json(errors);
-  // }
-  //console.log(req.query);
-  res.json(req.body);
-};
-
-// POST LOOKUP TEST
-exports.postLookup = (req, res) => {
-  const { email } = req.body;
-  // search by email but only get email and password back
-  User.find({ email }, 'email password', (err, user) => {
-    if (err) {
-      res.json(err);
-    }
-    res.json(user);
-  });
-};
-
+// example of updating user
 exports.postUpdate = (req, res) => {
   User.updateOne({ email: req.body.email }, { email: req.body.newEmail }, (err, raw) => {
     // (searched Document, updated fields, cb)
@@ -55,4 +32,4 @@ exports.postUpdate = (req, res) => {
   });
 };
 
-module.exports = { index, getTest };
+module.exports = { index, deleteAllUsers };

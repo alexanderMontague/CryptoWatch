@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { toggleMenu } from '../../actions';
 
 import { encodeBase64 } from '../../helpers';
-import { registerUser } from '../../helpers/requests';
+import { registerUser, deleteAllUsers } from '../../helpers/requests';
 import { encode } from 'punycode';
 class Slider extends Component {
   state = {
@@ -172,8 +172,8 @@ class Slider extends Component {
                       type="checkbox"
                       value={this.state.terms}
                       name="terms"
-                      onChange={input =>
-                        this.setState({ terms: input.target.value })
+                      onClick={() =>
+                        this.setState({ terms: !this.state.terms })
                       }
                     />
                   </label>
@@ -190,6 +190,15 @@ class Slider extends Component {
                     Register!
                   </button>
                 </form>
+                <button
+                  className={css.delButton}
+                  onClick={() => {
+                    // DELETE ASAP. ONLY FOR DEV WORK
+                    deleteAllUsers();
+                  }}
+                >
+                  DELETE ALL USERS FROM DB. SERIOUSLY.
+                </button>
               </div>
             )}
           </div>

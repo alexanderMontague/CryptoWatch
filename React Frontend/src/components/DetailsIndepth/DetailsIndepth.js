@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import css from './DetailsIndepth.scss';
 import { numberWithCommas } from '../../helpers';
 
-import { savePortfolio } from '../../helpers/requests';
 import ToggleButton from 'react-toggle-button';
 
 const DetailsIndepth = props => {
@@ -30,10 +29,7 @@ const DetailsIndepth = props => {
     }
   };
 
-  const showGraphHandler = () => {
-    console.log('toggle graph!');
-    savePortfolio(null, props.portfolio).then(res => console.log(res));
-  };
+  const showGraphHandler = () => {};
 
   return (
     <div className={css.detailsContentContainer}>

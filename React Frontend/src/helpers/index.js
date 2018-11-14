@@ -35,8 +35,8 @@ export const numberWithCommas = number => {
 // Can encode objects, arrays or strings
 export const encodeBase64 = plainData => {
   let formattedData = plainData;
-  if (typeof plainData === Object || typeof plainData === Array) {
+  if (typeof plainData === 'object' || typeof plainData === 'array') {
     formattedData = JSON.stringify(plainData);
   }
-  return btoa(JSON.stringify(formattedData));
+  return btoa(formattedData);
 };
