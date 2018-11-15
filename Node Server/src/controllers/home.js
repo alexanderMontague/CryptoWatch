@@ -14,7 +14,6 @@ index = (req, res) => {
  * DELETE ASAP
  */
 deleteAllUsers = (req, res) => {
-  console.log('HERE');
   User.remove({}, err => {
     console.log('delete all users error: ' + err);
     res.send('Successfully deleted all users. I hope you meant to do that');
