@@ -20,7 +20,7 @@ class Slider extends Component {
     this.setState({ email: input.value });
   };
 
-  validatePasswords = (passwordOne, passwordTwo) => {
+  updatePasswords = (passwordOne, passwordTwo) => {
     this.setState(prevState => {
       if (prevState.passwordOne !== passwordOne) {
         return { passwordOne };
@@ -133,10 +133,7 @@ class Slider extends Component {
                       placeholder="Enter a password"
                       name="passwordOne"
                       onChange={input =>
-                        this.validatePasswords(
-                          input.target.value,
-                          this.state.passwordTwo
-                        )
+                        this.setState({ passwordOne: input.target.value })
                       }
                     />
                   </label>
@@ -153,10 +150,7 @@ class Slider extends Component {
                       placeholder="Enter same password!"
                       name="passwordTwo"
                       onChange={input =>
-                        this.validatePasswords(
-                          this.state.passwordOne,
-                          input.target.value
-                        )
+                        this.setState({ passwordTwo: input.target.value })
                       }
                     />
                   </label>
