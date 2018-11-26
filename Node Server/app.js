@@ -27,22 +27,15 @@ const upload = multer({ dest: path.join(__dirname, 'uploads') });
 dotenv.load({ path: '.env.keys' });
 
 /**
- * Controllers (route handlers).
+ * Setup Authentication
  */
-// const homeController = require('./controllers/home');
-// const userController = require('./controllers/user');
-// const contactController = require('./controllers/contact');
+const passportConfig = require('./config/passport');
 
 /**
  * Get Routes
  */
 const authRoutes = require('./src/routesAuth');
 const publicRoutes = require('./src/routesPublic');
-
-/**
- * API keys and Passport configuration.
- */
-const passportConfig = require('./config/passport');
 
 /**
  * Setup / Initialization
@@ -99,15 +92,11 @@ app.use((req, res, next) => {
 app.use((req, res, next) => {
   // no idea but may be useful
   // After successful login, redirect back to the intended page
-  if (
-    !req.user &&
-    req.path !== '/login' &&
-    req.path !== '/signup' &&
-    !req.path.match(/^\/auth/) &&
-    !req.path.match(/\./)
-  ) {
+  if (!req.user && req.path !== '/login' && !req.path.match(/^\/auth/) && !req.path.match(/\./)) {
+    console.log('HERE ONE');
     req.session.returnTo = req.originalUrl;
   } else if (req.user && (req.path === '/account' || req.path.match(/^\/api/))) {
+    console.log('HERE TWO');
     req.session.returnTo = req.originalUrl;
   }
   next();

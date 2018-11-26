@@ -8,6 +8,11 @@ index = (req, res) => {
   res.send('HELLO WORLD! you hit "/"');
 };
 
+seeReq = (req, res) => {
+  console.log(req);
+  res.json(req.session);
+};
+
 /**
  * GET /deleteAllUsers
  * DO NOT FUCK WITH THIS
@@ -31,4 +36,4 @@ exports.postUpdate = (req, res) => {
   });
 };
 
-module.exports = { index, deleteAllUsers };
+module.exports = { index, deleteAllUsers, seeReq };

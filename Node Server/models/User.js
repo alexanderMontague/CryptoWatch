@@ -7,18 +7,6 @@ const userSchema = new mongoose.Schema(
     username: { type: String, unique: true },
     password: String,
     terms: Boolean,
-
-    //passwordResetToken: String,
-    //passwordResetExpires: Date,
-
-    // profile: {
-    //   name: String,
-    //   gender: String,
-    //   location: String,
-    //   website: String,
-    //   picture: String,
-    // },
-
     portfolio: {},
   },
   {

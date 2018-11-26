@@ -3,4 +3,5 @@ module.exports = {
   home: require('./home'),
   portfolio: require('./portfolio'),
   register: require('./register'),
+  login: require('./login'),
 };

@@ -1,6 +1,5 @@
 const passport = require('passport');
 const { Strategy: LocalStrategy } = require('passport-local');
-
 const User = require('../models/User');
 
 passport.serializeUser((user, done) => {
@@ -45,7 +44,8 @@ exports.isAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect('/login');
+  console.log('Authenticated');
+  res.send('AUTHENTICATED');
 };
 
 /**
@@ -57,6 +57,8 @@ exports.isAuthorized = (req, res, next) => {
   if (token) {
     next();
   } else {
-    res.redirect(`/auth/${provider}`);
+    console.log('No token');
+    res.send('No Token');
+    //res.redirect(`/auth/${provider}`);
   }
 };

@@ -3,14 +3,13 @@ import { Switch, Route } from 'react-router';
 
 import AuthWrapper from './containers/AuthWrapper/AuthWrapper';
 import Layout from './containers/Layout/Layout';
-import Details from './containers/Details/Details';
 
 const authorizedPaths = '/(auth|<more routes here>)';
 
 const routes = (
   <Switch>
     {/* Unauth Routes */}
-    <Route exact path="/test" component={Layout} />
+    <Route exact path="/" component={Layout} />
 
     {/* Auth Routes */}
     <Route path={authorizedPaths}>

@@ -5,7 +5,7 @@ import { toggleMenu } from '../../actions';
 
 import { encodeBase64 } from '../../helpers';
 import { registerUser, deleteAllUsers } from '../../helpers/requests';
-import { encode } from 'punycode';
+
 class Slider extends Component {
   state = {
     email: '',
@@ -35,13 +35,15 @@ class Slider extends Component {
   registerUser = event => {
     event.preventDefault();
     const { email, username, passwordOne, passwordTwo, terms } = this.state;
+    const { portfolio } = this.props;
     // encode register params
     const registerObject = encodeBase64({
       email,
       username,
       passwordOne,
       passwordTwo,
-      terms
+      terms,
+      portfolio
     });
 
     registerUser(registerObject)
@@ -203,7 +205,7 @@ class Slider extends Component {
 }
 
 const mapStateToProps = state => {
-  return { showMenu: state.showMenu };
+  return { showMenu: state.showMenu, portfolio: state.portfolio };
 };
 
 const mapDispatchToProps = dispatch => {

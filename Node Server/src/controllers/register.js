@@ -5,7 +5,7 @@ const { requiredFields } = require('../helpers/validations');
 /*
 *   POST /api/v1/public/register
 *
-*   ENCODED / Stringafied
+*   ENCODED
 *   REQ: {
 *     register: {
 *       email: String,
@@ -27,15 +27,15 @@ const { requiredFields } = require('../helpers/validations');
 */
 postRegisterUser = (req, res) => {
   const registerFields = decodeBody(req.body.register);
-  const { email, username, passwordOne, passwordTwo, terms } = registerFields;
+  const { email, username, passwordOne, passwordTwo, terms, portfolio } = registerFields;
 
-  console.log(registerFields);
   // requiredFields(registerFields);
   const newUser = new User({
     email,
     username,
     password: passwordOne, // for now until validation
     terms,
+    portfolio,
   });
 
   // before: do checking to see if existing user already exists
