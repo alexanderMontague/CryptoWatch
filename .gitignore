@@ -123,3 +123,6 @@ Temporary Items
 
 # Test Picture
 btg.png
+
+# .env Files
+.env.*
