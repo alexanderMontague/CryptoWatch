@@ -52,7 +52,7 @@ mongoose
     process.env.MONGODB_URI,
     { useNewUrlParser: true }
   )
-  .then(() => chalk.green('✓ MongoDB Connected'))
+  .then(() => console.log(chalk.green('✓'), 'MongoDB Connected!'))
   .catch(err => console.log('MongoDB Error: ', err));
 
 /**

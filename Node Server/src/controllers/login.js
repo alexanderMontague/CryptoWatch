@@ -1,6 +1,6 @@
 const User = require('../../models/User');
 const passport = require('passport');
-const { Strategy: LocalStrategy } = require('passport-local');
+const createResponse = require('../helpers');
 
 /*
 *   POST /api/v1/public/login
@@ -27,17 +27,17 @@ const { Strategy: LocalStrategy } = require('passport-local');
 postLoginUser = (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) {
-      return next(err);
+      res.json(createResponse(500, err, null, true));
     }
     if (!user) {
-      console.log('No User!', info);
-      res.send('No User!');
+      // standardize error codes
+      res.json(createResponse(200, info.msg, null, false));
     }
     req.logIn(user, err => {
       if (err) {
-        return next(err);
+        res.json(createResponse(500, err, null, true));
       }
-      res.json(`req.body: ${JSON.stringify(req.body)} successfully logged in! User: ${user}`);
+      res.json(createResponse(200, 'Successfully Logged In!', user, false));
     });
   })(req, res, next);
 };
