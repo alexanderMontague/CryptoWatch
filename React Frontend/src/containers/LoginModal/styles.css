@@ -66,3 +66,17 @@ body, html {
     outline: none;
     cursor: pointer;
 }
+
+.signupSpan {
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.signupLink {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.lilSpacing {
+    margin-top: 20px;
+}
