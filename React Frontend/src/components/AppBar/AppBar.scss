@@ -1,33 +1,26 @@
 .appBarWrapper {
-  height: 55px;
-  background-color: #64B5F6;
-  border-top: white 2px solid;
-  border-left: white 2px solid;
-  border-right: white 2px solid;
-  border-radius: 5px 5px 0 0;
-  margin: 0 20px;
-  box-shadow: rgba(29, 29, 29, 0.3) 0px 0px 1.25em 0.25em;
+  height: 80px;
+  background-color: white;
 }
 
 .appBarContent {
   display: flex;
-  height: 55px;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+  width: 90%;
+  margin: auto auto;
 }
 
 .menuIcon {
   height: 30px;
   width: 30px;
-  padding: 12px 0 0 30px;
 }
 
 
 .title {
   font-size: 30px;
-  font-weight: bold;
-  margin: auto;
-  padding-left: 10px;
-  padding-right: 70px;
-  color: white;
+  color: #3d4252;
 
   @media(max-width: 375px) {
     font-size: 7vw;
@@ -37,4 +30,10 @@
 
 .hamburgerButton:hover {
   cursor: pointer;
+}
+
+.loginButton {
+  color: #3d4252;
+  font-size: 16px;
+  font-family: Verdana;
 }

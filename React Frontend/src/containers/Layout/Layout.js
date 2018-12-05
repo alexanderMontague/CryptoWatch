@@ -11,6 +11,7 @@ import MenuSlider from '../Slider/Slider';
 import Portfolio from '../Portfolio/Portfolio';
 import Search from '../Search/Search';
 import Details from '../Details/Details';
+import LoginModal from '../LoginModal';
 
 class Layout extends Component {
   state = {
@@ -113,6 +114,7 @@ class Layout extends Component {
   render() {
     return (
       <div className={css.appWrapper}>
+        <LoginModal />
         <MenuSlider />
         <AppBar toggleMenu={this.props.toggleMenu} />
         <div className={css.mainContainer}>
