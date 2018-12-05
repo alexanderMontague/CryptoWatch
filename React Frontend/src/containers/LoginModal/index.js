@@ -1,6 +1,18 @@
 import React, {Component} from 'react';
+import Modal from 'react-modal';
 import styles from './styles.css';
 import {connect} from 'react-redux'
+
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
 
 const Input = props => (
   <label className={styles.inputContainer}>
@@ -14,7 +26,7 @@ const Input = props => (
 
 //Could be the worst code I've ever written, make sure names of input match names in state
 
-class LoginPage extends Component {
+class LoginModal extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -25,6 +37,7 @@ class LoginPage extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     this.props.submit(this.state);
+    this.props.closeModal();
   };
   handleChange = (event) => {
     const target = event.target;
@@ -35,7 +48,12 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <div className={styles.background}>
+      <Modal
+        isOpen={this.props.isOpen}
+        onRequestClose={this.props.closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
         <div className={styles.modalContainer}>
           <form
             onSubmit={this.handleSubmit}
@@ -50,19 +68,22 @@ class LoginPage extends Component {
             >Login</button>
           </form>
         </div>
-      </div>
+      </Modal>
     );
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return({
-    submit: (info) => {dispatch({ type: "LOGIN_SUCCESS", payload: info })}
+    submit: (info) => {dispatch({ type: "LOGIN_SUCCESS", payload: info })},
+    closeModal: () => {dispatch({ type: "CLOSE_LOGIN_MODAL" })}
   })
 }
 
 function mapStateToProps(state) {
-  return state;
+  return {
+    isOpen: state.loginReducer.loginModalOpen
+  };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginModal);

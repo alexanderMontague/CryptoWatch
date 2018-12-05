@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router';
 
 import Layout from './containers/Layout/Layout';
-import LoginPage from './containers/LoginPage';
+import LoginPage from './containers/LoginModal';
 
 
 const fakeAuth = {
@@ -20,7 +20,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 const routes = (
   <Switch>
     <Route exact path="/" component={Layout} />
-    <Route path="/login" component={LoginPage} />
     <PrivateRoute path="/private" component={Layout} />
   </Switch>
 );
