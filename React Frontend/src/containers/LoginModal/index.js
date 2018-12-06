@@ -3,6 +3,9 @@ import Modal from 'react-modal';
 import styles from './styles.css';
 import { connect } from 'react-redux';
 
+import { encodeBase64 } from '../../helpers';
+import { registerUser } from '../../helpers/requests';
+
 const customStyles = {
   content: {
     top: '50%',
@@ -41,16 +44,16 @@ class LoginModal extends Component {
     confirmPass: ''
   };
 
-  handleSubmit = event => {
+  handleLogin = event => {
     event.preventDefault();
     this.props.submit(this.state);
-    this.props.closeModal();
+    //this.props.closeModal();
   };
 
-  handleSignup = event => {
+  handleRegister = event => {
     event.preventDefault();
     this.props.signup(this.state);
-    this.props.closeModal();
+    //this.props.closeModal();
   };
 
   handleChange = event => {
@@ -71,7 +74,7 @@ class LoginModal extends Component {
         <div className={styles.modalContainer}>
           {this.state.login ? (
             <form
-              onSubmit={this.handleSubmit}
+              onSubmit={this.handleLogin}
               className={styles.contentContainer}
             >
               <div>
@@ -104,7 +107,7 @@ class LoginModal extends Component {
             </form>
           ) : (
             <form
-              onSubmit={this.handleSignup}
+              onSubmit={this.handleRegister}
               className={styles.contentContainer}
             >
               <div>
@@ -158,7 +161,8 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    isOpen: state.loginState.loginModalOpen
+    isOpen: state.loginState.loginModalOpen,
+    portfolio: state.tradeState.portfolio
   };
 };
 

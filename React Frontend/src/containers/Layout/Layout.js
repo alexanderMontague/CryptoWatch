@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 import { isInPortfolio } from '../../helpers';
 import { getCoinList } from '../../helpers/requests';
 
-import { toggleMenu, showDetails, hideDetails } from '../../actions';
+import {
+  toggleMenu,
+  showDetails,
+  hideDetails
+} from '../../actions/tradeActions';
 
 import AppBar from '../../components/AppBar/AppBar';
 import MenuSlider from '../Slider/Slider';

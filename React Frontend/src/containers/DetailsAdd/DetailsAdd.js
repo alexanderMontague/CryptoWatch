@@ -3,7 +3,7 @@ import css from './DetailsAdd.scss';
 import { connect } from 'react-redux';
 import { convertCurrency } from '../../helpers';
 import { getCoinPrice } from '../../helpers/requests';
-import { addToPortfolio } from '../../actions';
+import { addToPortfolio } from '../../actions/tradeActions';
 
 import DatePicker from 'react-datepicker';
 import moment from 'moment';

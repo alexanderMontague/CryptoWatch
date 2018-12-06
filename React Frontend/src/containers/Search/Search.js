@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import css from './Search.scss';
 
 import { connect } from 'react-redux';
-import { selectCoin, hideDetails } from '../../actions';
+import { selectCoin, hideDetails } from '../../actions/tradeActions';
 
 import Header from '../../components/SectionHeader/Header';
 import SearchItem from '../../components/SearchItem/SearchItem';

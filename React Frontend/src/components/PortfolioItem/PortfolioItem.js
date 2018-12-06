@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import css from './PortfolioItem.scss';
 
-import { selectCoin, showDetails } from '../../actions';
+import { selectCoin, showDetails } from '../../actions/tradeActions';
 import { numberWithCommas } from '../../helpers';
 import CoinLots from '../CoinLots/CoinLots';
 import chevronDown from '../../assets/chevron-arrow-down.png';
