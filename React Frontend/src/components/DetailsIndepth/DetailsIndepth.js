@@ -85,7 +85,7 @@ const DetailsIndepth = props => {
 DetailsIndepth.propTypes = {};
 
 const mapStateToProps = state => ({
-  portfolio: state.portfolio
+  portfolio: state.tradeState.portfolio
 });
 
 export default connect(mapStateToProps)(DetailsIndepth);

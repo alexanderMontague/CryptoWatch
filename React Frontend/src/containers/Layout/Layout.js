@@ -149,9 +149,9 @@ class Layout extends Component {
 
 const mapStateToProps = state => {
   return {
-    showMenu: state.showMenu,
-    selectedCoin: state.selectedCoin,
-    portfolio: state.portfolio
+    showMenu: state.tradeState.showMenu,
+    selectedCoin: state.tradeState.selectedCoin,
+    portfolio: state.tradeState.portfolio
   };
 };
 

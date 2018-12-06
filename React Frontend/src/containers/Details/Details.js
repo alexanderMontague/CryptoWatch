@@ -135,9 +135,9 @@ class Details extends Component {
 
 const mapStateToProps = state => {
   return {
-    baseCurrency: state.baseCurrency,
-    selectedBaseCurrency: state.selectedBaseCurrency,
-    showDetails: state.showDetails
+    baseCurrency: state.tradeState.baseCurrency,
+    selectedBaseCurrency: state.tradeState.selectedBaseCurrency,
+    showDetails: state.tradeState.showDetails
   };
 };
 

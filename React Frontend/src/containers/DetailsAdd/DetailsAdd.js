@@ -245,7 +245,7 @@ class DetailsAdd extends Component {
 
 const mapStateToProps = state => {
   return {
-    selectedBaseCurrency: state.selectedBaseCurrency
+    selectedBaseCurrency: state.tradeState.selectedBaseCurrency
   };
 };
 

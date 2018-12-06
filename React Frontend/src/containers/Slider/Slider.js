@@ -54,7 +54,7 @@ class Slider extends Component {
   };
 
   render() {
-    const { showMenu, isLoggedIn = false } = this.props; // TODO auth in redux
+    const { showMenu, isLoggedIn = true } = this.props; // TODO auth in redux
     const menuSliderStyle = showMenu
       ? [css.menuModal, css.Open]
       : [css.menuModal, css.Close];
@@ -205,7 +205,10 @@ class Slider extends Component {
 }
 
 const mapStateToProps = state => {
-  return { showMenu: state.showMenu, portfolio: state.portfolio };
+  return {
+    showMenu: state.tradeState.showMenu,
+    portfolio: state.tradeState.portfolio
+  };
 };
 
 const mapDispatchToProps = dispatch => {

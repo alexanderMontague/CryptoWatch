@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import loginReducer from './login'
-import niceReducerBud from './shit'
+import loginState from './login';
+import tradeState from './trade';
 
 const rootReducer = combineReducers({
-   niceReducerBud,
-   loginReducer,
+  tradeState,
+  loginState
 });
 
 export default rootReducer;

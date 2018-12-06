@@ -6,7 +6,7 @@ const defaultState = {
   portfolio: {}
 };
 
-const peasantReducer = (prevState=defaultState, action) => {
+const tradeState = (prevState = defaultState, action) => {
   switch (action.type) {
     case 'TOGGLE_MENU':
       return {
@@ -55,4 +55,4 @@ const peasantReducer = (prevState=defaultState, action) => {
   }
 };
 
-export default peasantReducer;
+export default tradeState;

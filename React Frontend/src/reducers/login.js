@@ -1,14 +1,14 @@
 const initialState = {
   loggedIn: false,
-  loginModalOpen: false,
+  loginModalOpen: false
 };
 
-const authReducer = (prevState=initialState, action) => {
+const authReducer = (prevState = initialState, action) => {
   switch (action.type) {
     case 'LOGIN_SUCCESS':
       return { ...prevState, loggedIn: true };
     case 'SIGNUP_SUCCESS':
-      console.log(action.payload);
+      // todo signup stuff
       return prevState;
     case 'OPEN_LOGIN_MODAL':
       return { ...prevState, loginModalOpen: true };

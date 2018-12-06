@@ -74,7 +74,7 @@ class Portfolio extends Component {
 
 const mapStateToProps = state => {
   return {
-    portfolio: state.niceReducerBud.portfolio
+    portfolio: state.tradeState.portfolio
   };
 };
 

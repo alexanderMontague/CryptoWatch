@@ -112,7 +112,7 @@ class Search extends Component {
 }
 
 const mapStateToProps = state => ({
-  selectedCoin: state.selectedCoin
+  selectedCoin: state.tradeState.selectedCoin
 });
 
 // const mapDispatchToProps = dispatch => {
