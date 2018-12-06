@@ -126,3 +126,8 @@ btg.png
 
 # .env Files
 .env.*
+
+*.xml
+.idea/
+*.iml
+package-lock.json

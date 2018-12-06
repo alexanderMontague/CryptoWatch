@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import css from './AppBar.scss';
+import ModalButton from '../ModalButton';
 
 import hamburgerIcon from '../../assets/burgerIcon.png';
 
@@ -12,6 +12,7 @@ const AppBar = props => {
           <img className={css.menuIcon} src={hamburgerIcon} />
         </span>
         <span className={css.title}>CryptoWatch</span>
+        <ModalButton open ><span className={css.loginButton}>Login</span></ModalButton>
       </span>
     </div>
   );

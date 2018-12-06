@@ -1,22 +1,26 @@
 import React from 'react';
-import { Switch, Route } from 'react-router';
+import { Switch, Route, Redirect } from 'react-router';
 
-import AuthWrapper from './containers/AuthWrapper/AuthWrapper';
 import Layout from './containers/Layout/Layout';
+import LoginPage from './containers/LoginModal';
 
-const authorizedPaths = '/(auth|<more routes here>)';
+
+const fakeAuth = {
+  isAuthenticated: false
+};
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={(props) => (
+    fakeAuth.isAuthenticated === true
+      ? <Component {...props} />
+      : <Redirect to='/login' />
+  )} />
+);
 
 const routes = (
   <Switch>
-    {/* Unauth Routes */}
     <Route exact path="/" component={Layout} />
-
-    {/* Auth Routes */}
-    <Route path={authorizedPaths}>
-      <AuthWrapper>
-        <Route exact path="/auth" component={Layout} />
-      </AuthWrapper>
-    </Route>
+    <PrivateRoute path="/private" component={Layout} />
   </Switch>
 );
 
