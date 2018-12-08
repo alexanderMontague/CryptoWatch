@@ -1,6 +1,5 @@
 const initialState = {
-  loggedIn: false,
-  loginModalOpen: false
+  loggedIn: false
 };
 
 const authReducer = (prevState = initialState, action) => {
@@ -10,10 +9,6 @@ const authReducer = (prevState = initialState, action) => {
     case 'SIGNUP_SUCCESS':
       // todo signup stuff
       return prevState;
-    case 'OPEN_LOGIN_MODAL':
-      return { ...prevState, loginModalOpen: true };
-    case 'CLOSE_LOGIN_MODAL':
-      return { ...prevState, loginModalOpen: false };
     default:
       return prevState;
   }

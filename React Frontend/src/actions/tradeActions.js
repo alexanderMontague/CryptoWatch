@@ -1,12 +1,6 @@
 // ACTIONS
 // TODO: abstract action types to constants
 
-export const toggleMenu = () => {
-  return {
-    type: 'TOGGLE_MENU'
-  };
-};
-
 export const selectCoin = coinTicker => {
   return {
     type: 'SELECT_COIN',

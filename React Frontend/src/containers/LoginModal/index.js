@@ -3,6 +3,8 @@ import Modal from 'react-modal';
 import styles from './styles.css';
 import { connect } from 'react-redux';
 
+import { toggleModal } from '../../actions/interfaceActions';
+
 import { encodeBase64 } from '../../helpers';
 import { registerUser } from '../../helpers/requests';
 
@@ -47,13 +49,13 @@ class LoginModal extends Component {
   handleLogin = event => {
     event.preventDefault();
     this.props.submit(this.state);
-    //this.props.closeModal();
+    //use this.props.toggleModal()
   };
 
   handleRegister = event => {
     event.preventDefault();
     this.props.signup(this.state);
-    //this.props.closeModal();
+    //use this.props.toggleModal()
   };
 
   handleChange = event => {
@@ -67,7 +69,7 @@ class LoginModal extends Component {
     return (
       <Modal
         isOpen={this.props.isOpen}
-        onRequestClose={this.props.closeModal}
+        onRequestClose={this.props.toggleModal}
         style={customStyles}
         contentLabel="Example Modal"
       >
@@ -145,28 +147,28 @@ class LoginModal extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    submit: info => {
-      dispatch({ type: 'LOGIN_SUCCESS', payload: info });
-    },
-    signup: info => {
-      dispatch({ type: 'SIGNUP_SUCCESS', payload: info });
-    },
-    closeModal: () => {
-      dispatch({ type: 'CLOSE_LOGIN_MODAL' });
-    }
-  };
-};
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     submit: info => {
+//       dispatch({ type: 'LOGIN_SUCCESS', payload: info });
+//     },
+//     signup: info => {
+//       dispatch({ type: 'SIGNUP_SUCCESS', payload: info });
+//     },
+//     toggleModal: () => {
+//       dispatch(toggleModal);
+//     }
+//   };
+// };
 
 const mapStateToProps = state => {
   return {
-    isOpen: state.loginState.loginModalOpen,
+    isOpen: state.interfaceState.showModal,
     portfolio: state.tradeState.portfolio
   };
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  { toggleModal }
 )(LoginModal);

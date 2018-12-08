@@ -1,4 +1,4 @@
-const defaultState = {
+const initialState = {
   showMenu: false,
   showDetails: false,
   baseCurrency: 'USD', // Base currency that all coin price data is fetched from. This is because CryptoCompare API has an abundance of American exchanges to source from
@@ -6,7 +6,7 @@ const defaultState = {
   portfolio: {}
 };
 
-const tradeState = (prevState = defaultState, action) => {
+const tradeState = (prevState = initialState, action) => {
   switch (action.type) {
     case 'TOGGLE_MENU':
       return {

@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import css from './Slider.scss';
 import { connect } from 'react-redux';
-import { toggleMenu } from '../../actions/tradeActions';
+import { toggleMenu } from '../../actions/interfaceActions';
 
 import { encodeBase64 } from '../../helpers';
 import { registerUser, deleteAllUsers } from '../../helpers/requests';
