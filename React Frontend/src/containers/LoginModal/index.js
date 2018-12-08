@@ -54,7 +54,7 @@ class LoginModal extends Component {
 
   handleRegister = event => {
     event.preventDefault();
-    this.props.signup(this.state);
+    this.props.registerUser(this.state);
     //use this.props.toggleModal()
   };
 
@@ -170,5 +170,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { toggleModal }
+  { toggleModal, registerUser }
 )(LoginModal);
