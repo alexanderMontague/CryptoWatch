@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styles from './styles.css';
+import styles from './styles.scss';
 import { toggleModal } from '../../actions/interfaceActions';
 
 class modalToggle extends Component {

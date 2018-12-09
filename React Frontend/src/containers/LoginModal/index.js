@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
-import styles from './styles.css';
 import { connect } from 'react-redux';
+import styles from './styles.scss';
 
 import { toggleModal } from '../../actions/interfaceActions';
 import { registerUser } from '../../actions/authActions';
 
 import { encodeBase64 } from '../../helpers';
-//import { registerUser } from '../../helpers/requests';
 
 const customStyles = {
   content: {
@@ -128,6 +127,11 @@ class LoginModal extends Component {
             >
               <div>
                 <span className={styles.loginHeader}>Register an Account</span>
+                <Input
+                  onChange={this.handleChange}
+                  label="Username"
+                  name="signupUsername"
+                />
                 <Input
                   onChange={this.handleChange}
                   label="Email"

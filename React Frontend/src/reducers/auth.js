@@ -1,5 +1,6 @@
 const initialState = {
-  loggedIn: false
+  loggedIn: false,
+  isRegisterLoading: false
 };
 
 const authReducer = (prevState = initialState, action) => {

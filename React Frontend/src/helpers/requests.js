@@ -1,6 +1,13 @@
 import axios from 'axios';
 
 // External API's
+
+/**
+ * Fetch a coin's current price given it's ticker, base currency, and historical data
+ * @param {string} ticker
+ * @param {string} baseCurrency
+ * @param {unix-time string} timeStamp
+ */
 export const getCoinPrice = (ticker, baseCurrency, timeStamp) => {
   return axios
     .get(
@@ -14,6 +21,9 @@ export const getCoinPrice = (ticker, baseCurrency, timeStamp) => {
     });
 };
 
+/**
+ * Fetch a coin list containing the names and tickers of all supported coins
+ */
 export const getCoinList = () => {
   return axios
     .get('https://min-api.cryptocompare.com/data/all/coinlist')
@@ -40,7 +50,7 @@ const isDev = true;
 const BASE_URL = isDev ? 'http://localhost:3003/api/v1' : 'TBD';
 
 /**
- *
+ * Save the user's current portfolio to their account
  * @param {TBD} user
  * @param {Object} portfolio
  */
@@ -54,7 +64,7 @@ export const savePortfolio = (user, portfolio) => {
 };
 
 /**
- *
+ * Register a new user given an encoded register user object
  * @param {Base64 String} encodedRegisterData
  */
 export const registerUser = encodedRegisterData => {
