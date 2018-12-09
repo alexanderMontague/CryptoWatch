@@ -4,9 +4,10 @@ import styles from './styles.css';
 import { connect } from 'react-redux';
 
 import { toggleModal } from '../../actions/interfaceActions';
+import { registerUser } from '../../actions/authActions';
 
 import { encodeBase64 } from '../../helpers';
-import { registerUser } from '../../helpers/requests';
+//import { registerUser } from '../../helpers/requests';
 
 const customStyles = {
   content: {
@@ -54,7 +55,9 @@ class LoginModal extends Component {
 
   handleRegister = event => {
     event.preventDefault();
-    this.props.registerUser(this.state);
+
+    this.props.registerUser('test payload');
+    //this.props.registerUser(this.state);
     //use this.props.toggleModal()
   };
 

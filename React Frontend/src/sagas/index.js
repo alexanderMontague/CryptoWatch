@@ -1,8 +1,6 @@
 import { put, takeLatest, all } from 'redux-saga/effects';
-import { authSaga } from './authSagas'
+import { authSaga } from './authSagas';
 
 export default function* rootSaga() {
-  yield all([
-    authSaga(),
-  ]);
+  yield all([authSaga()]);
 }

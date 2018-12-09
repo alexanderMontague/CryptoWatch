@@ -1,8 +1,12 @@
 import { put, takeLatest, all } from 'redux-saga/effects';
+import axios from 'axios';
 
 function* postUser() {
-  const response = yield call('https://newsapi.org/v1/articles?')
+  const response = yield axios
+    .get('https://jsonplaceholder.typicode.com/users')
+    .then(res => res.data);
+  console.log(response);
 }
-export default function* authSaga() {
-  yield takeLatest('REGISTER_USER', postUser)
+export function* authSaga() {
+  yield takeLatest('REGISTER_USER', postUser);
 }

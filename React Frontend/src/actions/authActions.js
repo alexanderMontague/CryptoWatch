@@ -1,14 +1,14 @@
-export const registerUser = (data) => ({
+export const registerUser = data => ({
   type: 'REGISTER_USER',
-  data,
+  payload: data
 });
 
-export const registerSuccess = (data) => ({
+export const registerSuccess = data => ({
   type: 'REGISTER_SUCCESS',
-  data,
+  payload: data
 });
 
-export const registerFailed = (data) => ({
+export const registerFailed = data => ({
   type: 'REGISTER_FAILED',
-  data,
+  payload: data
 });
