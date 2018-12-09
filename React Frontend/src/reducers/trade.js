@@ -8,12 +8,6 @@ const initialState = {
 
 const tradeState = (prevState = initialState, action) => {
   switch (action.type) {
-    case 'TOGGLE_MENU':
-      return {
-        ...prevState,
-        showMenu: !prevState.showMenu
-      };
-
     case 'SELECT_COIN':
       return {
         ...prevState,

@@ -206,7 +206,7 @@ class Slider extends Component {
 
 const mapStateToProps = state => {
   return {
-    showMenu: state.tradeState.showMenu,
+    showMenu: state.interfaceState.showMenu,
     portfolio: state.tradeState.portfolio
   };
 };

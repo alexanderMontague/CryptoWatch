@@ -43,6 +43,7 @@ class LoginModal extends Component {
     email: '',
     pass: '',
     signupEmail: '',
+    signupUsername: '',
     signupPass: '',
     confirmPass: ''
   };
@@ -55,8 +56,18 @@ class LoginModal extends Component {
 
   handleRegister = event => {
     event.preventDefault();
+    const { signupUsername, signupEmail, signupPass, confirmPass } = this.state;
+    const { registerUser, portfolio } = this.props;
 
-    this.props.registerUser('test payload');
+    const registerObject = encodeBase64({
+      email: signupEmail,
+      username: signupUsername,
+      passwordOne: signupPass,
+      passwordTwo: confirmPass,
+      terms: false,
+      portfolio
+    });
+    registerUser(registerObject);
     //this.props.registerUser(this.state);
     //use this.props.toggleModal()
   };

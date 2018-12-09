@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
-import loginState from './login';
+import authState from './auth';
 import tradeState from './trade';
 import interfaceState from './interface';
 
 const rootReducer = combineReducers({
   tradeState,
-  loginState,
+  authState,
   interfaceState
 });
 

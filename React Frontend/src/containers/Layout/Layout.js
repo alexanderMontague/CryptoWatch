@@ -150,7 +150,7 @@ class Layout extends Component {
 
 const mapStateToProps = state => {
   return {
-    showMenu: state.tradeState.showMenu,
+    showMenu: state.interfaceState.showMenu,
     selectedCoin: state.tradeState.selectedCoin,
     portfolio: state.tradeState.portfolio
   };
