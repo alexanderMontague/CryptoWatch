@@ -79,6 +79,8 @@ class LoginModal extends Component {
   };
 
   render() {
+    const { registerStatus } = this.props;
+
     return (
       <Modal
         isOpen={this.props.isOpen}
@@ -127,6 +129,11 @@ class LoginModal extends Component {
             >
               <div>
                 <span className={styles.loginHeader}>Register an Account</span>
+                {registerStatus.error ? (
+                  <span className={styles.registerError}>
+                    {registerStatus.message}
+                  </span>
+                ) : null}
                 <Input
                   onChange={this.handleChange}
                   label="Username"
@@ -182,7 +189,8 @@ class LoginModal extends Component {
 const mapStateToProps = state => {
   return {
     isOpen: state.interfaceState.showModal,
-    portfolio: state.tradeState.portfolio
+    portfolio: state.tradeState.portfolio,
+    registerStatus: state.authState.registerStatus
   };
 };
 

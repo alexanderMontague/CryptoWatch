@@ -8,7 +8,7 @@ export const registerSuccess = data => ({
   payload: data
 });
 
-export const registerFailed = data => ({
-  type: 'REGISTER_FAILED',
+export const registerFailure = data => ({
+  type: 'REGISTER_FAILURE',
   payload: data
 });

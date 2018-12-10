@@ -72,8 +72,13 @@ export const registerUser = encodedRegisterData => {
     .post(`${BASE_URL}/public/register`, {
       register: encodedRegisterData
     })
-    .then(res => res)
-    .catch(err => err);
+    .then(res => res.data) // response formatted in BE
+    .catch(err => ({
+      code: 400,
+      data: null,
+      error: true,
+      message: err.message
+    }));
 };
 
 /**
@@ -84,5 +89,5 @@ export const registerUser = encodedRegisterData => {
 export const deleteAllUsers = () => {
   return axios
     .get(`${BASE_URL}/public/deleteAllUsers`)
-    .then(console.log('Deleted all users. I hope you meant to do that.'));
+    .then(alert('Deleted all users. I hope you meant to do that.'));
 };

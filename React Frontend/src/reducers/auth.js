@@ -1,6 +1,7 @@
 const initialState = {
   loggedIn: false,
-  isRegisterLoading: false
+  isRegisterLoading: false,
+  registerStatus: {}
 };
 
 const authReducer = (prevState = initialState, action) => {
@@ -8,11 +9,17 @@ const authReducer = (prevState = initialState, action) => {
     case 'REGISTER_USER':
       return { ...prevState, isRegisterLoading: true };
     case 'REGISTER_SUCCESS':
-      console.log('register success in reducer:', action.payload);
-      return { ...prevState, isRegisterLoading: false };
+      return {
+        ...prevState,
+        isRegisterLoading: false,
+        registerStatus: action.payload
+      };
     case 'REGISTER_FAILURE':
-      console.log('register fail in reducer:', action.payload);
-      return { ...prevState, isRegisterLoading: false };
+      return {
+        ...prevState,
+        isRegisterLoading: false,
+        registerStatus: action.payload
+      };
     case 'LOGIN_SUCCESS':
       return { ...prevState, loggedIn: true };
     case 'SIGNUP_SUCCESS':

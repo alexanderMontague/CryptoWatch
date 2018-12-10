@@ -1,82 +1,88 @@
-body, html {
-    height: 100%;
-    margin: 0;
-    font-family: Verdana;
+body,
+html {
+  height: 100%;
+  margin: 0;
+  font-family: Verdana;
 }
 
 #app {
-    height: 100%;
+  height: 100%;
 }
 
 .background {
-    height: 100%;
-    background-image: url("https://source.unsplash.com/random");
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
+  height: 100%;
+  background-image: url('https://source.unsplash.com/random');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
 }
 
 .modalContainer {
-    height: 400px;
-    width: 400px;
-    margin: auto auto;
-    border-radius: 4px;
-    background-color: white;
+  height: 400px;
+  width: 400px;
+  margin: auto auto;
+  border-radius: 4px;
+  background-color: white;
 }
 
 .contentContainer {
-    height: 300px;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    width: 70%;
-    margin: auto auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  height: 300px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  width: 70%;
+  margin: auto auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .inputContainer {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .inputContainer input {
-    outline: none;
-    font-size: 14px;
-    padding: 6px;
-    margin-top: 8px;
-    border-width: 0px 0px 1px 0px;
+  outline: none;
+  font-size: 14px;
+  padding: 6px;
+  margin-top: 8px;
+  border-width: 0px 0px 1px 0px;
 }
 
 .loginHeader {
-    font-size: 16px;
-    line-height: 1.5rem;
-    margin-bottom: 4px;
+  font-size: 16px;
+  line-height: 1.5rem;
+  margin-bottom: 4px;
 }
 
 .submitButton {
-    font-size: 14px;
-    font-weight: 500;
-    color: white;
-    background-color: #3d4252;
-    padding: 10px 30px 10px 30px;
-    border-radius: 5px;
-    border-color: #3d4252;
-    outline: none;
-    cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  background-color: #3d4252;
+  padding: 10px 30px 10px 30px;
+  border-radius: 5px;
+  border-color: #3d4252;
+  outline: none;
+  cursor: pointer;
 }
 
 .signupSpan {
-    font-size: 14px;
-    margin-top: 20px;
+  font-size: 14px;
+  margin-top: 20px;
 }
 
 .signupLink {
-    cursor: pointer;
-    text-decoration: underline;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .lilSpacing {
-    margin-top: 20px;
+  margin-top: 20px;
+}
+
+.registerError {
+  color: red;
+  font-weight: 500;
 }

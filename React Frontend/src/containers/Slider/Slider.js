@@ -46,15 +46,16 @@ class Slider extends Component {
       portfolio
     });
 
-    registerUser(registerObject)
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {});
+    console.log('wrong register!');
+    // registerUser(registerObject)
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => {});
   };
 
   render() {
-    const { showMenu, isLoggedIn = true } = this.props; // TODO auth in redux
+    const { showMenu, isLoggedIn = false } = this.props; // TODO auth in redux
     const menuSliderStyle = showMenu
       ? [css.menuModal, css.Open]
       : [css.menuModal, css.Close];
