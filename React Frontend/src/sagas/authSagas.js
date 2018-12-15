@@ -1,10 +1,9 @@
 import { put, takeLatest, all } from 'redux-saga/effects';
-import axios from 'axios';
 import { registerSuccess, registerFailure } from '../actions/authActions';
 import { registerUser } from '../helpers/requests';
 
-function* attemptRegisterUser(action) {
-  const registerResponse = yield registerUser(action.payload);
+function* attemptRegisterUser({ payload }) {
+  const registerResponse = yield registerUser(payload);
 
   if (registerResponse.error) {
     yield put(registerFailure(registerResponse));

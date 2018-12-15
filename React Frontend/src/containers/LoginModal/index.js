@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import styles from './styles.scss';
 
 import { toggleModal } from '../../actions/interfaceActions';
-import { registerUser } from '../../actions/authActions';
+import { registerUser, loginUser } from '../../actions/authActions';
 
 import { encodeBase64 } from '../../helpers';
 
@@ -39,8 +39,8 @@ class LoginModal extends Component {
 
   state = {
     login: true,
-    email: '',
-    pass: '',
+    loginIdentifier: '',
+    loginPass: '',
     signupEmail: '',
     signupUsername: '',
     signupPass: '',
@@ -49,7 +49,17 @@ class LoginModal extends Component {
 
   handleLogin = event => {
     event.preventDefault();
-    this.props.submit(this.state);
+
+    const { loginIdentifier, loginPass } = this.state;
+    const { loginUser } = this.props;
+
+    const loginObject = encodeBase64({
+      identifier: loginIdentifier,
+      password: loginPass
+    });
+
+    loginUser(loginObject);
+
     //use this.props.toggleModal()
   };
 
@@ -63,11 +73,12 @@ class LoginModal extends Component {
       username: signupUsername,
       passwordOne: signupPass,
       passwordTwo: confirmPass,
-      terms: false,
+      terms: null, // add checkbox if needed later
       portfolio
     });
+
     registerUser(registerObject);
-    //this.props.registerUser(this.state);
+
     //use this.props.toggleModal()
   };
 
@@ -80,6 +91,20 @@ class LoginModal extends Component {
 
   render() {
     const { registerStatus } = this.props;
+
+    let registerMessage = null;
+
+    if (registerStatus.message) {
+      registerStatus.error
+        ? (registerMessage = (
+            <div className={styles.registerError}>{registerStatus.message}</div>
+          ))
+        : (registerMessage = (
+            <div className={styles.registerSuccess}>
+              {registerStatus.message}
+            </div>
+          ));
+    }
 
     return (
       <Modal
@@ -98,13 +123,13 @@ class LoginModal extends Component {
                 <span className={styles.loginHeader}>Log In</span>
                 <Input
                   onChange={this.handleChange}
-                  label="Email"
-                  name="email"
+                  label="Username or Email"
+                  name="loginIdentifier"
                 />
                 <Input
                   onChange={this.handleChange}
                   label="Password"
-                  name="pass"
+                  name="loginPass"
                 />
                 <div className={styles.lilSpacing}>
                   <span className={styles.signupSpan}>
@@ -129,11 +154,9 @@ class LoginModal extends Component {
             >
               <div>
                 <span className={styles.loginHeader}>Register an Account</span>
-                {registerStatus.error ? (
-                  <span className={styles.registerError}>
-                    {registerStatus.message}
-                  </span>
-                ) : null}
+
+                {registerMessage}
+
                 <Input
                   onChange={this.handleChange}
                   label="Username"
@@ -196,5 +219,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { toggleModal, registerUser }
+  { toggleModal, registerUser, loginUser }
 )(LoginModal);

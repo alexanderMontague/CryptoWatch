@@ -34,7 +34,7 @@ async function postRegisterUser(req, res) {
     return;
   }
 
-  const { email, username, passwordOne, terms, portfolio = {} } = registerFields;
+  const { email, username, passwordOne, terms = null, portfolio = {} } = registerFields;
   const emailUsernameTaken = await validateEmailAndUsername(email, username);
 
   if (emailUsernameTaken) {
@@ -46,7 +46,7 @@ async function postRegisterUser(req, res) {
     email,
     username,
     password: passwordOne, // password is validated
-    //terms,  reimplement later if needed
+    terms, // will reimplement on the FE if needed
     portfolio,
   });
 

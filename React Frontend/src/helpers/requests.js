@@ -60,7 +60,12 @@ export const savePortfolio = (user, portfolio) => {
       portfolio
     })
     .then(res => res)
-    .catch(err => err);
+    .catch(err => ({
+      code: 400,
+      data: null,
+      error: true,
+      message: err.message
+    }));
 };
 
 /**
@@ -74,7 +79,7 @@ export const registerUser = encodedRegisterData => {
     })
     .then(res => res.data) // response formatted in BE
     .catch(err => ({
-      code: 400,
+      code: 500,
       data: null,
       error: true,
       message: err.message

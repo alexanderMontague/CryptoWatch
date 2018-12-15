@@ -3,27 +3,26 @@ const passport = require('passport');
 const createResponse = require('../helpers');
 
 /*
-*   POST /api/v1/public/login
-*
-*   ENCODED
-*   REQ: {
-*     login: {
-*       email: String || null,
-*       username: String || null,
-*       password: String,
-*     }
-*   }
-*
-*   RES: {
-*     response: {
-*       code: Integer,
-*       message: String,
-*       data: Object || Array || null,
-*       error: Boolean || null
-*     }
-*   }
-*/
-
+ *   POST /api/v1/public/login
+ *
+ *   ENCODED
+ *   REQ: {
+ *     login: {
+ *       email: String || null,
+ *       username: String || null,
+ *       password: String,
+ *     }
+ *   }
+ *
+ *   RES: {
+ *     response: {
+ *       code: Integer,
+ *       message: String,
+ *       data: Object || Array || null,
+ *       error: Boolean || null
+ *     }
+ *   }
+ */
 postLoginUser = (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) {
