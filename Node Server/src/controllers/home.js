@@ -8,9 +8,16 @@ index = (req, res) => {
   res.send('HELLO WORLD! you hit "/"');
 };
 
+// GET /seeReq
 seeReq = (req, res) => {
-  console.log(req);
-  res.json(req.session);
+  const infoStuff = {
+    authenticated: req.isAuthenticated(),
+    session: req.session || null,
+    user: req.user || null,
+    authorized: req.isAuthorized || null,
+  };
+  res.json(infoStuff);
+  return;
 };
 
 /**

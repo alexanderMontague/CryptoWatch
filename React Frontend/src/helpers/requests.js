@@ -87,6 +87,26 @@ export const registerUser = encodedRegisterData => {
 };
 
 /**
+ * Login a user given an encoded login object
+ * @param {Base64 String} encodedLoginData
+ */
+export const loginUser = encodedLoginData => {
+  return axios
+    .post(`${BASE_URL}/public/login`, {
+      login: encodedLoginData,
+      username: '___', // dummy username for passport
+      password: '___' // dummy password for passport
+    })
+    .then(res => res.data) // response formatted in BE
+    .catch(err => ({
+      code: 500,
+      data: null,
+      error: true,
+      message: err.message
+    }));
+};
+
+/**
  * WARNING: DO NOT FUCK WITH THIS
  * IT WILL LITERALLY DELETE ALL USERS IN THE USERS TABLE
  * USE FOR DEV WORK ONLY AND DELETE ASAP

@@ -4,14 +4,12 @@ const decodeBody = bodyObject => {
 };
 
 /*  Formats a response to be sent back
- *   RES: {
- *     response: {
- *       code: Integer,
- *       message: String,
- *       data: Object || Array || null,
- *       error: Boolean || null
- *     }
- *   }
+ *  response: {
+ *    code: Integer,
+ *    message: String,
+ *    data: Object || Array || null,
+ *    error: Boolean || null
+ *  }
  */
 const createResponse = (code, message, data, error) => {
   return {

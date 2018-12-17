@@ -1,6 +1,6 @@
 import { put, takeLatest, all } from 'redux-saga/effects';
 import { registerSuccess, registerFailure } from '../actions/authActions';
-import { registerUser } from '../helpers/requests';
+import { registerUser, loginUser } from '../helpers/requests';
 
 function* attemptRegisterUser({ payload }) {
   const registerResponse = yield registerUser(payload);
@@ -12,6 +12,13 @@ function* attemptRegisterUser({ payload }) {
 
   yield put(registerSuccess(registerResponse));
 }
+
+function* attemptLoginUser({ payload }) {
+  const loginResponse = yield loginUser(payload);
+  console.log(loginResponse);
+}
+
 export function* authSaga() {
   yield takeLatest('REGISTER_USER', attemptRegisterUser);
+  yield takeLatest('LOGIN_USER', attemptLoginUser);
 }

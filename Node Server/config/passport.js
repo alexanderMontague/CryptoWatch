@@ -1,12 +1,14 @@
 const passport = require('passport');
 const { Strategy: LocalStrategy } = require('passport-local');
 const User = require('../models/User');
+const { decodeBody } = require('../src/helpers');
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
+  console.log('deserializeUser', id);
   User.findById(id, (err, user) => {
     done(err, user);
   });
@@ -16,13 +18,15 @@ passport.deserializeUser((id, done) => {
  * Sign in using Username and Password.
  */
 passport.use(
-  new LocalStrategy({ usernameField: 'username' }, (username, password, done) => {
-    User.findOne({ username: username.toLowerCase() }, (err, user) => {
+  new LocalStrategy({ passReqToCallback: true }, (req, dummyUsername, dummyPassword, done) => {
+    const { identifier, password } = decodeBody(req.body.login);
+
+    User.findOne({ username: identifier.toLowerCase() }, (err, user) => {
       if (err) {
         return done(err);
       }
       if (!user) {
-        return done(null, false, { msg: `username ${username} not found.` });
+        return done(null, false, { message: `Username/Email not found. Register instead!` });
       }
       user.comparePassword(password, (err, isMatch) => {
         if (err) {
@@ -31,7 +35,8 @@ passport.use(
         if (isMatch) {
           return done(null, user);
         }
-        return done(null, false, { msg: 'Invalid username or password.' });
+
+        return done(null, false, { message: 'Invalid username/email or password.' });
       });
     });
   })

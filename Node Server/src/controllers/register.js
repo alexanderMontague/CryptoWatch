@@ -21,7 +21,7 @@ const { requiredFields, validateEmailAndUsername } = require('../helpers/validat
  *       code: Integer,
  *       message: String,
  *       data: Object || Array || null,
- *       error: Boolean || null
+ *       error: Boolean
  *     }
  *   }
  */

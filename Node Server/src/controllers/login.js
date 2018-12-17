@@ -1,6 +1,5 @@
-const User = require('../../models/User');
 const passport = require('passport');
-const createResponse = require('../helpers');
+const { createResponse, decodeBody } = require('../helpers');
 
 /*
  *   POST /api/v1/public/login
@@ -8,8 +7,7 @@ const createResponse = require('../helpers');
  *   ENCODED
  *   REQ: {
  *     login: {
- *       email: String || null,
- *       username: String || null,
+ *       identifier: String,
  *       password: String,
  *     }
  *   }
@@ -19,24 +17,28 @@ const createResponse = require('../helpers');
  *       code: Integer,
  *       message: String,
  *       data: Object || Array || null,
- *       error: Boolean || null
+ *       error: Boolean
  *     }
  *   }
  */
 postLoginUser = (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) {
-      res.json(createResponse(500, err, null, true));
+      res.json(createResponse(500, err.message, null, true));
+      return;
     }
     if (!user) {
-      // standardize error codes
-      res.json(createResponse(200, info.msg, null, false));
+      res.json(createResponse(200, info.message, null, true));
+      return;
     }
     req.logIn(user, err => {
       if (err) {
-        res.json(createResponse(500, err, null, true));
+        res.json(createResponse(500, err.message, null, true));
+        return;
       }
+      console.log('AFTER LOG IN', req.user, req.isAuthenticated());
       res.json(createResponse(200, 'Successfully Logged In!', user, false));
+      return;
     });
   })(req, res, next);
 };

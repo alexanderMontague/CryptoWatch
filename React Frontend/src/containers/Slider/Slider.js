@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import css from './Slider.scss';
 import { connect } from 'react-redux';
 import { toggleMenu } from '../../actions/interfaceActions';
-
+import axios from 'axios';
 import { encodeBase64 } from '../../helpers';
 import { registerUser, deleteAllUsers } from '../../helpers/requests';
 
@@ -30,6 +30,12 @@ class Slider extends Component {
     });
     // do a passwords must match l8r
     // maybe enforce password rules
+  };
+
+  seeReq = () => {
+    axios.get('http://localhost:3003/api/v1/public/seeReq').then(res => {
+      console.log('REQ: ', res.data);
+    });
   };
 
   registerUser = event => {
@@ -87,7 +93,7 @@ class Slider extends Component {
             ) : (
               <div className={css.menuLayer}>
                 <h3>Create an Account!</h3>
-                <form
+                {/* <form
                   className={css.addCoinForm}
                   onSubmit={event => this.registerUser(event)}
                 >
@@ -186,16 +192,27 @@ class Slider extends Component {
                   >
                     Register!
                   </button>
-                </form>
-                <button
-                  className={css.delButton}
-                  onClick={() => {
-                    // DELETE ASAP. ONLY FOR DEV WORK
-                    deleteAllUsers();
-                  }}
-                >
-                  DELETE ALL USERS FROM DB. SERIOUSLY.
-                </button>
+                </form> */}
+                <div>
+                  <button
+                    className={css.reqButton}
+                    onClick={() => {
+                      this.seeReq();
+                    }}
+                  >
+                    See req object
+                  </button>
+
+                  <button
+                    className={css.delButton}
+                    onClick={() => {
+                      // DELETE ASAP. ONLY FOR DEV WORK
+                      deleteAllUsers();
+                    }}
+                  >
+                    DELETE ALL USERS FROM DB. SERIOUSLY.
+                  </button>
+                </div>
               </div>
             )}
           </div>
