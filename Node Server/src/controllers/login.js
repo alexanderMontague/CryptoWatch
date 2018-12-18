@@ -36,7 +36,9 @@ postLoginUser = (req, res, next) => {
         res.json(createResponse(500, err.message, null, true));
         return;
       }
-      console.log('AFTER LOG IN', req.user, req.isAuthenticated());
+
+      res.cookie('userId', user.id);
+
       res.json(createResponse(200, 'Successfully Logged In!', user, false));
       return;
     });

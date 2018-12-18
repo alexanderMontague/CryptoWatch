@@ -92,11 +92,15 @@ export const registerUser = encodedRegisterData => {
  */
 export const loginUser = encodedLoginData => {
   return axios
-    .post(`${BASE_URL}/public/login`, {
-      login: encodedLoginData,
-      username: '___', // dummy username for passport
-      password: '___' // dummy password for passport
-    })
+    .post(
+      `${BASE_URL}/public/login`,
+      {
+        login: encodedLoginData,
+        username: '___', // dummy username for passport
+        password: '___' // dummy password for passport
+      },
+      { withCredentials: true, credentials: 'include' }
+    )
     .then(res => res.data) // response formatted in BE
     .catch(err => ({
       code: 500,

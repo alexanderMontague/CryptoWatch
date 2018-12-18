@@ -17,7 +17,6 @@ const expressValidator = require('express-validator');
 const expressStatusMonitor = require('express-status-monitor');
 const multer = require('multer');
 const cors = require('cors');
-const cookieParser = require('cookie-parser');
 
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
@@ -42,6 +41,18 @@ const publicRoutes = require('./src/routesPublic');
  */
 const app = express();
 const BASE_URL = '/api/v1';
+const whitelist = ['http://localhost:3000'];
+const corsOptions = {
+  origin: function(origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  preflightContinue: true,
+  credentials: true,
+};
 
 /**
  * Connect to MongoDB.
@@ -58,21 +69,19 @@ mongoose
 /**
  * Express configuration.
  */
-app.set('host', '0.0.0.0');
 app.set('port', process.env.PORT || 3003);
 app.use(expressStatusMonitor());
 app.use(compression());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
 app.use(expressValidator());
 app.use(
   session({
     resave: true,
     saveUninitialized: true,
     secret: process.env.SESSION_SECRET,
-    cookie: { maxAge: 86000000, httpOnly: false }, // one day
+    cookie: { maxAge: 86000000, httpOnly: false, secure: false }, // one day
     // store: new MongoStore({
     //   url: process.env.MONGODB_URI,
     //   autoReconnect: true,
@@ -82,11 +91,11 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-app.use(cors()); // todo set CORS up
+app.use(cors(corsOptions)); // todo set CORS up
 app.disable('x-powered-by');
 
 app.use((req, res, next) => {
-  console.log(req.user, req.session);
+  console.log('user', req.user, 'session', req.session, 'locals', res.locals);
   res.locals.user = req.user || null;
   // no idea but may be useful
   // After successful login, redirect back to the intended page
@@ -101,10 +110,10 @@ app.use((req, res, next) => {
 });
 
 // For public requests
-app.use(BASE_URL + '/public', publicRoutes);
+app.use(BASE_URL + '/public', cors(corsOptions), publicRoutes);
 
 // For authenticated requests
-app.use(BASE_URL + '/auth', authRoutes);
+app.use(BASE_URL + '/auth', cors(corsOptions), authRoutes);
 
 /**
  * Error Handler.
