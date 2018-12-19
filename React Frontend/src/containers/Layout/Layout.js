@@ -6,6 +6,7 @@ import { getCoinList } from '../../helpers/requests';
 
 import { showDetails, hideDetails } from '../../actions/tradeActions';
 import { toggleMenu } from '../../actions/interfaceActions';
+import { logoutUser } from '../../actions/authActions';
 
 import AppBar from '../../components/AppBar/AppBar';
 import MenuSlider from '../Slider/Slider';
@@ -117,7 +118,10 @@ class Layout extends Component {
       <div className={css.appWrapper}>
         <LoginModal />
         <MenuSlider />
-        <AppBar toggleMenu={this.props.toggleMenu} />
+        <AppBar
+          toggleMenu={this.props.toggleMenu}
+          logoutUser={this.props.logoutUser}
+        />
         <div className={css.mainContainer}>
           <div className={css.portfolioContainer}>
             <Portfolio portfolio={this.props.portfolio} />
@@ -160,7 +164,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   toggleMenu,
   showDetails,
-  hideDetails
+  hideDetails,
+  logoutUser
 };
 
 export default connect(

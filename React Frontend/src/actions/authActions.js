@@ -1,3 +1,6 @@
+// Auth/identity Actions
+
+// REGISTER
 export const registerUser = data => ({
   type: 'REGISTER_USER',
   payload: data
@@ -13,6 +16,7 @@ export const registerFailure = data => ({
   payload: data
 });
 
+// LOGIN
 export const loginUser = data => ({
   type: 'LOGIN_USER',
   payload: data
@@ -25,5 +29,20 @@ export const loginSuccess = data => ({
 
 export const loginFailure = data => ({
   type: 'LOGIN_FAILURE',
+  payload: data
+});
+
+// LOGOUT
+export const logoutUser = () => ({
+  type: 'LOGOUT_USER'
+});
+
+export const logoutSuccess = data => ({
+  type: 'LOGOUT_SUCCESS',
+  payload: data
+});
+
+export const logoutFailure = data => ({
+  type: 'LOGOUT_FAILURE',
   payload: data
 });

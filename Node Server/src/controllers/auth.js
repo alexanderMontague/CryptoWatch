@@ -21,7 +21,7 @@ const { createResponse, decodeBody } = require('../helpers');
  *     }
  *   }
  */
-postLoginUser = (req, res, next) => {
+loginUser = (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) {
       return res.json(createResponse(500, err.message, null, true));
@@ -41,6 +41,30 @@ postLoginUser = (req, res, next) => {
   })(req, res, next);
 };
 
+/*
+ *   GET /api/v1/auth/logout
+ *
+ *   REQ: NULL
+ *
+ *   RES: {
+ *     response: {
+ *       code: Integer,
+ *       message: String,
+ *       data: Object || Array || null,
+ *       error: Boolean
+ *     }
+ *   }
+ */
+logoutUser = (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.json(createResponse(200, 'You are not logged in!', null, true));
+  }
+
+  req.logOut();
+  return res.json(createResponse(200, 'Successfully logged out.', null, false));
+};
+
 module.exports = {
-  postLoginUser,
+  loginUser,
+  logoutUser,
 };

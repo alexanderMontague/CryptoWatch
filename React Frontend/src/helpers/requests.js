@@ -119,6 +119,24 @@ export const loginUser = encodedLoginData => {
 };
 
 /**
+ * Attempt to logout a user
+ */
+export const logoutUser = () => {
+  return axios
+    .get(`${BASE_URL}/auth/logout`, {
+      withCredentials: true,
+      credentials: 'include'
+    })
+    .then(res => res.data) // response formatted in BE
+    .catch(err => ({
+      code: 500,
+      data: null,
+      error: true,
+      message: err.message
+    }));
+};
+
+/**
  * WARNING: DO NOT FUCK WITH THIS
  * IT WILL LITERALLY DELETE ALL USERS IN THE USERS TABLE
  * USE FOR DEV WORK ONLY AND DELETE ASAP

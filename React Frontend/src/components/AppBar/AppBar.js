@@ -12,7 +12,12 @@ const AppBar = props => {
           <img className={css.menuIcon} src={hamburgerIcon} />
         </span>
         <span className={css.title}>CryptoWatch</span>
-        <ModalButton open ><span className={css.loginButton}>Login</span></ModalButton>
+        <ModalButton open>
+          <span className={css.loginButton}>Login</span>
+        </ModalButton>
+        <span className={css.loginButton} onClick={props.logoutUser}>
+          Logout
+        </span>
       </span>
     </div>
   );

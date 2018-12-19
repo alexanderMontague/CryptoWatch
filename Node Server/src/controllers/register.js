@@ -25,7 +25,7 @@ const { requiredFields, validateEmailAndUsername } = require('../helpers/validat
  *     }
  *   }
  */
-async function postRegisterUser(req, res) {
+async function registerUser(req, res) {
   const registerFields = decodeBody(req.body.register);
   const requiredErrors = requiredFields(registerFields);
 
@@ -49,15 +49,21 @@ async function postRegisterUser(req, res) {
   });
 
   newUser.save((err, newUser) => {
+    // send back username/email ?
     if (err) {
       return res.json(createResponse(500, 'Error while registering', err, true));
     }
     return res.json(
-      createResponse(200, 'Successfully Registered! You may now log in.', null, false)
+      createResponse(
+        200,
+        'Successfully Registered! You may now log in.',
+        { username: newUser.username, email: newUser.email },
+        false
+      )
     );
   });
 }
 
 module.exports = {
-  postRegisterUser,
+  registerUser,
 };

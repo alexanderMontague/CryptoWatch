@@ -1,10 +1,10 @@
 'use strict';
 
 const router = require('express').Router();
-// const multer = require('multer');  // for file upload
-// const middleware = require('./middleware'); // for when we need middleware
 
-const { portfolio } = require('./controllers');
+const { portfolio, auth } = require('./controllers');
+
+router.route('/logout').get(auth.logoutUser);
 
 router.route('/savePortfolio').post(portfolio.savePortfolio);
 
