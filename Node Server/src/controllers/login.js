@@ -24,23 +24,19 @@ const { createResponse, decodeBody } = require('../helpers');
 postLoginUser = (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) {
-      res.json(createResponse(500, err.message, null, true));
-      return;
+      return res.json(createResponse(500, err.message, null, true));
     }
     if (!user) {
-      res.json(createResponse(200, info.message, null, true));
-      return;
+      return res.json(createResponse(200, info.message, null, true));
     }
     req.logIn(user, err => {
       if (err) {
-        res.json(createResponse(500, err.message, null, true));
-        return;
+        return res.json(createResponse(500, err.message, null, true));
       }
 
-      res.cookie('userId', user.id);
-
-      res.json(createResponse(200, 'Successfully Logged In!', user, false));
-      return;
+      req.session.save(() => {
+        return res.json(createResponse(200, 'Successfully Logged In!', user, false));
+      });
     });
   })(req, res, next);
 };

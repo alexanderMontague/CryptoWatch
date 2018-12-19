@@ -69,8 +69,8 @@ class LoginModal extends Component {
     const { registerUser, portfolio } = this.props;
 
     const registerObject = encodeBase64({
-      email: signupEmail,
-      username: signupUsername,
+      email: signupEmail.toLowerCase(),
+      username: signupUsername.toLowerCase(),
       passwordOne: signupPass,
       passwordTwo: confirmPass,
       terms: null, // add checkbox if needed later

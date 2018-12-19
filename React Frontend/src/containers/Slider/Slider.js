@@ -33,9 +33,14 @@ class Slider extends Component {
   };
 
   seeReq = () => {
-    axios.get('http://localhost:3003/api/v1/public/seeReq').then(res => {
-      console.log('REQ: ', res.data);
-    });
+    axios
+      .get('http://localhost:3003/api/v1/public/seeReq', {
+        withCredentials: true,
+        credentials: 'include'
+      })
+      .then(res => {
+        console.log('REQ: ', res.data);
+      });
   };
 
   registerUser = event => {

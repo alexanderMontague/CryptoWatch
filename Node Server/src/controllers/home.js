@@ -13,9 +13,12 @@ seeReq = (req, res) => {
   const infoStuff = {
     authenticated: req.isAuthenticated(),
     session: req.session || null,
+    sessionID: req.sessionID,
     user: req.user || null,
     authorized: req.isAuthorized || null,
+    cookies: req.cookies || null,
   };
+
   res.json(infoStuff);
   return;
 };

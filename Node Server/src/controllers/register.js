@@ -30,21 +30,19 @@ async function postRegisterUser(req, res) {
   const requiredErrors = requiredFields(registerFields);
 
   if (requiredErrors) {
-    res.json(requiredErrors);
-    return;
+    return res.json(requiredErrors);
   }
 
   const { email, username, passwordOne, terms = null, portfolio = {} } = registerFields;
   const emailUsernameTaken = await validateEmailAndUsername(email, username);
 
   if (emailUsernameTaken) {
-    res.json(emailUsernameTaken);
-    return;
+    return res.json(emailUsernameTaken);
   }
 
   const newUser = new User({
-    email,
-    username,
+    email: email.toLowerCase(),
+    username: username.toLowerCase(),
     password: passwordOne, // password is validated
     terms, // will reimplement on the FE if needed
     portfolio,
@@ -52,10 +50,11 @@ async function postRegisterUser(req, res) {
 
   newUser.save((err, newUser) => {
     if (err) {
-      res.json(createResponse(500, 'Error while registering', err, true));
-      return;
+      return res.json(createResponse(500, 'Error while registering', err, true));
     }
-    res.json(createResponse(200, 'Successfully Registered! You may now log in.', null, false));
+    return res.json(
+      createResponse(200, 'Successfully Registered! You may now log in.', null, false)
+    );
   });
 }
 

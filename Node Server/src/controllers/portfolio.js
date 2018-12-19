@@ -9,10 +9,10 @@ savePortfolio = (req, res) => {
 
   user.save((err, user) => {
     if (err) {
-      res.json(err);
+      return res.json(err);
     }
-    res.setHeader('Content-Type', 'application/json');
-    res.json(user.portfolio);
+
+    return res.json(user.portfolio);
   });
 };
 

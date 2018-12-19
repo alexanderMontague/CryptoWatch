@@ -95,8 +95,8 @@ app.use(cors(corsOptions)); // todo set CORS up
 app.disable('x-powered-by');
 
 app.use((req, res, next) => {
-  console.log('user', req.user, 'session', req.session, 'locals', res.locals);
-  res.locals.user = req.user || null;
+  console.log('session', req.session, 'id', req.session.id);
+  //res.locals.user = req.user || null;
   // no idea but may be useful
   // After successful login, redirect back to the intended page
   //console.log('req user: ', req.user, 'req.session: ', req.session, 'res locals', res.locals);

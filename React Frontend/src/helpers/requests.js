@@ -56,9 +56,13 @@ const BASE_URL = isDev ? 'http://localhost:3003/api/v1' : 'TBD';
  */
 export const savePortfolio = (user, portfolio) => {
   return axios
-    .post(`${BASE_URL}/auth/savePortfolio`, {
-      portfolio
-    })
+    .post(
+      `${BASE_URL}/auth/savePortfolio`,
+      {
+        portfolio
+      },
+      { withCredentials: true, credentials: 'include' }
+    )
     .then(res => res)
     .catch(err => ({
       code: 400,
@@ -74,9 +78,13 @@ export const savePortfolio = (user, portfolio) => {
  */
 export const registerUser = encodedRegisterData => {
   return axios
-    .post(`${BASE_URL}/public/register`, {
-      register: encodedRegisterData
-    })
+    .post(
+      `${BASE_URL}/public/register`,
+      {
+        register: encodedRegisterData
+      },
+      { withCredentials: true, credentials: 'include' }
+    )
     .then(res => res.data) // response formatted in BE
     .catch(err => ({
       code: 500,
