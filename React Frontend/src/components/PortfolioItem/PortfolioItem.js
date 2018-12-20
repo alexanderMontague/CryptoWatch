@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import css from './PortfolioItem.scss';
 
 import { selectCoin, showDetails } from '../../actions/tradeActions';
-import { numberWithCommas } from '../../helpers';
+import { formatPrice } from '../../helpers';
 import CoinLots from '../CoinLots/CoinLots';
 import chevronDown from '../../assets/chevron-arrow-down.png';
 import chevronUp from '../../assets/chevron-arrow-up.png';
@@ -42,7 +42,7 @@ class PortfolioItem extends Component {
           </div>
           <div className={css.headerItemContainer}>
             <div>Total Value:</div>
-            <div>{`$${numberWithCommas(totalItemValue.toFixed(2))}`}</div>
+            <div>{`$${formatPrice(totalItemValue)}`}</div>
           </div>
           <div className={css.headerItemContainer}>
             <div>Total Amount: </div>

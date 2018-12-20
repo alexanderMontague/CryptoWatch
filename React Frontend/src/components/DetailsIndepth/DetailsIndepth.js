@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import css from './DetailsIndepth.scss';
-import { numberWithCommas } from '../../helpers';
+import { formatPrice } from '../../helpers';
 
 import ToggleButton from 'react-toggle-button';
 
@@ -67,7 +67,7 @@ const DetailsIndepth = props => {
       </div>
       <div className={css.detailInfoRow}>
         <div className={css.coinInfoRow}>
-          <span>Price: ${numberWithCommas(coinPrice.toFixed(2))}</span>
+          <span>Price: ${formatPrice(coinPrice)}</span>
           <span>Market Cap: ___</span>
         </div>
         <div className={css.coinInfoRow}>

@@ -87,18 +87,24 @@ class Search extends Component {
           {isLoading ? (
             <Loader type="Oval" color="#64b5f6" height="40" width="40" />
           ) : (
-            <input
-              onChange={input => this.searchCoin(input.target.value)}
-              className={css.searchInput}
-              type="text"
-              value={this.state.inputValue}
-              placeholder="Start Typing a Cryptocurrency..."
-              disabled={isLoading}
-            />
+            <Fragment>
+              <input
+                onChange={input => this.searchCoin(input.target.value)}
+                className={css.searchInput}
+                type="text"
+                value={this.state.inputValue}
+                placeholder="Start Typing a Cryptocurrency..."
+                disabled={isLoading}
+              />
+
+              <button
+                className={css.searchButton}
+                onClick={this.onSearchHandler}
+              >
+                Search
+              </button>
+            </Fragment>
           )}
-          <button className={css.searchButton} onClick={this.onSearchHandler}>
-            Search
-          </button>
         </div>
         {this.state.searchResults}
         <div className={css.searchToolTip}>

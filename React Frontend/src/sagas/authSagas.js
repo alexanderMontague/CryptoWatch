@@ -29,8 +29,6 @@ function* attemptLoginUser({ payload }) {
   }
 
   yield put(loginSuccess(loginResponse));
-
-  console.log(loginResponse);
 }
 
 // LOGOUT
@@ -42,8 +40,6 @@ function* attemptLogoutUser({ payload }) {
   }
 
   yield put(logoutSuccess(logoutResponse));
-
-  console.log(logoutResponse);
 }
 
 export function* authSaga() {

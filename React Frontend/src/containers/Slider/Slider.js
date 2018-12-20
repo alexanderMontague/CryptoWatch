@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { toggleMenu } from '../../actions/interfaceActions';
 import axios from 'axios';
 import { encodeBase64 } from '../../helpers';
-import { registerUser, deleteAllUsers } from '../../helpers/requests';
+import { deleteAllUsers, savePortfolio } from '../../helpers/requests';
 
 class Slider extends Component {
   state = {
@@ -42,6 +42,11 @@ class Slider extends Component {
         console.log('REQ: ', res.data);
       });
   };
+
+  async savePortfolioHandler() {
+    const res = await savePortfolio(this.props.portfolio);
+    console.log(res);
+  }
 
   registerUser = event => {
     event.preventDefault();
@@ -206,6 +211,15 @@ class Slider extends Component {
                     }}
                   >
                     See req object
+                  </button>
+
+                  <button
+                    className={css.portButton}
+                    onClick={() => {
+                      this.savePortfolioHandler();
+                    }}
+                  >
+                    Save Portfolio
                   </button>
 
                   <button

@@ -1,5 +1,4 @@
 const initialState = {
-  showMenu: false,
   showDetails: false,
   baseCurrency: 'USD', // Base currency that all coin price data is fetched from. This is because CryptoCompare API has an abundance of American exchanges to source from
   selectedBaseCurrency: 'CAD', // Base currency the user will select to view prices in this currency,

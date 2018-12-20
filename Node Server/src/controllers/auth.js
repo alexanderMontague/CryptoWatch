@@ -22,6 +22,10 @@ const { createResponse, decodeBody } = require('../helpers');
  *   }
  */
 loginUser = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return res.json(createResponse(200, 'Already logged in!', null, true));
+  }
+
   passport.authenticate('local', (err, user, info) => {
     if (err) {
       return res.json(createResponse(500, err.message, null, true));
@@ -34,8 +38,10 @@ loginUser = (req, res, next) => {
         return res.json(createResponse(500, err.message, null, true));
       }
 
+      const { password, ...userObject } = user._doc;
+
       req.session.save(() => {
-        return res.json(createResponse(200, 'Successfully Logged In!', user, false));
+        return res.json(createResponse(200, 'Successfully Logged In!', userObject, false));
       });
     });
   })(req, res, next);

@@ -27,8 +27,10 @@ export const isInPortfolio = (state, searchCoin) => {
 };
 
 // Add commas to seperate thousandths
-export const numberWithCommas = number => {
-  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+export const formatPrice = number => {
+  return number <= 999
+    ? parseFloat(number).toFixed(4)
+    : Number(number).toLocaleString('en-US');
 };
 
 // Base64 Encode Function

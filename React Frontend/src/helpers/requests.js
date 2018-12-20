@@ -43,6 +43,8 @@ export const getCoinList = () => {
  *       message: String,
  *       data: Object || Array || null,
  *       error: Boolean || null
+ *       // error can be true even if the call succeeds
+ *       // used to differentiate happy vs bad path and outside errors
  *     }
  *   }
  */
@@ -51,10 +53,9 @@ const BASE_URL = isDev ? 'http://localhost:3003/api/v1' : 'TBD';
 
 /**
  * Save the user's current portfolio to their account
- * @param {TBD} user
  * @param {Object} portfolio
  */
-export const savePortfolio = (user, portfolio) => {
+export const savePortfolio = portfolio => {
   return axios
     .post(
       `${BASE_URL}/auth/savePortfolio`,
@@ -63,9 +64,9 @@ export const savePortfolio = (user, portfolio) => {
       },
       { withCredentials: true, credentials: 'include' }
     )
-    .then(res => res)
+    .then(res => res.data)
     .catch(err => ({
-      code: 400,
+      code: 500,
       data: null,
       error: true,
       message: err.message
