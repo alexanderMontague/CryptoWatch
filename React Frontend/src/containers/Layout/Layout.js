@@ -6,7 +6,7 @@ import { getCoinList } from '../../helpers/requests';
 
 import { showDetails, hideDetails } from '../../actions/tradeActions';
 import { toggleMenu } from '../../actions/interfaceActions';
-import { logoutUser } from '../../actions/authActions';
+import { logoutUser, getUserStatus } from '../../actions/authActions';
 
 import AppBar from '../../components/AppBar/AppBar';
 import MenuSlider from '../Slider/Slider';
@@ -14,47 +14,11 @@ import Portfolio from '../Portfolio/Portfolio';
 import Search from '../Search/Search';
 import Details from '../Details/Details';
 import LoginModal from '../LoginModal';
+import Loader from 'react-loader-spinner';
 
 class Layout extends Component {
   state = {
     isLoading: true
-  };
-
-  // TODO: DELETE AFTER DEV DONE BELOW
-  mockRes = {
-    BTC: {
-      Id: '1182',
-      ImageUrl: '/media/19633/btc.png',
-      Name: 'BTC',
-      Symbol: 'BTC',
-      CoinName: 'Bitcoin',
-      FullName: 'Bitcoin (BTC)',
-      Algorithm: 'SHA256'
-    },
-    ETH: {
-      Id: '1182',
-      ImageUrl: '/media/19633/eth.png',
-      Name: 'ETH',
-      Symbol: 'ETH',
-      CoinName: 'Ethereum',
-      FullName: 'Ethereum (ETH)'
-    },
-    LTC: {
-      Id: '1182',
-      ImageUrl: '/media/19633/ltc.png',
-      Name: 'LTC',
-      Symbol: 'LTC',
-      CoinName: 'Litecoin',
-      FullName: 'Litecoin (LTC)',
-      Algorithm: 'SHA256'
-    },
-    CC: {
-      Id: '1183',
-      Name: 'CC',
-      Symbol: 'CC',
-      CoinName: 'Crapcoin',
-      FullName: 'Crapcoin (CC)'
-    }
   };
 
   componentDidMount() {
@@ -62,9 +26,10 @@ class Layout extends Component {
     getCoinList()
       .then(response => {
         if (response.error) {
-          console.log('GET Coin List Error: ', response.error);
+          console.error('GET Coin List Error: ', response.error);
           return;
         }
+
         const totalCoinsObject = response.data.Data;
         const coinKeyArray = Object.keys(totalCoinsObject);
         this.setState({
@@ -74,15 +39,11 @@ class Layout extends Component {
         });
       })
       .catch(error => {
-        // TODO: DELETE AFTER DEV DONE BELOW
-        const totalCoinsObject = this.mockRes;
-        const coinKeyArray = Object.keys(totalCoinsObject);
-        this.setState({ coinObject: totalCoinsObject, coinKeys: coinKeyArray });
-        setTimeout(() => {
-          this.setState({ isLoading: false });
-        }, 1000);
-        console.log('Get Coinlist Error', error);
+        console.error('Get Coinlist Error', error.message);
       });
+
+    // if user is logged in, load their portfolio data
+    this.props.getUserStatus();
   }
 
   componentDidUpdate(prevProps) {
@@ -165,7 +126,8 @@ const mapDispatchToProps = {
   toggleMenu,
   showDetails,
   hideDetails,
-  logoutUser
+  logoutUser,
+  getUserStatus
 };
 
 export default connect(

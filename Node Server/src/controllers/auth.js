@@ -70,7 +70,50 @@ logoutUser = (req, res) => {
   return res.json(createResponse(200, 'Successfully logged out.', null, false));
 };
 
+/*
+ *   GET /api/v1/public/getStatus
+ *
+ *   REQ: NULL
+ *
+ *   RES: {
+ *     response: {
+ *       code: Integer,
+ *       message: String,
+ *       data: Object || Array || null,
+ *       error: Boolean
+ *     }
+ *   }
+ */
+getStatus = (req, res) => {
+  if (req.isAuthenticated()) {
+    const { portfolio, password, ...userObject } = req.user._doc;
+    return res.json(
+      createResponse(
+        200,
+        'User is Authenticated',
+        {
+          authenticated: true,
+          user: userObject,
+        },
+        false
+      )
+    );
+  }
+  return res.json(
+    createResponse(
+      200,
+      'User is NOT Authenticated',
+      {
+        isAuthenticated: false,
+        user: null,
+      },
+      false
+    )
+  );
+};
+
 module.exports = {
   loginUser,
   logoutUser,
+  getStatus,
 };

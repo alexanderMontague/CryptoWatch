@@ -11,7 +11,9 @@ savePortfolio = (req, res) => {
       return res.json(createResponse(400, err.message, null, true));
     }
 
-    return res.json(createResponse(200, 'Successfully updated portfolio', user.portfolio, false));
+    return res.json(
+      createResponse(200, 'Successfully updated portfolio', req.user.portfolio, false)
+    );
   });
 };
 

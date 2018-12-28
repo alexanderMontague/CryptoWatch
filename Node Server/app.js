@@ -42,7 +42,7 @@ const publicRoutes = require('./src/routesPublic');
 const app = express();
 const BASE_URL = '/api/v1';
 
-const whitelist = ['http://localhost:3000', undefined]; // TODO: delete undefined. only for postman
+const whitelist = ['http://localhost:3000', undefined]; // Undefined for Postman
 const corsOptions = {
   origin: function(origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {

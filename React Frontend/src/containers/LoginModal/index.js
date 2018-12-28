@@ -195,20 +195,6 @@ class LoginModal extends Component {
   }
 }
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     submit: info => {
-//       dispatch({ type: 'LOGIN_SUCCESS', payload: info });
-//     },
-//     signup: info => {
-//       dispatch({ type: 'SIGNUP_SUCCESS', payload: info });
-//     },
-//     toggleModal: () => {
-//       dispatch(toggleModal);
-//     }
-//   };
-// };
-
 const mapStateToProps = state => {
   return {
     isOpen: state.interfaceState.showModal,

@@ -13,6 +13,8 @@ router.route('/register').post(register.registerUser);
 
 router.route('/login').post(auth.loginUser);
 
+router.route('/getStatus').get(auth.getStatus);
+
 // WARNING DONT FUCK WITH THIS DEV STUFF ONLY IT WILL DELETE ALL USERS
 router.route('/deleteAllUsers').get(home.deleteAllUsers);
 

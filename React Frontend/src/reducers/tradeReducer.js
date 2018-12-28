@@ -5,16 +5,16 @@ const initialState = {
   portfolio: {}
 };
 
-const tradeState = (prevState = initialState, action) => {
-  switch (action.type) {
+const tradeState = (prevState = initialState, { type, payload }) => {
+  switch (type) {
     case 'SELECT_COIN':
       return {
         ...prevState,
-        selectedCoin: action.payload.coinTicker
+        selectedCoin: payload.coinTicker
       };
 
     case 'ADD_TO_PORTFOLIO':
-      const { ticker, imageURL, details } = action.payload.lotDetails;
+      const { ticker, imageURL, details } = payload.lotDetails;
       const prevPortfolio = JSON.parse(JSON.stringify(prevState.portfolio)); // creates deep immutable copy
       if (!prevPortfolio[ticker]) {
         // check if coin is in portfolio first
@@ -42,6 +42,14 @@ const tradeState = (prevState = initialState, action) => {
 
     case 'HIDE_DETAILS':
       return { ...prevState, showDetails: false };
+
+    // update user portfolio with one in DB
+    case 'LOGIN_SUCCESS':
+      return { ...prevState, portfolio: payload.data.portfolio };
+
+    // hide previous portfolio on logout
+    case 'LOGOUT_SUCCESS':
+      return { ...prevState, portfolio: {} };
 
     default:
       return prevState;

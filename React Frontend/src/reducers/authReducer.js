@@ -49,6 +49,9 @@ const authReducer = (prevState = initialState, { type, payload }) => {
     case 'LOGOUT_FAILURE':
       return { ...prevState, isLogoutLoading: false, logoutStatus: payload };
 
+    case 'USER_STATUS_RESPONSE':
+      return { ...prevState, ...payload.data };
+
     default:
       return prevState;
   }

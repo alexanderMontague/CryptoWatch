@@ -5,9 +5,15 @@ import {
   loginSuccess,
   loginFailure,
   logoutSuccess,
-  logoutFailure
+  logoutFailure,
+  userStatusResponse
 } from '../actions/authActions';
-import { registerUser, loginUser, logoutUser } from '../helpers/requests';
+import {
+  registerUser,
+  loginUser,
+  logoutUser,
+  userStatus
+} from '../helpers/requests';
 
 // REGISTER
 function* attemptRegisterUser({ payload }) {
@@ -32,8 +38,8 @@ function* attemptLoginUser({ payload }) {
 }
 
 // LOGOUT
-function* attemptLogoutUser({ payload }) {
-  const logoutResponse = yield logoutUser(payload);
+function* attemptLogoutUser() {
+  const logoutResponse = yield logoutUser();
 
   if (logoutResponse.error) {
     return yield put(logoutFailure(logoutResponse));
@@ -42,8 +48,16 @@ function* attemptLogoutUser({ payload }) {
   yield put(logoutSuccess(logoutResponse));
 }
 
+// GET STATUS
+function* getUserStatus() {
+  const userStatusData = yield userStatus();
+
+  yield put(userStatusResponse(userStatusData));
+}
+
 export function* authSaga() {
   yield takeLatest('REGISTER_USER', attemptRegisterUser);
   yield takeLatest('LOGIN_USER', attemptLoginUser);
   yield takeLatest('LOGOUT_USER', attemptLogoutUser);
+  yield takeLatest('GET_USER_STATUS', getUserStatus);
 }

@@ -138,6 +138,24 @@ export const logoutUser = () => {
 };
 
 /**
+ * Get a user's authentication status
+ */
+export const userStatus = () => {
+  return axios
+    .get(`${BASE_URL}/public/getStatus`, {
+      withCredentials: true,
+      credentials: 'include'
+    })
+    .then(res => res.data) // response formatted in BE
+    .catch(err => ({
+      code: 500,
+      data: null,
+      error: true,
+      message: err.message
+    }));
+};
+
+/**
  * WARNING: DO NOT FUCK WITH THIS
  * IT WILL LITERALLY DELETE ALL USERS IN THE USERS TABLE
  * USE FOR DEV WORK ONLY AND DELETE ASAP
