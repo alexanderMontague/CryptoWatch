@@ -86,13 +86,13 @@ logoutUser = (req, res) => {
  */
 getStatus = (req, res) => {
   if (req.isAuthenticated()) {
-    const { portfolio, password, ...userObject } = req.user._doc;
+    const { password, ...userObject } = req.user._doc;
     return res.json(
       createResponse(
         200,
         'User is Authenticated',
         {
-          authenticated: true,
+          isAuthenticated: true,
           user: userObject,
         },
         false
