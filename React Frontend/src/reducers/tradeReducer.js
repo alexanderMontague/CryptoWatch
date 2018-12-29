@@ -51,6 +51,10 @@ const tradeState = (prevState = initialState, { type, payload }) => {
     case 'LOGOUT_SUCCESS':
       return { ...prevState, portfolio: {} };
 
+    case 'USER_STATUS_RESPONSE':
+      const portfolio = payload.data.user ? payload.data.user.portfolio : {};
+      return { ...prevState, portfolio };
+
     default:
       return prevState;
   }

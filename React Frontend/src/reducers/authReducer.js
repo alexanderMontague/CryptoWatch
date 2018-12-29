@@ -1,11 +1,11 @@
 const initialState = {
-  loggedIn: false,
+  isAuthenticated: false,
+  user: null,
   isRegisterLoading: false,
   isLoginLoading: false,
   isLogoutLoading: false,
   registerStatus: {},
-  loginStatus: {},
-  logoutStatus: {}
+  logoutStatus: null
 };
 
 const authReducer = (prevState = initialState, { type, payload }) => {
@@ -26,24 +26,25 @@ const authReducer = (prevState = initialState, { type, payload }) => {
       };
 
     case 'LOGIN_USER':
-      return { ...prevState, isLoginLoading: true, loginStatus: {} };
+      return { ...prevState, isLoginLoading: true };
     case 'LOGIN_SUCCESS':
       return {
         ...prevState,
-        loggedIn: true,
         isLoginLoading: false,
-        loginStatus: payload
+        isAuthenticated: true,
+        user: { ...payload.data }
       };
     case 'LOGIN_FAILURE':
       return { ...prevState, isLoginLoading: false, loginStatus: payload };
 
     case 'LOGOUT_USER':
-      return { ...prevState, isLogoutLoading: true, logoutStatus: {} };
+      return { ...prevState, isLogoutLoading: true };
     case 'LOGOUT_SUCCESS':
       return {
         ...prevState,
-        loggedIn: false,
         isLogoutLoading: false,
+        isAuthenticated: false,
+        user: null,
         logoutStatus: payload
       };
     case 'LOGOUT_FAILURE':
