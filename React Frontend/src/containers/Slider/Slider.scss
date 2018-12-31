@@ -9,7 +9,7 @@
   }
 }
 
-.menuModal {
+.menuSlider {
   position: fixed;
   display: flex;
   justify-content: center;
@@ -26,9 +26,11 @@
 }
 
 .menuLayer {
-  position: fixed;
   height: 400px;
-  width: 70%;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   background-color: white;
   padding: 15px;
   border-radius: 10px;
@@ -42,109 +44,46 @@
   transform: translateX(-100%);
 }
 
-.addButton {
-  height: 25px;
-  border-radius: 5px;
-  border: 2px solid #616161;
-  background-color: #64b5f6;
-}
-.addButton:hover {
-  background-color: #2196f3;
-  cursor: pointer;
-}
-.addButton:focus {
-  outline: none;
-}
-.addButton:active {
-  border-color: white;
-}
-.addButton:disabled {
-  border: black;
-  background-color: #616161;
-}
-
-h6 {
-  font-size: 10px;
-  margin: auto 0;
-  padding-right: 5px;
-}
-
-.detailInfoRow {
-  display: flex;
-  justify-content: center;
+.titleText {
   font-size: 15px;
-  padding: 10px;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 30px;
 }
 
-.addCoinForm {
-  display: flex;
-  flex-direction: column;
-}
-
-.coinIcon {
-  height: auto;
-  width: 30px;
-  padding-right: 5px;
-}
-
-.coinName {
-  border-bottom: 1px solid black;
-}
-
-label {
-  padding-bottom: 10px;
+.settingsButton {
   display: flex;
   justify-content: space-between;
+  border-bottom: 2px #616161 solid;
+  border-radius: 10px;
+  padding: 10px 5px;
+  margin-bottom: 20px;
+  font-size: 12px;
+  user-select: none;
+}
+.settingsButton:hover {
+  background: #c4c4c4;
+  cursor: pointer;
+}
+.settingsButton:active {
+  border-bottom: 2px black solid;
 }
 
-.addFormInput {
-  height: 20px;
+.button {
+  margin-top: 30px;
+  min-height: 35px;
   border-radius: 5px;
-  border: 2px solid #616161;
-  font-size: 80%;
-  margin-left: 5px;
-  text-indent: 10px;
+  border: 2px solid black;
 }
-
-.inputRow {
-  display: flex;
-}
-
-.requiredBorder {
-  border: 2px ridge red;
-}
-
-.coinDisclaimer {
-  display: flex;
-  justify-content: center;
-  font-size: 10px;
-  font-style: italic;
-  color: red;
+.button:hover {
+  cursor: pointer;
+  background: red;
 }
 
 .delButton {
-  margin-top: 200px;
-  height: 35px;
-  border-radius: 5px;
-  border: 2px solid black;
-  background-color: pink;
-}
-.delButton:hover {
-  background-color: red;
+  background: pink;
 }
 
 .reqButton {
-  margin-top: 200px;
-  height: 35px;
-  border-radius: 5px;
-  border: 2px solid black;
   background-color: lightblue;
-}
-
-.portButton {
-  margin-top: 200px;
-  height: 35px;
-  border-radius: 5px;
-  border: 2px solid black;
-  background-color: green;
 }

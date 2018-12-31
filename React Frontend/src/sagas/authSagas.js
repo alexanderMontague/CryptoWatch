@@ -1,4 +1,4 @@
-import { put, takeLatest, all } from 'redux-saga/effects';
+import { put, takeLatest } from 'redux-saga/effects';
 import {
   registerSuccess,
   registerFailure,

@@ -74,7 +74,7 @@ class Details extends Component {
         } else {
           coinPrice = 169;
         }
-        console.log('GET Coin Price Error', error);
+        console.error('GET Coin Price Error', error);
       } else {
         const basePrice = newCoinPrice.data[selectedCoin][baseCurrency];
         const convertedCoinPrice = await convertCurrency(
@@ -83,7 +83,7 @@ class Details extends Component {
           basePrice
         );
         if (convertedCoinPrice.error) {
-          console.log('GET Exchange API Error', convertedCoinPrice.error);
+          console.error('GET Exchange API Error', convertedCoinPrice.error);
         } else {
           // Set state after getting all coin info
           this.setState({

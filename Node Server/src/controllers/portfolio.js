@@ -12,7 +12,7 @@ savePortfolio = (req, res) => {
     }
 
     return res.json(
-      createResponse(200, 'Successfully updated portfolio', req.user.portfolio, false)
+      createResponse(200, 'Successfully updated portfolio', req.body.portfolio, false)
     );
   });
 };

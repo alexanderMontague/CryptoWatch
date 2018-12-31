@@ -43,7 +43,7 @@ const tradeState = (prevState = initialState, { type, payload }) => {
     case 'HIDE_DETAILS':
       return { ...prevState, showDetails: false };
 
-    // update user portfolio with one in DB
+    // update user portfolio with one in DB on login
     case 'LOGIN_SUCCESS':
       return { ...prevState, portfolio: payload.data.portfolio };
 
@@ -51,6 +51,7 @@ const tradeState = (prevState = initialState, { type, payload }) => {
     case 'LOGOUT_SUCCESS':
       return { ...prevState, portfolio: {} };
 
+    // update portfolio if user is already logged in and refreshes
     case 'USER_STATUS_RESPONSE':
       const portfolio = payload.data.user ? payload.data.user.portfolio : {};
       return { ...prevState, portfolio };

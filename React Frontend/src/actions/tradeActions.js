@@ -1,5 +1,4 @@
-// ACTIONS
-// TODO: abstract action types to constants
+// TRADE ACTIONS
 
 export const selectCoin = coinTicker => {
   return {
@@ -8,12 +7,31 @@ export const selectCoin = coinTicker => {
   };
 };
 
+// Adds to the REDUX portfolio object
 export const addToPortfolio = lotDetails => {
   return {
     type: 'ADD_TO_PORTFOLIO',
     payload: { lotDetails }
   };
 };
+
+// Adds newly updated portfolio to user in DB
+export const updateUserPortfolio = portfolio => {
+  return {
+    type: 'UPDATE_USER_PORTFOLIO',
+    payload: portfolio
+  };
+};
+
+export const updatePortfolioSuccess = data => ({
+  type: 'UPDATE_PORTFOLIO_SUCCESS',
+  payload: data
+});
+
+export const updatePortfolioFailure = data => ({
+  type: 'UPDATE_PORTFOLIO_FAILURE',
+  payload: data
+});
 
 export const showDetails = () => {
   return {
@@ -26,11 +44,3 @@ export const hideDetails = () => {
     type: 'HIDE_DETAILS'
   };
 };
-
-// Example of action sending other data, and getting a param
-// export const useParam = (newNumParam) => {
-//   return {
-//     type: 'TOGGLE_MENU',
-//     payload: { number: newNumParam }
-//   }
-// };

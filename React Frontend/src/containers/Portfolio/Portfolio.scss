@@ -1,0 +1,10 @@
+.scrollBox {
+  height: 80%;
+  overflow-y: scroll;
+}
+
+@media (max-width: 768px) {
+  .scrollBox {
+    height: 70%;
+  }
+}

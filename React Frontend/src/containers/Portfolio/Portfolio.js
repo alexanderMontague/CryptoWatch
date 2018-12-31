@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import css from './Portfolio.scss';
 
 import Header from '../../components/SectionHeader/Header';
 import PortfolioHeader from '../../components/PortfolioHeader/PortfolioHeader';
@@ -30,20 +31,12 @@ class Portfolio extends Component {
 
       if (this.state.totalValue !== newTotalValue) {
         // if the total value did change, update it
-        this.setState(() => {
-          // setState is async so set db before updating
-          this.updatePortfolio(newPortfolio, newTotalValue);
-          return {
-            portfolio: newPortfolio,
-            totalValue: newTotalValue
-          };
+        this.setState({
+          portfolio: newPortfolio,
+          totalValue: newTotalValue
         });
       }
     }
-  };
-
-  updatePortfolio = (newPortfolio, newTotalValue) => {
-    // update db with new portfolio
   };
 
   renderPortfolioItems = () => {
@@ -66,7 +59,7 @@ class Portfolio extends Component {
       <Fragment>
         <Header title="Portfolio" />
         <PortfolioHeader totalValue={this.state.totalValue} />
-        {this.renderPortfolioItems()}
+        <div className={css.scrollBox}>{this.renderPortfolioItems()}</div>
       </Fragment>
     );
   }

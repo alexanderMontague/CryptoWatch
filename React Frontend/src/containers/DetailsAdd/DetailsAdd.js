@@ -3,7 +3,10 @@ import css from './DetailsAdd.scss';
 import { connect } from 'react-redux';
 import { convertCurrency } from '../../helpers';
 import { getCoinPrice } from '../../helpers/requests';
-import { addToPortfolio } from '../../actions/tradeActions';
+import {
+  addToPortfolio,
+  updateUserPortfolio
+} from '../../actions/tradeActions';
 
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
@@ -74,7 +77,10 @@ class DetailsAdd extends Component {
     } = this.props; // TODO: baseCurrency to comma separated array in future for multiple base currencies
     getCoinPrice(selectedCoin, baseCurrency, newUnixDate).then(response => {
       if (response.error) {
-        console.log('GET updated historical coin data Error:', response.error);
+        console.error(
+          'GET updated historical coin data Error:',
+          response.error
+        );
       } else {
         // Update the coin price from selected day
         // response format is { SYM: { BASES: { CAD: 123, USD: 456... } } }
@@ -82,7 +88,7 @@ class DetailsAdd extends Component {
         convertCurrency(baseCurrency, selectedBaseCurrency, basePrice).then(
           convertedResponse => {
             if (convertedResponse.error) {
-              console.log('GET Exchange API Error', convertedResponse.error);
+              console.error('GET Exchange API Error', convertedResponse.error);
             } else {
               // Set state after getting new converted coin price in selectedBase
               this.setState({ historicCoinPrice: convertedResponse.data });
@@ -118,10 +124,12 @@ class DetailsAdd extends Component {
       unixDate,
       selectedCoinSymbol
     } = this.state;
+
     const {
       addCoinToPortfolio,
       showDetailsInDepth,
-      coinDetails: { coinImageURL }
+      coinDetails: { coinImageURL },
+      updateUserPortfolio
     } = this.props;
 
     // set up new lot object and populate with data
@@ -139,6 +147,8 @@ class DetailsAdd extends Component {
     // add the coin/lot to the portfolio, show details screen for added coin
     addCoinToPortfolio(newLotDetails);
     showDetailsInDepth();
+    // add newly updated portfolio to user's portfolio in DB
+    updateUserPortfolio();
   };
 
   render() {
@@ -245,13 +255,15 @@ class DetailsAdd extends Component {
 
 const mapStateToProps = state => {
   return {
-    selectedBaseCurrency: state.tradeState.selectedBaseCurrency
+    selectedBaseCurrency: state.tradeState.selectedBaseCurrency,
+    portfolio: state.tradeState.portfolio
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    addCoinToPortfolio: coinDetails => dispatch(addToPortfolio(coinDetails))
+    addCoinToPortfolio: coinDetails => dispatch(addToPortfolio(coinDetails)),
+    updateUserPortfolio: () => dispatch(updateUserPortfolio())
   };
 };
 

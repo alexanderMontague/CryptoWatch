@@ -14,7 +14,6 @@ import Portfolio from '../Portfolio/Portfolio';
 import Search from '../Search/Search';
 import Details from '../Details/Details';
 import LoginModal from '../LoginModal';
-import Loader from 'react-loader-spinner';
 
 class Layout extends Component {
   state = {
@@ -79,10 +78,7 @@ class Layout extends Component {
       <div className={css.appWrapper}>
         <LoginModal />
         <MenuSlider />
-        <AppBar
-          toggleMenu={this.props.toggleMenu}
-          logoutUser={this.props.logoutUser}
-        />
+        <AppBar toggleMenu={this.props.toggleMenu} />
         <div className={css.mainContainer}>
           <div className={css.portfolioContainer}>
             <Portfolio portfolio={this.props.portfolio} />
