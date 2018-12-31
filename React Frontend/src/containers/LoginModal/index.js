@@ -19,18 +19,27 @@ const customStyles = {
   }
 };
 
-const Input = props => (
-  <label className={styles.inputContainer}>
-    <input
-      onChange={props.onChange}
-      type={
-        props.label.toLowerCase().includes('password') ? 'password' : 'text'
-      }
-      placeholder={props.label}
-      name={props.name}
-    />
-  </label>
-);
+const Input = props => {
+  let inputStyles = [styles.inputContainer];
+  if (!props.currentVal) {
+    inputStyles.push(styles.inputRequired);
+  }
+
+  return (
+    <label className={styles.inputContainer}>
+      <input
+        className={inputStyles.join(' ')}
+        onChange={props.onChange}
+        type={
+          props.label.toLowerCase().includes('password') ? 'password' : 'text'
+        }
+        placeholder={props.label}
+        name={props.name}
+        value={props.value}
+      />
+    </label>
+  );
+};
 
 class LoginModal extends Component {
   componentDidMount() {
@@ -90,10 +99,18 @@ class LoginModal extends Component {
   };
 
   render() {
-    const { registerStatus } = this.props;
+    const { registerStatus, loginStatus } = this.props;
+    const {
+      loginIdentifier,
+      loginPass,
+      signupEmail,
+      signupUsername,
+      signupPass,
+      confirmPass
+    } = this.state;
 
+    // Register feedback for the user
     let registerMessage = null;
-
     if (registerStatus.message) {
       registerStatus.error
         ? (registerMessage = (
@@ -103,6 +120,18 @@ class LoginModal extends Component {
             <div className={styles.registerSuccess}>
               {registerStatus.message}
             </div>
+          ));
+    }
+
+    // Login feedback for the user
+    let loginMessage = null;
+    if (loginStatus.message) {
+      loginStatus.error
+        ? (loginMessage = (
+            <div className={styles.registerError}>{loginStatus.message}</div>
+          ))
+        : (loginMessage = (
+            <div className={styles.registerSuccess}>{loginStatus.message}</div>
           ));
     }
 
@@ -119,17 +148,22 @@ class LoginModal extends Component {
               onSubmit={this.handleLogin}
               className={styles.contentContainer}
             >
+              <span className={styles.loginHeader}>{loginMessage}</span>
               <div>
                 <span className={styles.loginHeader}>Log In</span>
                 <Input
                   onChange={this.handleChange}
                   label="Username or Email"
                   name="loginIdentifier"
+                  value={this.state.loginIdentifier}
+                  currentVal={this.state.loginIdentifier}
                 />
                 <Input
                   onChange={this.handleChange}
                   label="Password"
                   name="loginPass"
+                  value={this.state.loginPass}
+                  currentVal={this.state.loginPass}
                 />
                 <div className={styles.lilSpacing}>
                   <span className={styles.signupSpan}>
@@ -138,55 +172,95 @@ class LoginModal extends Component {
                   <span
                     className={styles.signupLink}
                     onClick={() => {
-                      this.setState({ login: false });
+                      this.setState({
+                        login: false,
+                        loginIdentifier: '',
+                        loginPass: '',
+                        signupEmail: '',
+                        signupUsername: '',
+                        signupPass: '',
+                        confirmPass: ''
+                      });
                     }}
                   >
                     Register
                   </span>
                 </div>
               </div>
-              <button className={styles.submitButton}>Login</button>
+              <button
+                className={styles.submitButton}
+                disabled={!loginIdentifier || !loginPass}
+              >
+                Login
+              </button>
             </form>
           ) : (
             <form
               onSubmit={this.handleRegister}
               className={styles.contentContainer}
             >
+              <span className={styles.loginHeader}>{registerMessage}</span>
               <div>
                 <span className={styles.loginHeader}>Register an Account</span>
-
-                {registerMessage}
 
                 <Input
                   onChange={this.handleChange}
                   label="Username"
                   name="signupUsername"
+                  value={this.state.signupUsername}
+                  currentVal={this.state.signupUsername}
                 />
                 <Input
                   onChange={this.handleChange}
                   label="Email"
                   name="signupEmail"
+                  value={this.state.signupEmail}
+                  currentVal={this.state.signupEmail}
                 />
                 <Input
                   onChange={this.handleChange}
                   label="Password"
                   name="signupPass"
+                  value={this.state.signupPass}
+                  currentVal={this.state.signupPass}
                 />
                 <Input
                   onChange={this.handleChange}
                   label="Confirm Password"
                   name="confirmPass"
+                  value={this.state.confirmPass}
+                  currentVal={this.state.confirmPass}
                 />
               </div>
-              <button className={styles.submitButton}>Register</button>
-              <button
-                onClick={() => {
-                  this.setState({ login: true });
-                }}
-                className={styles.submitButton}
-              >
-                Go Back
-              </button>
+              <div className={styles.registerButtons}>
+                <button
+                  className={styles.submitButton}
+                  disabled={
+                    !signupEmail ||
+                    !signupUsername ||
+                    !signupPass ||
+                    !confirmPass
+                  }
+                >
+                  Register
+                </button>
+                <button
+                  onClick={() => {
+                    this.setState({
+                      login: true,
+                      loginIdentifier: '',
+                      loginPass: '',
+                      signupEmail: '',
+                      signupUsername: '',
+                      signupPass: '',
+                      confirmPass: ''
+                    });
+                  }}
+                  className={styles.submitButton}
+                >
+                  Go Back
+                </button>
+              </div>
             </form>
           )}
         </div>
@@ -199,7 +273,8 @@ const mapStateToProps = state => {
   return {
     isOpen: state.interfaceState.showModal,
     portfolio: state.tradeState.portfolio,
-    registerStatus: state.authState.registerStatus
+    registerStatus: state.authState.registerStatus,
+    loginStatus: state.authState.loginStatus
   };
 };
 

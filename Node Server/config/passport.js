@@ -8,7 +8,6 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  console.log('deserializeUser', id);
   User.findById(id, (err, user) => {
     done(err, user);
   });
@@ -20,6 +19,12 @@ passport.deserializeUser((id, done) => {
 passport.use(
   new LocalStrategy({ passReqToCallback: true }, (req, dummyUsername, dummyPassword, done) => {
     const { identifier, password } = decodeBody(req.body.login);
+
+    if (!identifier) {
+      return done(null, false, { message: 'Enter a Username or Email!' });
+    } else if (!password) {
+      return done(null, false, { message: 'Enter a Password!' });
+    }
 
     User.findOne({ username: identifier.toLowerCase() }, (err, user) => {
       if (err) {

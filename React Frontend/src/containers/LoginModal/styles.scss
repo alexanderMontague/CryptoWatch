@@ -9,15 +9,6 @@ html {
   height: 100%;
 }
 
-.background {
-  height: 100%;
-  background-image: url('https://source.unsplash.com/random');
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: center;
-}
-
 .modalContainer {
   height: 400px;
   width: 400px;
@@ -27,8 +18,8 @@ html {
 }
 
 .contentContainer {
-  height: 300px;
-  padding-top: 50px;
+  min-height: 300px;
+  padding-top: 25px;
   padding-bottom: 50px;
   width: 70%;
   margin: auto auto;
@@ -42,7 +33,7 @@ html {
   flex-direction: column;
 }
 
-.inputContainer input {
+.inputContainer {
   outline: none;
   font-size: 14px;
   padding: 6px;
@@ -50,10 +41,15 @@ html {
   border-width: 0px 0px 1px 0px;
 }
 
+.inputRequired {
+  border-color: #db202a;
+}
+
 .loginHeader {
   font-size: 16px;
   line-height: 1.5rem;
   margin-bottom: 4px;
+  padding: 6px;
 }
 
 .submitButton {
@@ -65,7 +61,16 @@ html {
   border-radius: 5px;
   border-color: #3d4252;
   outline: none;
+  margin: 5px;
   cursor: pointer;
+}
+.submitButton:disabled {
+  background: #bdbdbd;
+}
+
+.registerButtons {
+  display: flex;
+  flex-direction: column;
 }
 
 .signupSpan {
@@ -88,6 +93,6 @@ html {
 }
 
 .registerSuccess {
-  color: greenyellow;
+  color: #64b5f6;
   font-weight: 500;
 }

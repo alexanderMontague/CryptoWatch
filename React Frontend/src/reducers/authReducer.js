@@ -5,7 +5,8 @@ const initialState = {
   isLoginLoading: false,
   isLogoutLoading: false,
   registerStatus: {},
-  logoutStatus: null
+  loginStatus: {},
+  logoutStatus: {}
 };
 
 const authReducer = (prevState = initialState, { type, payload }) => {
@@ -32,6 +33,7 @@ const authReducer = (prevState = initialState, { type, payload }) => {
         ...prevState,
         isLoginLoading: false,
         isAuthenticated: true,
+        loginStatus: payload,
         user: { ...payload.data }
       };
     case 'LOGIN_FAILURE':
