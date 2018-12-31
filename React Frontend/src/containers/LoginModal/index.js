@@ -42,10 +42,6 @@ const Input = props => {
 };
 
 class LoginModal extends Component {
-  componentDidMount() {
-    Modal.setAppElement('body');
-  }
-
   state = {
     login: true,
     loginIdentifier: '',
@@ -56,11 +52,15 @@ class LoginModal extends Component {
     confirmPass: ''
   };
 
+  componentDidMount() {
+    Modal.setAppElement('body');
+  }
+
   handleLogin = event => {
     event.preventDefault();
 
     const { loginIdentifier, loginPass } = this.state;
-    const { loginUser } = this.props;
+    const { loginUser, toggleModal, loginStatus } = this.props;
 
     const loginObject = encodeBase64({
       identifier: loginIdentifier,
@@ -68,8 +68,6 @@ class LoginModal extends Component {
     });
 
     loginUser(loginObject);
-
-    //use this.props.toggleModal()
   };
 
   handleRegister = event => {
@@ -87,14 +85,23 @@ class LoginModal extends Component {
     });
 
     registerUser(registerObject);
-
-    //use this.props.toggleModal()
   };
 
   handleChange = event => {
     const target = event.target;
     this.setState({
       [target.name]: target.value
+    });
+  };
+
+  clearModalInput = () => {
+    this.setState({
+      loginIdentifier: '',
+      loginPass: '',
+      signupEmail: '',
+      signupUsername: '',
+      signupPass: '',
+      confirmPass: ''
     });
   };
 
@@ -173,14 +180,9 @@ class LoginModal extends Component {
                     className={styles.signupLink}
                     onClick={() => {
                       this.setState({
-                        login: false,
-                        loginIdentifier: '',
-                        loginPass: '',
-                        signupEmail: '',
-                        signupUsername: '',
-                        signupPass: '',
-                        confirmPass: ''
+                        login: false
                       });
+                      this.clearModalInput();
                     }}
                   >
                     Register
@@ -247,14 +249,9 @@ class LoginModal extends Component {
                 <button
                   onClick={() => {
                     this.setState({
-                      login: true,
-                      loginIdentifier: '',
-                      loginPass: '',
-                      signupEmail: '',
-                      signupUsername: '',
-                      signupPass: '',
-                      confirmPass: ''
+                      login: true
                     });
+                    this.clearModalInput();
                   }}
                   className={styles.submitButton}
                 >
