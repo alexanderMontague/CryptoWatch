@@ -22,7 +22,7 @@ class Slider extends Component {
   };
 
   render() {
-    const { showMenu, isAuthenticated, user, logoutUser } = this.props; // TODO auth in redux
+    const { showMenu, isAuthenticated, user, logoutUser } = this.props;
     const menuSliderStyle = showMenu
       ? [css.menuSlider, css.Open]
       : [css.menuSlider, css.Close];

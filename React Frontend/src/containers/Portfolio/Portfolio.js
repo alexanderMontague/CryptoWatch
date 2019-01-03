@@ -12,11 +12,6 @@ class Portfolio extends Component {
     totalValue: 0.0
   };
 
-  // TODO db stuff
-  componentDidMount = () => {
-    // load portfolio from DB
-  };
-
   componentDidUpdate = () => {
     if (this.props.portfolio) {
       const newPortfolio = this.props.portfolio;

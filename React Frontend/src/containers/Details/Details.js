@@ -64,16 +64,6 @@ class Details extends Component {
             dataAvailable: false
           }
         });
-        // TODO: DELETE DEV STUFF BELOW
-        if (selectedCoin === 'BTC') {
-          coinPrice = 8765;
-        } else if (selectedCoin === 'ETH') {
-          coinPrice = 320;
-        } else if (selectedCoin === 'CC') {
-          coinPrice = 0;
-        } else {
-          coinPrice = 169;
-        }
         console.error('GET Coin Price Error', error);
       } else {
         const basePrice = newCoinPrice.data[selectedCoin][baseCurrency];
