@@ -5,8 +5,7 @@ import css from './PortfolioItem.scss';
 import { selectCoin, showDetails } from '../../actions/tradeActions';
 import { formatPrice } from '../../helpers';
 import CoinLots from '../CoinLots/CoinLots';
-import chevronDown from '../../assets/chevron-arrow-down.png';
-import chevronUp from '../../assets/chevron-arrow-up.png';
+import chevronIcon from '../../assets/chevron-arrow.png';
 
 class PortfolioItem extends Component {
   state = {
@@ -41,7 +40,7 @@ class PortfolioItem extends Component {
             <span>{ticker}</span>
           </div>
           <div className={css.headerItemContainer}>
-            <div>Total Value:</div>
+            <div>Value:</div>
             <div>{`$${formatPrice(totalItemValue)}`}</div>
           </div>
           <div className={css.headerItemContainer}>
@@ -52,8 +51,10 @@ class PortfolioItem extends Component {
             <div className={css.detailsContainer}>
               <span>Lots: {numLots}</span>
               <img
-                className={css.chevronIcon}
-                src={this.state.showLots ? chevronUp : chevronDown}
+                className={
+                  this.state.showLots ? css.chevronDown : css.chevronUp
+                }
+                src={chevronIcon}
               />
             </div>
           </div>

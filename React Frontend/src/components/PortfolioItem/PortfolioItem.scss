@@ -40,9 +40,17 @@
   display: flex;
   justify-content: center;
 
-  .chevronIcon {
+  .chevronUp {
     height: 20px;
     width: 20px;
     padding-left: 20px;
+    transition: all 300ms ease;
+  }
+  .chevronDown {
+    height: 20px;
+    width: 20px;
+    padding-right: 20px;
+    transform: rotate(-180deg);
+    transition: all 300ms ease;
   }
 }

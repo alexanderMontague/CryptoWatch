@@ -66,6 +66,7 @@ html {
 }
 .submitButton:disabled {
   background: #bdbdbd;
+  cursor: default;
 }
 
 .registerButtons {
