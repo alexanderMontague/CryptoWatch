@@ -7,6 +7,8 @@ import { toggleMenu } from '../../actions/interfaceActions';
 import { logoutUser } from '../../actions/authActions';
 import { deleteAllUsers } from '../../helpers/requests';
 
+import ModalButton from '../../components/ModalButton';
+
 import { FaCog, FaSignOutAlt } from 'react-icons/fa';
 
 class Slider extends Component {
@@ -22,7 +24,13 @@ class Slider extends Component {
   };
 
   render() {
-    const { showMenu, isAuthenticated, user, logoutUser } = this.props;
+    const {
+      showMenu,
+      isAuthenticated,
+      user,
+      logoutUser,
+      toggleMenu
+    } = this.props;
     const menuSliderStyle = showMenu
       ? [css.menuSlider, css.Open]
       : [css.menuSlider, css.Close];
@@ -30,13 +38,10 @@ class Slider extends Component {
     return (
       <Fragment>
         <div
-          onClick={this.props.toggleMenu}
+          onClick={toggleMenu}
           className={showMenu ? css.backgroundShadow : null}
         >
-          <div
-            onClick={this.props.toggleMenu}
-            className={menuSliderStyle.join(' ')}
-          >
+          <div onClick={toggleMenu} className={menuSliderStyle.join(' ')}>
             <div className={css.menuLayer}>
               {isAuthenticated ? (
                 <Fragment>
@@ -54,9 +59,17 @@ class Slider extends Component {
                   </span>
                 </Fragment>
               ) : (
-                <span className={css.titleText}>
-                  Register / Log in to save your portfolio!
-                </span>
+                <Fragment>
+                  <span className={css.titleText}>
+                    To save your portfolio register an account!
+                  </span>
+                  <ModalButton toggleMenu={toggleMenu}>
+                    <span className={css.settingsButton}>
+                      <FaSignOutAlt />
+                      Register / Login
+                    </span>
+                  </ModalButton>
+                </Fragment>
               )}
 
               {/* TODO: Delete DEV stuff */}

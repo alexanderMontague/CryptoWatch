@@ -18,9 +18,7 @@ const AppBar = props => {
         {isAuthenticated ? (
           <span>{`Welcome, ${user.username}!`}</span>
         ) : (
-          <ModalButton open>
-            <span className={css.loginButton}>Login</span>
-          </ModalButton>
+          <span />
         )}
       </span>
     </div>
