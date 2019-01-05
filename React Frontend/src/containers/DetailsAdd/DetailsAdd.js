@@ -36,7 +36,7 @@ class DetailsAdd extends Component {
       dataAvailable: dataAvailable
     });
     // if new coin price is valid, remove possible previous require
-    if (coinPrice !== '') {
+    if (coinPrice !== '' && coinPrice !== 0) {
       this.setState({ renderPriceRequire: false });
     } else {
       this.setState({ renderPriceRequire: true });
@@ -46,7 +46,7 @@ class DetailsAdd extends Component {
   componentDidMount = () => {
     // set up state with passed in props
     // check if default passed price is valid/invalid
-    if (this.state.historicCoinPrice) {
+    if (this.state.historicCoinPrice !== 0) {
       this.setState({ renderPriceRequire: false });
     } else {
       // if the coin is listed, but has no publicly traded data available

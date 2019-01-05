@@ -61,7 +61,8 @@ class Slider extends Component {
               ) : (
                 <Fragment>
                   <span className={css.titleText}>
-                    To save your portfolio register an account!
+                    Register an account to save your portfolio, or log in if you
+                    already have one!
                   </span>
                   <ModalButton toggleMenu={toggleMenu}>
                     <span className={css.settingsButton}>

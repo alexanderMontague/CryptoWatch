@@ -34,12 +34,11 @@ class Details extends Component {
       selectedBaseCurrency
     } = this.props;
     const unixDate = moment().unix();
+
     if (selectedCoin && selectedCoin !== prevProps.selectedCoin) {
       // Coin info Needed
       let coinFullName = '';
       let coinImageURL = '';
-      let coinPrice = '';
-      let dataAvailable = true;
 
       // Get coin FullName and Coin Image URL
       coinFullName = coinObject[selectedCoin].FullName;
@@ -54,17 +53,22 @@ class Details extends Component {
       );
 
       // if the coin is listed, but has no publicly traded data available
-      if (newCoinPrice.error) {
+      if (
+        newCoinPrice.error ||
+        newCoinPrice.data.Response === 'Error' ||
+        newCoinPrice.data[selectedCoin][ // this is the most disgusting line of JS I have ever written
+          Object.keys(newCoinPrice.data[selectedCoin])[0]
+        ] === 0
+      ) {
         this.setState({
           coinDetails: {
             selectedCoin,
             coinFullName,
             coinImageURL,
-            coinPrice,
+            coinPrice: 0,
             dataAvailable: false
           }
         });
-        console.error('GET Coin Price Error', error);
       } else {
         const basePrice = newCoinPrice.data[selectedCoin][baseCurrency];
         const convertedCoinPrice = await convertCurrency(
@@ -82,7 +86,7 @@ class Details extends Component {
               coinFullName,
               coinImageURL,
               coinPrice: convertedCoinPrice.data,
-              dataAvailable
+              dataAvailable: true
             }
           });
         }

@@ -42,3 +42,19 @@ export const encodeBase64 = plainData => {
   }
   return btoa(formattedData);
 };
+
+// Calculate the historic worth of the portfolio
+export const getHistoricPortfolioValue = portfolio => {
+  let totalValue = 0;
+
+  for (let coin in portfolio) {
+    if (coin !== 'historicTotalValue') {
+      // calculate updated portfolio price
+      portfolio[coin].lots.forEach(lot => {
+        totalValue += lot.totalLotWorth;
+      });
+    }
+  }
+
+  return totalValue;
+};

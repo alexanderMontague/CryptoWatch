@@ -17,6 +17,8 @@ export const getCoinPrice = (ticker, baseCurrency, timeStamp) => {
       return { data: res.data };
     })
     .catch(error => {
+      console.log(error);
+
       return { error };
     });
 };

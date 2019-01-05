@@ -82,7 +82,7 @@ app.use(
     resave: true,
     saveUninitialized: true,
     secret: process.env.SESSION_SECRET,
-    cookie: { maxAge: 86000000, httpOnly: false, secure: false }, // one day
+    cookie: { maxAge: 3.6e6, httpOnly: false, secure: false }, // expires after 1 hour
     // store: new MongoStore({
     //   url: process.env.MONGODB_URI,
     //   autoReconnect: true,

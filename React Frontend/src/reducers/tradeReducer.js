@@ -1,8 +1,12 @@
+import { getHistoricPortfolioValue } from '../helpers';
+
 const initialState = {
   showDetails: false,
   baseCurrency: 'USD', // Base currency that all coin price data is fetched from. This is because CryptoCompare API has an abundance of American exchanges to source from
   selectedBaseCurrency: 'CAD', // Base currency the user will select to view prices in this currency,
-  portfolio: {}
+  portfolio: {
+    historicTotalValue: 0
+  }
 };
 
 const tradeState = (prevState = initialState, { type, payload }) => {
@@ -24,17 +28,30 @@ const tradeState = (prevState = initialState, { type, payload }) => {
           imageURL,
           lots: [{ ...details }]
         };
+
+        // calculate the total historic price with updated portfolio
+        let updatedPortfolio = { ...prevPortfolio, [ticker]: newCoinAsset };
+        const historicTotalValue = getHistoricPortfolioValue(updatedPortfolio);
+        updatedPortfolio = { ...updatedPortfolio, historicTotalValue };
+
         return {
           ...prevState,
-          portfolio: { ...prevPortfolio, [ticker]: newCoinAsset }
+          portfolio: updatedPortfolio
         };
       }
+
       // if coin is already in portfolio, add new lot
       const newCoinAsset = prevPortfolio[ticker];
       newCoinAsset.lots.push({ ...details });
+
+      // calculate the total historic price with updated portfolio
+      let updatedPortfolio = { ...prevPortfolio, [ticker]: newCoinAsset };
+      const historicTotalValue = getHistoricPortfolioValue(updatedPortfolio);
+      updatedPortfolio = { ...updatedPortfolio, historicTotalValue };
+
       return {
         ...prevState,
-        portfolio: { ...prevPortfolio, [ticker]: newCoinAsset }
+        portfolio: updatedPortfolio
       };
 
     case 'SHOW_DETAILS':
