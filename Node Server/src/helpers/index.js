@@ -1,3 +1,6 @@
+const axios = require('axios');
+const moment = require('moment');
+
 // Decodes and Parses encoded body information
 const decodeBody = bodyObject => {
   return JSON.parse(new Buffer(bodyObject, 'base64').toString('ascii'));
@@ -19,6 +22,8 @@ const createResponse = (code, message, data, error) => {
     error,
   };
 };
+
+const getCurrentCoinPrice = (ticker, baseCurrency = 'USD') => {};
 
 module.exports = {
   decodeBody,

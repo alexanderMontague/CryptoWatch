@@ -1,5 +1,5 @@
 {
-  "name": "Cryptowatch",
+  "name": "cryptowatch",
   "version": "1.1.0",
   "description": "Backend services for the Cryptowatch application",
   "author": "Alex Montague",
@@ -11,6 +11,7 @@
     "lint": "eslint \"**/*.js\""
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.18.3",
     "chalk": "^2.4.1",
@@ -24,6 +25,7 @@
     "express-session": "^1.15.6",
     "express-status-monitor": "^1.2.3",
     "express-validator": "^5.3.0",
+    "moment": "^2.23.0",
     "mongoose": "^5.4.0",
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
