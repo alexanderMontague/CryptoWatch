@@ -1,5 +1,6 @@
 const passport = require('passport');
-const { createResponse, decodeBody } = require('../helpers');
+const { createResponse } = require('../helpers');
+const { getCurrPortfolioValue } = require('../repositories').user;
 
 /*
  *   POST /api/v1/public/login
@@ -84,9 +85,11 @@ logoutUser = (req, res) => {
  *     }
  *   }
  */
-getStatus = (req, res) => {
+async function getStatus(req, res) {
   if (req.isAuthenticated()) {
     const { password, ...userObject } = req.user._doc;
+    const currentPortfolioValue = await getCurrPortfolioValue(userObject.portfolio);
+
     return res.json(
       createResponse(
         200,
@@ -110,7 +113,7 @@ getStatus = (req, res) => {
       false
     )
   );
-};
+}
 
 module.exports = {
   loginUser,

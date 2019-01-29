@@ -23,8 +23,6 @@ const createResponse = (code, message, data, error) => {
   };
 };
 
-const getCurrentCoinPrice = (ticker, baseCurrency = 'USD') => {};
-
 module.exports = {
   decodeBody,
   createResponse,

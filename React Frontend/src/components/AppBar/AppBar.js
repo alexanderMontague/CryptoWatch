@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import css from './AppBar.scss';
-import ModalButton from '../ModalButton';
 
+import cryptowatchLogo from '../../assets/cryptowatchLogo.png';
 import hamburgerIcon from '../../assets/burgerIcon.png';
 
 const AppBar = props => {
@@ -14,7 +14,14 @@ const AppBar = props => {
         <span className={css.hamburgerButton} onClick={props.toggleMenu}>
           <img className={css.menuIcon} src={hamburgerIcon} />
         </span>
-        <span className={css.title}>CryptoWatch</span>
+        <span className={css.title}>
+          <img
+            className={css.logo}
+            src={cryptowatchLogo}
+            alt="Cryptowatch Logo"
+          />
+          CryptoWatch
+        </span>
         {isAuthenticated ? (
           <span>{`Welcome, ${user.username}!`}</span>
         ) : (

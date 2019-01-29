@@ -4,6 +4,7 @@
 }
 
 .appBarContent {
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -17,15 +18,21 @@
   width: 30px;
 }
 
-
 .title {
   font-size: 30px;
   color: #3d4252;
+  display: flex;
+  align-items: center;
 
-  @media(max-width: 375px) {
+  @media (max-width: 375px) {
     font-size: 7vw;
   }
 
+  .logo {
+    width: 50px;
+    height: 50px;
+    padding-right: 15px;
+  }
 }
 
 .hamburgerButton:hover {

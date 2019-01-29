@@ -9,6 +9,7 @@ import { deleteAllUsers } from '../../helpers/requests';
 
 import ModalButton from '../../components/ModalButton';
 
+import cryptowatchMedia from '../../assets/cryptowatch.png';
 import { FaCog, FaSignOutAlt } from 'react-icons/fa';
 
 class Slider extends Component {
@@ -45,6 +46,7 @@ class Slider extends Component {
             <div className={css.menuLayer}>
               {isAuthenticated ? (
                 <Fragment>
+                  <img src={cryptowatchMedia} alt="Cryptowatch Logo" />
                   <span className={css.titleText}>{`${
                     user.username
                   }'s Profile`}</span>
@@ -60,9 +62,9 @@ class Slider extends Component {
                 </Fragment>
               ) : (
                 <Fragment>
+                  <img src={cryptowatchMedia} alt="Cryptowatch Logo" />
                   <span className={css.titleText}>
-                    Register an account to save your portfolio, or log in if you
-                    already have one!
+                    Register an account to save your portfolio!
                   </span>
                   <ModalButton toggleMenu={toggleMenu}>
                     <span className={css.settingsButton}>

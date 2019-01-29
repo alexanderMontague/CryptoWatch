@@ -7,7 +7,8 @@ const userSchema = new mongoose.Schema(
     username: { type: String, unique: true },
     password: String,
     terms: Boolean,
-    portfolio: {},
+    portfolio: Object,
+    baseCurrency: { type: String, default: 'CAD' }, // TODO: Get from FE
   },
   {
     timestamps: true,

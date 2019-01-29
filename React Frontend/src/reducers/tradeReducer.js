@@ -62,7 +62,7 @@ const tradeState = (prevState = initialState, { type, payload }) => {
 
     // update user portfolio with one in DB on login
     case 'LOGIN_SUCCESS':
-      return { ...prevState, portfolio: payload.data.portfolio };
+      return { ...prevState, portfolio: payload.data.portfolio || {} };
 
     // hide previous portfolio on logout
     case 'LOGOUT_SUCCESS':
@@ -70,7 +70,9 @@ const tradeState = (prevState = initialState, { type, payload }) => {
 
     // update portfolio if user is already logged in and refreshes
     case 'USER_STATUS_RESPONSE':
-      const portfolio = payload.data.user ? payload.data.user.portfolio : {};
+      const portfolio = payload.data.isAuthenticated
+        ? payload.data.user.portfolio || {}
+        : {};
       return { ...prevState, portfolio };
 
     default:
