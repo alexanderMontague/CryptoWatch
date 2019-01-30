@@ -1,6 +1,7 @@
 # 📈&nbsp; CryptoWatch &nbsp; 💸
 _An all in one crypto asset tracking application_
-![](https://i.imgur.com/2HFVTJB.png)
+![](https://i.imgur.com/1OIO4up.png)
+![](https://i.imgur.com/KD2QGVz.png)
 
 ### Details
 - Cryptowatch was created as an easy intuitive way to track and manage your crypto assets
