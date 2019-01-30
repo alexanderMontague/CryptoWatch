@@ -26,7 +26,8 @@ const tradeState = (prevState = initialState, { type, payload }) => {
         const newCoinAsset = {
           ticker,
           imageURL,
-          lots: [{ ...details }]
+          lots: [{ ...details }],
+          totalCoinAmount: Number(details.amountBought)
         };
 
         // calculate the total historic price with updated portfolio
@@ -42,6 +43,8 @@ const tradeState = (prevState = initialState, { type, payload }) => {
 
       // if coin is already in portfolio, add new lot
       const newCoinAsset = prevPortfolio[ticker];
+      newCoinAsset.totalCoinAmount =
+        Number(newCoinAsset.totalCoinAmount) + Number(details.amountBought);
       newCoinAsset.lots.push({ ...details });
 
       // calculate the total historic price with updated portfolio

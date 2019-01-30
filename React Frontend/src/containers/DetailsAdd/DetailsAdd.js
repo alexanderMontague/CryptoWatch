@@ -147,6 +147,7 @@ class DetailsAdd extends Component {
     // add the coin/lot to the portfolio, show details screen for added coin
     addCoinToPortfolio(newLotDetails);
     showDetailsInDepth();
+
     // add newly updated portfolio to user's portfolio in DB
     updateUserPortfolio();
   };

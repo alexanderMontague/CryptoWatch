@@ -88,7 +88,8 @@ logoutUser = (req, res) => {
 async function getStatus(req, res) {
   if (req.isAuthenticated()) {
     const { password, ...userObject } = req.user._doc;
-    const currentPortfolioValue = await getCurrPortfolioValue(userObject.portfolio);
+    const currentPortfolioValue = await getCurrPortfolioValue({ ...userObject.portfolio });
+    console.log('total val', currentPortfolioValue);
 
     return res.json(
       createResponse(
