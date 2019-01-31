@@ -48,7 +48,7 @@ export const getHistoricPortfolioValue = portfolio => {
   let totalValue = 0;
 
   for (let coin in portfolio) {
-    if (coin !== 'historicTotalValue') {
+    if (!['historicTotalValue', 'currentTotalValue'].includes(coin)) {
       // calculate updated portfolio price
       portfolio[coin].lots.forEach(lot => {
         totalValue += lot.totalLotWorth;

@@ -3,9 +3,10 @@ import Modal from 'react-modal';
 import { connect } from 'react-redux';
 import styles from './styles.scss';
 
+import Loader from 'react-loader-spinner';
+
 import { toggleModal } from '../../actions/interfaceActions';
 import { registerUser, loginUser } from '../../actions/authActions';
-
 import { encodeBase64 } from '../../helpers';
 
 const customStyles = {
@@ -60,7 +61,7 @@ class LoginModal extends Component {
     event.preventDefault();
 
     const { loginIdentifier, loginPass } = this.state;
-    const { loginUser, toggleModal, loginStatus } = this.props;
+    const { loginUser } = this.props;
 
     const loginObject = encodeBase64({
       identifier: loginIdentifier,
@@ -106,7 +107,7 @@ class LoginModal extends Component {
   };
 
   render() {
-    const { registerStatus, loginStatus } = this.props;
+    const { registerStatus, loginStatus, isLoginLoading } = this.props;
     const {
       loginIdentifier,
       loginPass,
@@ -189,12 +190,18 @@ class LoginModal extends Component {
                   </span>
                 </div>
               </div>
-              <button
-                className={styles.submitButton}
-                disabled={!loginIdentifier || !loginPass}
-              >
-                Login
-              </button>
+              {isLoginLoading ? (
+                <span className={styles.loginSpinner}>
+                  <Loader type="Oval" color="#64b5f6" height="40" width="40" />
+                </span>
+              ) : (
+                <button
+                  className={styles.submitButton}
+                  disabled={!loginIdentifier || !loginPass}
+                >
+                  Login
+                </button>
+              )}
             </form>
           ) : (
             <form
@@ -271,7 +278,8 @@ const mapStateToProps = state => {
     isOpen: state.interfaceState.showModal,
     portfolio: state.tradeState.portfolio,
     registerStatus: state.authState.registerStatus,
-    loginStatus: state.authState.loginStatus
+    loginStatus: state.authState.loginStatus,
+    isLoginLoading: state.authState.isLoginLoading
   };
 };
 

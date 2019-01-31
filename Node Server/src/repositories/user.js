@@ -1,18 +1,26 @@
 const { getCurrentCoinPrice } = require('../helpers/requests');
 
-async function getCurrPortfolioValue(portfolio) {
-  delete portfolio.historicTotalValue; // only get keys of coins
-  // TODO delete portfolio. curr val
+async function getCurrPortfolioValue(portfolio, userBaseCurrency) {
+  // only get keys of coins
+  delete portfolio.historicTotalValue;
+  delete portfolio.currentTotalValue;
 
   // get current price of single coin in portfolio
   let currCoinPrices = {};
   for (const coin in portfolio) {
-    currCoinPrices[coin] = (await getCurrentCoinPrice(coin, 'CAD')).CAD; // TODO: get base from user db
+    currCoinPrices[coin] = (await getCurrentCoinPrice(coin, userBaseCurrency))[userBaseCurrency];
   }
 
   // get total amount of coins per crypto in portfolio
+  let currCoinAmounts = {};
+  for (const coin in portfolio) {
+    currCoinAmounts[coin] = portfolio[coin].totalCoinAmount;
+  }
 
-  return currCoinPrices;
+  // calculate the total current portfolio price
+  return Object.keys(portfolio).reduce((currentPortfolioValue, coin) => {
+    return currentPortfolioValue + currCoinPrices[coin] * currCoinAmounts[coin];
+  }, 0);
 }
 
 module.exports = {

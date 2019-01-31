@@ -5,13 +5,9 @@ html {
   font-family: Verdana;
 }
 
-#app {
-  height: 100%;
-}
-
 .modalContainer {
-  height: 400px;
-  width: 400px;
+  height: 450px;
+  width: 450px;
   margin: auto auto;
   border-radius: 4px;
   background-color: white;
@@ -43,6 +39,7 @@ html {
 }
 
 .loginHeader {
+  text-align: center;
   font-size: 16px;
   line-height: 1.5rem;
   margin-bottom: 4px;
@@ -58,7 +55,7 @@ html {
   border-radius: 5px;
   border-color: #3d4252;
   outline: none;
-  margin: 5px;
+  margin: 25px 5px 0 5px;
   cursor: pointer;
 }
 .submitButton:disabled {
@@ -83,6 +80,7 @@ html {
 
 .lilSpacing {
   margin-top: 20px;
+  text-align: center;
 }
 
 .registerError {
@@ -93,4 +91,9 @@ html {
 .registerSuccess {
   color: #64b5f6;
   font-weight: 500;
+}
+
+.loginSpinner {
+  text-align: center;
+  padding-top: 10px;
 }

@@ -22,7 +22,7 @@ const { getCurrPortfolioValue } = require('../repositories').user;
  *     }
  *   }
  */
-loginUser = (req, res, next) => {
+function loginUser(req, res, next) {
   if (req.isAuthenticated()) {
     return res.json(createResponse(200, 'Already logged in!', null, true));
   }
@@ -34,19 +34,25 @@ loginUser = (req, res, next) => {
     if (!user) {
       return res.json(createResponse(200, info.message, null, true));
     }
-    req.logIn(user, err => {
+    req.logIn(user, async err => {
       if (err) {
         return res.json(createResponse(500, err.message, null, true));
       }
 
       const { password, ...userObject } = user._doc;
 
+      // Add up to date portfolio price to user object
+      userObject.portfolio.currentTotalValue = await getCurrPortfolioValue(
+        { ...userObject.portfolio },
+        userObject.baseCurrency
+      );
+
       req.session.save(() => {
         return res.json(createResponse(200, 'Successfully Logged In!', userObject, false));
       });
     });
   })(req, res, next);
-};
+}
 
 /*
  *   GET /api/v1/auth/logout
@@ -62,14 +68,14 @@ loginUser = (req, res, next) => {
  *     }
  *   }
  */
-logoutUser = (req, res) => {
+function logoutUser(req, res) {
   if (!req.isAuthenticated()) {
     return res.json(createResponse(200, 'You are not logged in!', null, true));
   }
 
   req.logOut();
   return res.json(createResponse(200, 'Successfully logged out.', null, false));
-};
+}
 
 /*
  *   GET /api/v1/public/getStatus
@@ -88,8 +94,12 @@ logoutUser = (req, res) => {
 async function getStatus(req, res) {
   if (req.isAuthenticated()) {
     const { password, ...userObject } = req.user._doc;
-    const currentPortfolioValue = await getCurrPortfolioValue({ ...userObject.portfolio });
-    console.log('total val', currentPortfolioValue);
+
+    // Add up to date portfolio price to user object
+    userObject.currentTotalValue = await getCurrPortfolioValue(
+      { ...userObject.portfolio },
+      userObject.baseCurrency
+    );
 
     return res.json(
       createResponse(

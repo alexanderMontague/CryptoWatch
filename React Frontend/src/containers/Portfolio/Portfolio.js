@@ -33,7 +33,9 @@ class Portfolio extends Component {
     const { portfolio } = this.props;
 
     return Object.keys(portfolio).map(portfolioCoinItem => {
-      if (portfolioCoinItem !== 'historicTotalValue') {
+      if (
+        !['historicTotalValue', 'currentTotalValue'].includes(portfolioCoinItem)
+      ) {
         const { ticker, imageURL, lots } = portfolio[portfolioCoinItem];
         return (
           <PortfolioItem
