@@ -8,6 +8,7 @@ import {
   logoutFailure,
   userStatusResponse
 } from '../actions/authActions';
+import { hideDetails } from '../actions/tradeActions';
 import {
   registerUser,
   loginUser,
@@ -45,6 +46,7 @@ function* attemptLogoutUser() {
     return yield put(logoutFailure(logoutResponse));
   }
 
+  yield put(hideDetails());
   yield put(logoutSuccess(logoutResponse));
 }
 

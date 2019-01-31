@@ -15,8 +15,6 @@ html {
 
 .contentContainer {
   min-height: 300px;
-  padding-top: 25px;
-  padding-bottom: 50px;
   width: 70%;
   margin: auto auto;
   display: flex;
@@ -93,7 +91,7 @@ html {
   font-weight: 500;
 }
 
-.loginSpinner {
+.spinner {
   text-align: center;
   padding-top: 10px;
 }

@@ -8,6 +8,7 @@ import Loader from 'react-loader-spinner';
 import { toggleModal } from '../../actions/interfaceActions';
 import { registerUser, loginUser } from '../../actions/authActions';
 import { encodeBase64 } from '../../helpers';
+// import { successfulRegisterSelector } from '../../selectors';
 
 const customStyles = {
   content: {
@@ -107,7 +108,14 @@ class LoginModal extends Component {
   };
 
   render() {
-    const { registerStatus, loginStatus, isLoginLoading } = this.props;
+    const {
+      registerStatus,
+      loginStatus,
+      isLoginLoading,
+      isAuthenticated,
+      toggleModal,
+      isRegisterLoading
+    } = this.props;
     const {
       loginIdentifier,
       loginPass,
@@ -146,7 +154,7 @@ class LoginModal extends Component {
     return (
       <Modal
         isOpen={this.props.isOpen}
-        onRequestClose={this.props.toggleModal}
+        onRequestClose={toggleModal}
         style={customStyles}
         contentLabel="Example Modal"
       >
@@ -157,47 +165,58 @@ class LoginModal extends Component {
               className={styles.contentContainer}
             >
               <span className={styles.loginHeader}>{loginMessage}</span>
-              <div>
-                <span className={styles.loginHeader}>Log In</span>
-                <Input
-                  onChange={this.handleChange}
-                  label="Username or Email"
-                  name="loginIdentifier"
-                  value={this.state.loginIdentifier}
-                  currentVal={this.state.loginIdentifier}
-                />
-                <Input
-                  onChange={this.handleChange}
-                  label="Password"
-                  name="loginPass"
-                  value={this.state.loginPass}
-                  currentVal={this.state.loginPass}
-                />
-                <div className={styles.lilSpacing}>
-                  <span className={styles.signupSpan}>
-                    Don't have an account?{' '}
-                  </span>
-                  <span
-                    className={styles.signupLink}
-                    onClick={() => {
-                      this.setState({
-                        login: false
-                      });
-                      this.clearModalInput();
-                    }}
-                  >
-                    Register
-                  </span>
+              {!isAuthenticated && (
+                <div>
+                  <span className={styles.loginHeader}>Log In</span>
+                  <Input
+                    onChange={this.handleChange}
+                    label="Username or Email"
+                    name="loginIdentifier"
+                    value={this.state.loginIdentifier}
+                    currentVal={this.state.loginIdentifier}
+                  />
+                  <Input
+                    onChange={this.handleChange}
+                    label="Password"
+                    name="loginPass"
+                    value={this.state.loginPass}
+                    currentVal={this.state.loginPass}
+                  />
+                  <div className={styles.lilSpacing}>
+                    <span className={styles.signupSpan}>
+                      Don't have an account?{' '}
+                    </span>
+                    <span
+                      className={styles.signupLink}
+                      onClick={() => {
+                        this.setState({
+                          login: false
+                        });
+                        this.clearModalInput();
+                      }}
+                    >
+                      Register
+                    </span>
+                  </div>
                 </div>
-              </div>
+              )}
               {isLoginLoading ? (
-                <span className={styles.loginSpinner}>
+                <span className={styles.spinner}>
                   <Loader type="Oval" color="#64b5f6" height="40" width="40" />
                 </span>
+              ) : isAuthenticated ? (
+                <button
+                  className={styles.submitButton}
+                  onClick={toggleModal}
+                  type="button"
+                >
+                  Close
+                </button>
               ) : (
                 <button
                   className={styles.submitButton}
                   disabled={!loginIdentifier || !loginPass}
+                  type="submit"
                 >
                   Login
                 </button>
@@ -209,50 +228,65 @@ class LoginModal extends Component {
               className={styles.contentContainer}
             >
               <span className={styles.loginHeader}>{registerMessage}</span>
-              <div>
-                <span className={styles.loginHeader}>Register an Account</span>
+              {
+                <div>
+                  <span className={styles.loginHeader}>
+                    Register an Account
+                  </span>
 
-                <Input
-                  onChange={this.handleChange}
-                  label="Username"
-                  name="signupUsername"
-                  value={this.state.signupUsername}
-                  currentVal={this.state.signupUsername}
-                />
-                <Input
-                  onChange={this.handleChange}
-                  label="Email"
-                  name="signupEmail"
-                  value={this.state.signupEmail}
-                  currentVal={this.state.signupEmail}
-                />
-                <Input
-                  onChange={this.handleChange}
-                  label="Password"
-                  name="signupPass"
-                  value={this.state.signupPass}
-                  currentVal={this.state.signupPass}
-                />
-                <Input
-                  onChange={this.handleChange}
-                  label="Confirm Password"
-                  name="confirmPass"
-                  value={this.state.confirmPass}
-                  currentVal={this.state.confirmPass}
-                />
-              </div>
+                  <Input
+                    onChange={this.handleChange}
+                    label="Username"
+                    name="signupUsername"
+                    value={this.state.signupUsername}
+                    currentVal={this.state.signupUsername}
+                  />
+                  <Input
+                    onChange={this.handleChange}
+                    label="Email"
+                    name="signupEmail"
+                    value={this.state.signupEmail}
+                    currentVal={this.state.signupEmail}
+                  />
+                  <Input
+                    onChange={this.handleChange}
+                    label="Password"
+                    name="signupPass"
+                    value={this.state.signupPass}
+                    currentVal={this.state.signupPass}
+                  />
+                  <Input
+                    onChange={this.handleChange}
+                    label="Confirm Password"
+                    name="confirmPass"
+                    value={this.state.confirmPass}
+                    currentVal={this.state.confirmPass}
+                  />
+                </div>
+              }
               <div className={styles.registerButtons}>
-                <button
-                  className={styles.submitButton}
-                  disabled={
-                    !signupEmail ||
-                    !signupUsername ||
-                    !signupPass ||
-                    !confirmPass
-                  }
-                >
-                  Register
-                </button>
+                {isRegisterLoading ? (
+                  <span className={styles.spinner}>
+                    <Loader
+                      type="Oval"
+                      color="#64b5f6"
+                      height="40"
+                      width="40"
+                    />
+                  </span>
+                ) : (
+                  <button
+                    className={styles.submitButton}
+                    disabled={
+                      !signupEmail ||
+                      !signupUsername ||
+                      !signupPass ||
+                      !confirmPass
+                    }
+                  >
+                    Register
+                  </button>
+                )}
                 <button
                   onClick={() => {
                     this.setState({
@@ -279,7 +313,10 @@ const mapStateToProps = state => {
     portfolio: state.tradeState.portfolio,
     registerStatus: state.authState.registerStatus,
     loginStatus: state.authState.loginStatus,
-    isLoginLoading: state.authState.isLoginLoading
+    isLoginLoading: state.authState.isLoginLoading,
+    isRegisterLoading: state.authState.isRegisterLoading,
+    isAuthenticated: state.authState.isAuthenticated
+    // successfulRegister: successfulRegisterSelector(state)
   };
 };
 
