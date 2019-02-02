@@ -17,7 +17,7 @@ class Portfolio extends Component {
   componentDidUpdate = () => {
     if (this.props.portfolio) {
       const newPortfolio = this.props.portfolio;
-      let newTotalValue = getHistoricPortfolioValue(newPortfolio);
+      let newTotalValue = getHistoricPortfolioValue(newPortfolio); // might be redundant as portfolio has a historical prop
 
       if (this.state.totalValue !== newTotalValue) {
         // if the total value did change, update it
