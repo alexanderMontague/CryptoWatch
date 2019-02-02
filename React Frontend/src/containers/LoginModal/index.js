@@ -6,7 +6,11 @@ import styles from './styles.scss';
 import Loader from 'react-loader-spinner';
 
 import { toggleModal } from '../../actions/interfaceActions';
-import { registerUser, loginUser } from '../../actions/authActions';
+import {
+  registerUser,
+  loginUser,
+  registerSuccess
+} from '../../actions/authActions';
 import { encodeBase64 } from '../../helpers';
 import { sucessfulRegisterSelector } from '../../selectors';
 
@@ -70,6 +74,7 @@ class LoginModal extends Component {
     });
 
     loginUser(loginObject);
+    this.clearModalInput();
   };
 
   handleRegister = event => {
@@ -115,7 +120,8 @@ class LoginModal extends Component {
       isAuthenticated,
       toggleModal,
       isRegisterLoading,
-      successfulRegister
+      successfulRegister,
+      registerSuccess
     } = this.props;
     const {
       loginIdentifier,
@@ -296,6 +302,7 @@ class LoginModal extends Component {
                       login: true
                     });
                     this.clearModalInput();
+                    registerSuccess({});
                   }}
                   className={styles.submitButton}
                 >
@@ -325,5 +332,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { toggleModal, registerUser, loginUser }
+  { toggleModal, registerUser, loginUser, registerSuccess }
 )(LoginModal);
