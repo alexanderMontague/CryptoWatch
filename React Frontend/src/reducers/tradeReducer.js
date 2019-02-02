@@ -79,6 +79,10 @@ const tradeState = (prevState = initialState, { type, payload }) => {
         : {};
       return { ...prevState, portfolio };
 
+    // update portfolio when save to DB is successful
+    case 'UPDATE_PORTFOLIO_SUCCESS':
+      return { ...prevState, portfolio: payload.data };
+
     default:
       return prevState;
   }
