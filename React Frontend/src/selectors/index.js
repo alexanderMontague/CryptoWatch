@@ -1,7 +1,7 @@
-export function sucessfulRegisterSelector(state) {
+export const sucessfulRegisterSelector = state => {
   const {
-    authState: { registerStatus: message, data, error }
-  } = state;
+    registerStatus: { message = '', data = {}, error = false }
+  } = state.authState;
 
-  return !error && data.username && data.email && message.contains('Success');
-}
+  return !error && data.username && data.email && message.includes('Success');
+};

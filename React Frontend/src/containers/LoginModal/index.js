@@ -8,7 +8,7 @@ import Loader from 'react-loader-spinner';
 import { toggleModal } from '../../actions/interfaceActions';
 import { registerUser, loginUser } from '../../actions/authActions';
 import { encodeBase64 } from '../../helpers';
-// import { successfulRegisterSelector } from '../../selectors';
+import { sucessfulRegisterSelector } from '../../selectors';
 
 const customStyles = {
   content: {
@@ -114,7 +114,8 @@ class LoginModal extends Component {
       isLoginLoading,
       isAuthenticated,
       toggleModal,
-      isRegisterLoading
+      isRegisterLoading,
+      successfulRegister
     } = this.props;
     const {
       loginIdentifier,
@@ -228,7 +229,7 @@ class LoginModal extends Component {
               className={styles.contentContainer}
             >
               <span className={styles.loginHeader}>{registerMessage}</span>
-              {
+              {!successfulRegister && (
                 <div>
                   <span className={styles.loginHeader}>
                     Register an Account
@@ -263,7 +264,7 @@ class LoginModal extends Component {
                     currentVal={this.state.confirmPass}
                   />
                 </div>
-              }
+              )}
               <div className={styles.registerButtons}>
                 {isRegisterLoading ? (
                   <span className={styles.spinner}>
@@ -275,17 +276,19 @@ class LoginModal extends Component {
                     />
                   </span>
                 ) : (
-                  <button
-                    className={styles.submitButton}
-                    disabled={
-                      !signupEmail ||
-                      !signupUsername ||
-                      !signupPass ||
-                      !confirmPass
-                    }
-                  >
-                    Register
-                  </button>
+                  !successfulRegister && (
+                    <button
+                      className={styles.submitButton}
+                      disabled={
+                        !signupEmail ||
+                        !signupUsername ||
+                        !signupPass ||
+                        !confirmPass
+                      }
+                    >
+                      Register
+                    </button>
+                  )
                 )}
                 <button
                   onClick={() => {
@@ -315,8 +318,8 @@ const mapStateToProps = state => {
     loginStatus: state.authState.loginStatus,
     isLoginLoading: state.authState.isLoginLoading,
     isRegisterLoading: state.authState.isRegisterLoading,
-    isAuthenticated: state.authState.isAuthenticated
-    // successfulRegister: successfulRegisterSelector(state)
+    isAuthenticated: state.authState.isAuthenticated,
+    successfulRegister: sucessfulRegisterSelector(state)
   };
 };
 
