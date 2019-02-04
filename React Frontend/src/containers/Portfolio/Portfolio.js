@@ -11,21 +11,24 @@ import PortfolioItem from '../../components/PortfolioItem/PortfolioItem';
 class Portfolio extends Component {
   state = {
     portfolio: this.props.portfolio,
-    totalValue: 0.0
+    totalValue: this.props.currentPortfolioValue
   };
 
   componentDidUpdate = () => {
-    if (this.props.portfolio) {
-      const newPortfolio = this.props.portfolio;
-      let newTotalValue = getHistoricPortfolioValue(newPortfolio); // might be redundant as portfolio has a historical prop
+    //   if (this.props.portfolio) {
+    //     const newPortfolio = this.props.portfolio;
+    //     let newTotalValue = getHistoricPortfolioValue(newPortfolio); // might be redundant as portfolio has a historical prop
 
-      if (this.state.totalValue !== newTotalValue) {
-        // if the total value did change, update it
-        this.setState({
-          portfolio: newPortfolio,
-          totalValue: newTotalValue
-        });
-      }
+    //     if (this.state.totalValue !== newTotalValue) {
+    //       // if the total value did change, update it
+    //       this.setState({
+    //         portfolio: newPortfolio,
+    //         totalValue: newTotalValue
+    //       });
+    //     }
+    //   }
+    if (this.state.totalValue !== this.props.currentPortfolioValue) {
+      this.setState({ totalValue: this.props.currentPortfolioValue });
     }
   };
 
@@ -62,7 +65,8 @@ class Portfolio extends Component {
 
 const mapStateToProps = state => {
   return {
-    portfolio: state.tradeState.portfolio
+    portfolio: state.tradeState.portfolio,
+    currentPortfolioValue: state.tradeState.portfolio.currentTotalValue
   };
 };
 
