@@ -8,7 +8,7 @@ async function getCurrPortfolioValue(portfolio, userBaseCurrency) {
   // get current price of single coin in portfolio
   let currCoinPrices = {};
   for (const coin in portfolio) {
-    currCoinPrices[coin] = (await getCurrentCoinPrice(coin, userBaseCurrency))[userBaseCurrency];
+    currCoinPrices[coin] = await getCurrentCoinPrice(coin, userBaseCurrency);
   }
 
   // get total amount of coins per crypto in portfolio

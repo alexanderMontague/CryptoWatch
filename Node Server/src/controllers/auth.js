@@ -42,10 +42,12 @@ function loginUser(req, res, next) {
       const { password, ...userObject } = user._doc;
 
       // Add up to date portfolio price to user object
-      userObject.portfolio.currentTotalValue = await getCurrPortfolioValue(
-        { ...userObject.portfolio },
-        userObject.baseCurrency
-      );
+      if (userObject.portfolio) {
+        userObject.portfolio.currentTotalValue = await getCurrPortfolioValue(
+          { ...userObject.portfolio },
+          userObject.baseCurrency
+        );
+      }
 
       req.session.save(() => {
         return res.json(createResponse(200, 'Successfully Logged In!', userObject, false));

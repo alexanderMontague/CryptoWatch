@@ -74,7 +74,6 @@ class LoginModal extends Component {
     });
 
     loginUser(loginObject);
-    this.clearModalInput();
   };
 
   handleRegister = event => {
@@ -214,7 +213,10 @@ class LoginModal extends Component {
               ) : isAuthenticated ? (
                 <button
                   className={styles.submitButton}
-                  onClick={toggleModal}
+                  onClick={() => {
+                    toggleModal();
+                    this.clearModalInput();
+                  }}
                   type="button"
                 >
                   Close
