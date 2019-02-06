@@ -6,7 +6,8 @@ const initialState = {
   isLogoutLoading: false,
   registerStatus: {},
   loginStatus: {},
-  logoutStatus: {}
+  logoutStatus: {},
+  baseCurrency: 'CAD'
 };
 
 const authReducer = (prevState = initialState, { type, payload }) => {
@@ -34,7 +35,8 @@ const authReducer = (prevState = initialState, { type, payload }) => {
         isLoginLoading: false,
         isAuthenticated: true,
         loginStatus: payload,
-        user: { ...payload.data }
+        user: { ...payload.data },
+        baseCurrency: payload.data.baseCurrency
       };
     case 'LOGIN_FAILURE':
       return { ...prevState, isLoginLoading: false, loginStatus: payload };

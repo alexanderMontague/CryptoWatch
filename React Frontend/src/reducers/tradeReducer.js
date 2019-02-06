@@ -2,8 +2,7 @@ import { getHistoricPortfolioValue } from '../helpers';
 
 const initialState = {
   showDetails: false,
-  baseCurrency: 'USD', // Base currency that all coin price data is fetched from. This is because CryptoCompare API has an abundance of American exchanges to source from
-  selectedBaseCurrency: 'CAD', // Base currency the user will select to view prices in this currency,
+  baseCurrency: 'CAD', // TODO: Fetch from user object if valid
   portfolio: {
     historicTotalValue: 0,
     currentTotalValue: 0

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import css from './DetailsAdd.scss';
 import { connect } from 'react-redux';
-import { convertCurrency } from '../../helpers';
 import { getCoinPrice } from '../../helpers/requests';
 import {
   addToPortfolio,
@@ -72,29 +71,17 @@ class DetailsAdd extends Component {
     // get the price from the selected day
     const {
       baseCurrency,
-      selectedBaseCurrency,
       coinDetails: { selectedCoin }
     } = this.props; // TODO: baseCurrency to comma separated array in future for multiple base currencies
-    getCoinPrice(selectedCoin, baseCurrency, newUnixDate).then(response => {
-      if (response.error) {
+    getCoinPrice(selectedCoin, baseCurrency, newUnixDate).then(coinPrice => {
+      if (!coinPrice) {
         console.error(
           'GET updated historical coin data Error:',
           response.error
         );
       } else {
         // Update the coin price from selected day
-        // response format is { SYM: { BASES: { CAD: 123, USD: 456... } } }
-        const basePrice = response.data[selectedCoin][baseCurrency];
-        convertCurrency(baseCurrency, selectedBaseCurrency, basePrice).then(
-          convertedResponse => {
-            if (convertedResponse.error) {
-              console.error('GET Exchange API Error', convertedResponse.error);
-            } else {
-              // Set state after getting new converted coin price in selectedBase
-              this.setState({ historicCoinPrice: convertedResponse.data });
-            }
-          }
-        );
+        this.setState({ historicCoinPrice: coinPrice });
       }
     });
   };
@@ -256,7 +243,6 @@ class DetailsAdd extends Component {
 
 const mapStateToProps = state => {
   return {
-    selectedBaseCurrency: state.tradeState.selectedBaseCurrency,
     portfolio: state.tradeState.portfolio
   };
 };

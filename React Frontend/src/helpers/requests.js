@@ -14,11 +14,12 @@ export const getCoinPrice = (ticker, baseCurrency, timeStamp) => {
       `https://min-api.cryptocompare.com/data/pricehistorical?fsym=${ticker}&tsyms=${baseCurrency}&ts=${timeStamp}`
     )
     .then(res => {
-      return { data: res.data };
+      return res.data.Response === 'Error'
+        ? null
+        : res.data[ticker][baseCurrency];
     })
     .catch(error => {
-      console.log(error);
-
+      console.error(error.message);
       return { error };
     });
 };

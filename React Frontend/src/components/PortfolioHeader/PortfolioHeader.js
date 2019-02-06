@@ -4,7 +4,7 @@ import css from './PortfolioHeader.scss';
 import { formatPrice } from '../../helpers';
 
 const PortfolioHeader = props => {
-  const { totalValue } = props;
+  const { totalValue = 0 } = props;
 
   return (
     <div className={css.portfolioHeaderContainer}>

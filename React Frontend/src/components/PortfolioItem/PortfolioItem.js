@@ -1,16 +1,29 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import css from './PortfolioItem.scss';
 
 import { selectCoin, showDetails } from '../../actions/tradeActions';
 import { formatPrice } from '../../helpers';
+import { getCoinPrice } from '../../helpers/requests';
 import CoinLots from '../CoinLots/CoinLots';
 import chevronIcon from '../../assets/chevron-arrow.png';
 
 class PortfolioItem extends Component {
   state = {
-    showLots: false
+    showLots: false,
+    currentCoinPrice: undefined
   };
+
+  async componentDidMount() {
+    const { ticker, baseCurrency } = this.props;
+    const currentCoinPrice = await getCoinPrice(
+      ticker,
+      baseCurrency,
+      moment().unix()
+    );
+    this.setState({ currentCoinPrice });
+  }
 
   showLotHandler = () => {
     const { ticker, selectCoin, showDetails } = this.props;
@@ -21,13 +34,13 @@ class PortfolioItem extends Component {
 
   render() {
     const { itemIconURL, ticker, lots } = this.props;
-    let totalItemAmount = 0;
-    let totalItemValue = 0;
-    let numLots = lots.length;
-    lots.map(lot => {
-      totalItemAmount += parseFloat(lot.amountBought);
-      totalItemValue += parseFloat(lot.totalLotWorth);
-    });
+    const { currentCoinPrice } = this.state;
+    const numLots = lots.length;
+    const totalItemAmount = lots.reduce(
+      (totalAmount, lot) => totalAmount + Number(lot.amountBought),
+      0
+    );
+    const totalCurrentValue = currentCoinPrice * totalItemAmount;
 
     return (
       <Fragment>
@@ -40,8 +53,8 @@ class PortfolioItem extends Component {
             <span>{ticker}</span>
           </div>
           <div className={css.headerItemContainer}>
-            <div>Value:</div>
-            <div>{`$${formatPrice(totalItemValue)}`}</div>
+            <div>Current Value:</div>
+            <div>{`$${formatPrice(totalCurrentValue)}`}</div>
           </div>
           <div className={css.headerItemContainer}>
             <div>Total Amount: </div>
@@ -65,12 +78,16 @@ class PortfolioItem extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  baseCurrency: state.authState.baseCurrency
+});
+
 const mapDispatchToProps = {
   selectCoin,
   showDetails
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(PortfolioItem);

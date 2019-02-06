@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import css from './Details.scss';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { convertCurrency } from '../../helpers';
 import { getCoinPrice } from '../../helpers/requests';
 
 import Header from '../../components/SectionHeader/Header';
@@ -30,8 +29,7 @@ class Details extends Component {
     const {
       coinObject,
       selectedCoin,
-      baseCurrency, // see store.js for difference and reasoning between base/selectedBaseCurr
-      selectedBaseCurrency
+      baseCurrency // see store.js for difference and reasoning between base/selectedBaseCurr
     } = this.props;
     const unixDate = moment().unix();
 
@@ -53,13 +51,7 @@ class Details extends Component {
       );
 
       // if the coin is listed, but has no publicly traded data available
-      if (
-        newCoinPrice.error ||
-        newCoinPrice.data.Response === 'Error' ||
-        newCoinPrice.data[selectedCoin][ // this is the most disgusting line of JS I have ever written
-          Object.keys(newCoinPrice.data[selectedCoin])[0]
-        ] === 0
-      ) {
+      if (!newCoinPrice || newCoinPrice.error) {
         this.setState({
           coinDetails: {
             selectedCoin,
@@ -70,26 +62,16 @@ class Details extends Component {
           }
         });
       } else {
-        const basePrice = newCoinPrice.data[selectedCoin][baseCurrency];
-        const convertedCoinPrice = await convertCurrency(
-          baseCurrency,
-          selectedBaseCurrency,
-          basePrice
-        );
-        if (convertedCoinPrice.error) {
-          console.error('GET Exchange API Error', convertedCoinPrice.error);
-        } else {
-          // Set state after getting all coin info
-          this.setState({
-            coinDetails: {
-              selectedCoin,
-              coinFullName,
-              coinImageURL,
-              coinPrice: convertedCoinPrice.data,
-              dataAvailable: true
-            }
-          });
-        }
+        // Set state after getting all coin info
+        this.setState({
+          coinDetails: {
+            selectedCoin,
+            coinFullName,
+            coinImageURL,
+            coinPrice: newCoinPrice,
+            dataAvailable: true
+          }
+        });
       }
     }
   }
@@ -130,7 +112,6 @@ class Details extends Component {
 const mapStateToProps = state => {
   return {
     baseCurrency: state.tradeState.baseCurrency,
-    selectedBaseCurrency: state.tradeState.selectedBaseCurrency,
     showDetails: state.tradeState.showDetails
   };
 };
