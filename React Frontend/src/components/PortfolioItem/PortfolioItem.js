@@ -12,7 +12,7 @@ import chevronIcon from '../../assets/chevron-arrow.png';
 class PortfolioItem extends Component {
   state = {
     showLots: false,
-    currentCoinPrice: undefined
+    currentCoinPrice: 0
   };
 
   async componentDidMount() {

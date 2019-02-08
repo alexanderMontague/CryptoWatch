@@ -1,14 +1,18 @@
 import axios from 'axios';
+import moment from 'moment';
 
 // External API's
-
 /**
  * Fetch a coin's current price given it's ticker, base currency, and historical data
  * @param {string} ticker
  * @param {string} baseCurrency
  * @param {unix-time string} timeStamp
  */
-export const getCoinPrice = (ticker, baseCurrency, timeStamp) => {
+export const getCoinPrice = (
+  ticker,
+  baseCurrency,
+  timeStamp = moment().unix()
+) => {
   return axios
     .get(
       `https://min-api.cryptocompare.com/data/pricehistorical?fsym=${ticker}&tsyms=${baseCurrency}&ts=${timeStamp}`

@@ -21,7 +21,8 @@ class DetailsAdd extends Component {
     renderDateRequire: false,
     renderPriceRequire: true,
     renderAmountRequire: true,
-    dataAvailable: this.props.coinDetails.dataAvailable
+    dataAvailable: this.props.coinDetails.dataAvailable,
+    selectedCoinCurrentPrice: this.props.coinDetails.coinPrice // current coin price from today
   };
 
   componentWillReceiveProps = newProps => {
@@ -32,7 +33,8 @@ class DetailsAdd extends Component {
     this.setState({
       selectedCoinSymbol: selectedCoin,
       historicCoinPrice: coinPrice,
-      dataAvailable: dataAvailable
+      dataAvailable: dataAvailable,
+      selectedCoinCurrentPrice: coinPrice // as it default updates for the current day's price
     });
     // if new coin price is valid, remove possible previous require
     if (coinPrice !== '' && coinPrice !== 0) {
@@ -72,7 +74,7 @@ class DetailsAdd extends Component {
     const {
       baseCurrency,
       coinDetails: { selectedCoin }
-    } = this.props; // TODO: baseCurrency to comma separated array in future for multiple base currencies
+    } = this.props;
     getCoinPrice(selectedCoin, baseCurrency, newUnixDate).then(coinPrice => {
       if (!coinPrice) {
         console.error(
@@ -109,7 +111,8 @@ class DetailsAdd extends Component {
       selectedCoinAmount,
       historicCoinPrice,
       unixDate,
-      selectedCoinSymbol
+      selectedCoinSymbol,
+      selectedCoinCurrentPrice
     } = this.state;
 
     const {
@@ -123,6 +126,7 @@ class DetailsAdd extends Component {
     const newLotDetails = {
       ticker: selectedCoinSymbol,
       imageURL: coinImageURL,
+      currentPrice: selectedCoinCurrentPrice,
       details: {
         dateBought: unixDate,
         priceBought: historicCoinPrice,

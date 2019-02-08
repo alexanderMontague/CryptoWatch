@@ -18,7 +18,7 @@ const tradeState = (prevState = initialState, { type, payload }) => {
       };
 
     case 'ADD_TO_PORTFOLIO':
-      const { ticker, imageURL, details } = payload.lotDetails;
+      const { ticker, imageURL, details, currentPrice } = payload.lotDetails;
       const prevPortfolio = JSON.parse(JSON.stringify(prevState.portfolio)); // creates deep immutable copy
       if (!prevPortfolio[ticker]) {
         // check if coin is in portfolio first
@@ -26,8 +26,9 @@ const tradeState = (prevState = initialState, { type, payload }) => {
         const newCoinAsset = {
           ticker,
           imageURL,
-          lots: [{ ...details }],
-          totalCoinAmount: Number(details.amountBought)
+          currentPrice,
+          totalCoinAmount: Number(details.amountBought),
+          lots: [{ ...details }]
         };
 
         // calculate the total historic price with updated portfolio
@@ -41,11 +42,15 @@ const tradeState = (prevState = initialState, { type, payload }) => {
         };
       }
 
-      // if coin is already in portfolio, add new lot
+      // if coin is already in portfolio
       const newCoinAsset = prevPortfolio[ticker];
+      // calculate the total coin amount
       newCoinAsset.totalCoinAmount =
         Number(newCoinAsset.totalCoinAmount) + Number(details.amountBought);
+      // add a new lot
       newCoinAsset.lots.push({ ...details });
+      // update current price
+      newCoinAsset.currentPrice = currentPrice;
 
       // calculate the total historic price with updated portfolio
       let updatedPortfolio = { ...prevPortfolio, [ticker]: newCoinAsset };

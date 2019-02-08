@@ -9,25 +9,18 @@ import PortfolioHeader from '../../components/PortfolioHeader/PortfolioHeader';
 import PortfolioItem from '../../components/PortfolioItem/PortfolioItem';
 
 class Portfolio extends Component {
-  state = {
-    portfolio: this.props.portfolio,
-    totalValue: this.props.currentPortfolioValue
-  };
+  state = {};
 
-  componentDidUpdate = () => {
-    if (this.state.totalValue !== this.props.currentPortfolioValue) {
-      this.setState({ totalValue: this.props.currentPortfolioValue });
-    }
-  };
+  componentDidUpdate = (prevProps, prevState) => {};
 
   renderPortfolioItems = () => {
     const { portfolio } = this.props;
 
-    return Object.keys(portfolio).map(portfolioCoinItem => {
+    return Object.keys(portfolio).map(portfolioCoin => {
       if (
-        !['historicTotalValue', 'currentTotalValue'].includes(portfolioCoinItem)
+        !['historicTotalValue', 'currentTotalValue'].includes(portfolioCoin)
       ) {
-        const { ticker, imageURL, lots } = portfolio[portfolioCoinItem];
+        const { ticker, imageURL, lots } = portfolio[portfolioCoin];
         return (
           <PortfolioItem
             itemIconURL={imageURL}
@@ -41,10 +34,25 @@ class Portfolio extends Component {
   };
 
   render() {
+    const { currentPortfolioValue, isAuthenticated, portfolio } = this.props;
+    delete portfolio.currentPortfolioValue;
+    delete portfolio.historicTotalValue;
+
+    const currentTotalValue = isAuthenticated
+      ? currentPortfolioValue
+      : Object.keys(portfolio).reduce((totalVal, coin) => {
+          if (coin !== 'historicTotalValue' || 'currentTotalValue') {
+            return (
+              totalVal +
+              portfolio[coin].currentPrice * portfolio[coin].totalCoinAmount
+            );
+          }
+        }, 0);
+
     return (
       <Fragment>
         <Header title="Portfolio" />
-        <PortfolioHeader totalValue={this.state.totalValue} />
+        <PortfolioHeader totalValue={currentTotalValue} />
         <div className={css.scrollBox}>{this.renderPortfolioItems()}</div>
       </Fragment>
     );
@@ -54,7 +62,8 @@ class Portfolio extends Component {
 const mapStateToProps = state => {
   return {
     portfolio: state.tradeState.portfolio,
-    currentPortfolioValue: state.tradeState.portfolio.currentTotalValue
+    currentPortfolioValue: state.tradeState.portfolio.currentTotalValue,
+    isAuthenticated: state.authState.isAuthenticated
   };
 };
 
