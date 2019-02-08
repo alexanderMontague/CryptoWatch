@@ -20,7 +20,7 @@ const AppBar = props => {
             src={cryptowatchLogo}
             alt="Cryptowatch Logo"
           />
-          CryptoWatch
+          Cryptowatch
         </span>
         {isAuthenticated ? (
           <span>{`Welcome, ${user.username}!`}</span>
