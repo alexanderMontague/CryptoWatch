@@ -163,6 +163,25 @@ export const userStatus = () => {
 };
 
 /**
+ * Fetch the current user's details
+ */
+export const seeUserReq = () => {
+  return axios
+    .get(`${BASE_URL}/public/seeReq`, {
+      withCredentials: true,
+      credentials: 'include'
+    })
+    .then(res => res.data) // response formatted in BE
+    .catch(err => ({
+      code: 500,
+      data: null,
+      error: true,
+      message: err.message
+    }));
+};
+
+/**
+ * TODO: DELETE THIS ASAP
  * WARNING: DO NOT FUCK WITH THIS
  * IT WILL LITERALLY DELETE ALL USERS IN THE USERS TABLE
  * USE FOR DEV WORK ONLY AND DELETE ASAP

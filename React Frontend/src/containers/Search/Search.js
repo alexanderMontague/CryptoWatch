@@ -82,7 +82,7 @@ class Search extends Component {
     const { isLoading } = this.props;
     return (
       <Fragment>
-        <Header title="Find Cryptocurrencies!" />
+        <Header title="Search for Cryptocurrencies" />
         <div className={css.inputContainer}>
           {isLoading ? (
             <Loader type="Oval" color="#64b5f6" height="40" width="40" />

@@ -28,6 +28,10 @@ export const isInPortfolio = (state, searchCoin) => {
 
 // Add commas to seperate thousandths
 export const formatPrice = number => {
+  if (!number) {
+    return 0;
+  }
+
   return number <= 999
     ? parseFloat(number).toFixed(4)
     : Number(number).toLocaleString('en-US');

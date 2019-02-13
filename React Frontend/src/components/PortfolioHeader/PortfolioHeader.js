@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import css from './PortfolioHeader.scss';
 
+import Loader from 'react-loader-spinner';
 import { formatPrice } from '../../helpers';
 
 const PortfolioHeader = props => {
@@ -26,4 +28,8 @@ const PortfolioHeader = props => {
   );
 };
 
-export default PortfolioHeader;
+const mapStateToProps = state => ({
+  isAuthenticated: state.authState.isAuthenticated
+});
+
+export default connect(mapStateToProps)(PortfolioHeader);
