@@ -3,7 +3,7 @@
   flex-direction: column;
   margin: 0 5% 3% 5%;
   background: white;
-  border: solid 5px #616161;
+  border: solid 1px #616161;
   border-radius: 0 0 5px 5px;
   border-top: none;
   box-shadow: rgba(29, 29, 29, 0.3) 0px 0px 1.25em 0.25em;
@@ -13,7 +13,7 @@
 .lotsTitleHeaders {
   display: flex;
   justify-content: space-evenly;
-  border-bottom: 2px solid #616161;
+  border-bottom: 1px solid #616161;
 }
 
 .headerItem {

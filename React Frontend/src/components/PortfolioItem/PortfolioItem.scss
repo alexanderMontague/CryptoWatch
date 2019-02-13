@@ -5,7 +5,7 @@
   background-color: white;
   margin: 3% 3% 0 3%;
   height: 60px;
-  border: 5px solid #616161;
+  border: 1px solid #616161;
   border-radius: 5px;
   padding: 0 10px;
 }
@@ -20,6 +20,7 @@
   .icon {
     height: 30px;
     width: 30px;
+    padding-right: 10px;
   }
 
   span {
@@ -37,18 +38,19 @@
 }
 .detailsContainer {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+  align-items: center;
 
   .chevronUp {
     height: 20px;
     width: 20px;
-    padding-left: 20px;
+    padding-left: 10%;
     transition: all 400ms ease;
   }
   .chevronDown {
     height: 20px;
     width: 20px;
-    padding-right: 20px;
+    padding-right: 10%;
     transform: rotate(-180deg);
     transition: all 400ms ease;
   }
