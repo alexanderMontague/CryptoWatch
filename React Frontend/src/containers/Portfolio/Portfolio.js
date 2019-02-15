@@ -2,16 +2,12 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import css from './Portfolio.scss';
 
-import { getHistoricPortfolioValue } from '../../helpers';
-
 import Header from '../../components/SectionHeader/Header';
 import PortfolioHeader from '../../components/PortfolioHeader/PortfolioHeader';
 import PortfolioItem from '../../components/PortfolioItem/PortfolioItem';
 
 class Portfolio extends Component {
   state = {};
-
-  componentDidUpdate = (prevProps, prevState) => {};
 
   renderPortfolioItems = () => {
     const { portfolio } = this.props;

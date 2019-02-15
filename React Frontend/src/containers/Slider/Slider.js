@@ -1,11 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import css from './Slider.scss';
 
 import { toggleMenu } from '../../actions/interfaceActions';
 import { logoutUser } from '../../actions/authActions';
-import { deleteAllUsers } from '../../helpers/requests';
+import { deleteAllUsers, seeUserReq } from '../../helpers/requests';
 
 import ModalButton from '../../components/ModalButton';
 
@@ -13,17 +12,6 @@ import cryptowatchMedia from '../../assets/cryptowatch.png';
 import { FaCog, FaSignOutAlt } from 'react-icons/fa';
 
 class Slider extends Component {
-  seeReq = () => {
-    axios
-      .get('http://localhost:3003/api/v1/public/seeReq', {
-        withCredentials: true,
-        credentials: 'include'
-      })
-      .then(res => {
-        console.log('REQ: ', res.data);
-      });
-  };
-
   render() {
     const {
       showMenu,
@@ -79,13 +67,12 @@ class Slider extends Component {
               <div>
                 <button
                   className={[css.reqButton, css.button].join(' ')}
-                  onClick={() => {
-                    this.seeReq();
+                  onClick={async () => {
+                    console.log(await seeUserReq());
                   }}
                 >
                   See req object
                 </button>
-
                 <button
                   className={[css.delButton, css.button].join(' ')}
                   onClick={() => {
