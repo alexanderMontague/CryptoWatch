@@ -1,27 +1,4 @@
 const User = require('../../models/User');
-/**
- * GET /
- * Home page.
- * EACH ROUTE SHOULD HAVE OWN CONTROLLER
- */
-index = (req, res) => {
-  res.send('HELLO WORLD! you hit "/"');
-};
-
-// GET /seeReq
-seeReq = (req, res) => {
-  const infoStuff = {
-    authenticated: req.isAuthenticated(),
-    session: req.session || null,
-    sessionID: req.sessionID,
-    user: req.user || null,
-    authorized: req.isAuthorized || null,
-    cookies: req.cookies || null,
-  };
-
-  res.json(infoStuff);
-  return;
-};
 
 /**
  * GET /deleteAllUsers
@@ -35,15 +12,4 @@ deleteAllUsers = (req, res) => {
   });
 };
 
-// example of updating user
-exports.postUpdate = (req, res) => {
-  User.updateOne({ email: req.body.email }, { email: req.body.newEmail }, (err, raw) => {
-    // (searched Document, updated fields, cb)
-    if (err) {
-      res.send(raw);
-    }
-    res.send('Success' + JSON.stringify(raw));
-  });
-};
-
-module.exports = { index, deleteAllUsers, seeReq };
+module.exports = { deleteAllUsers };

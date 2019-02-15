@@ -1,13 +1,9 @@
 'use strict';
 
 const router = require('express').Router();
-const passport = require('passport');
-const { home, register, auth } = require('./controllers');
+const { home, register, auth, user } = require('./controllers');
 
-router.route('/').get(home.index);
-
-// debug remove after
-router.route('/seeReq').get(home.seeReq);
+router.route('/seeReq').get(user.seeReq);
 
 router.route('/register').post(register.registerUser);
 
@@ -15,7 +11,7 @@ router.route('/login').post(auth.loginUser);
 
 router.route('/getStatus').get(auth.getStatus);
 
-// WARNING DONT FUCK WITH THIS DEV STUFF ONLY IT WILL DELETE ALL USERS
+// TODO: DELETE WARNING DONT FUCK WITH THIS DEV STUFF ONLY IT WILL DELETE ALL USERS
 router.route('/deleteAllUsers').get(home.deleteAllUsers);
 
 module.exports = router;
