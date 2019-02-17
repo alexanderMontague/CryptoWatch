@@ -37,7 +37,7 @@ class Portfolio extends Component {
     const currentTotalValue = isAuthenticated
       ? currentPortfolioValue
       : Object.keys(portfolio).reduce((totalVal, coin) => {
-          if (coin !== 'historicTotalValue' || 'currentTotalValue') {
+          if (!['historicTotalValue', 'currentTotalValue'].includes(coin)) {
             return (
               totalVal +
               portfolio[coin].currentPrice * portfolio[coin].totalCoinAmount
@@ -48,7 +48,7 @@ class Portfolio extends Component {
     return (
       <Fragment>
         <Header title="Portfolio" />
-        <PortfolioHeader totalValue={currentTotalValue} />
+        <PortfolioHeader totalValue={currentTotalValue || 0} />
         <div className={css.scrollBox}>{this.renderPortfolioItems()}</div>
       </Fragment>
     );

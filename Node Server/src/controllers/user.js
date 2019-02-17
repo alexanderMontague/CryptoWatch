@@ -8,10 +8,13 @@ const { createResponse } = require('../helpers');
  *   }
  */
 const seeReq = (req, res) => {
+  const portfolio = req.user && req.user.portfolio;
+
   const infoStuff = {
     isAuthenticated: req.isAuthenticated(),
     session: req.session,
     sessionID: req.sessionID,
+    portfolio,
   };
 
   res.json(createResponse(200, null, { ...infoStuff }, false));
