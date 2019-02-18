@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component, useState, useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import css from './PortfolioHeader.scss';
 
@@ -23,8 +23,18 @@ class PortfolioHeader extends Component {
   }
 
   render() {
-    const { totalValue } = this.props;
+    const {
+      totalValue,
+      portfolioHistoricTotalValue,
+      portfolioCurrentTotalValue
+    } = this.props;
     const { isPortfolioLoading } = this.state;
+
+    const portfolioGainDollar =
+      Number(portfolioCurrentTotalValue) - Number(portfolioHistoricTotalValue);
+    const portfolioGainPercent =
+      Number(portfolioCurrentTotalValue) / Number(portfolioHistoricTotalValue) -
+      1.0;
 
     return (
       <div className={css.portfolioHeaderContainer}>
@@ -44,7 +54,17 @@ class PortfolioHeader extends Component {
         </span>
         <span className={css.headerItem}>
           <div className={css.headerTitle}>Total Portfolio Gain</div>
-          <div className={css.totalPortfolioGain}>- $10.45 (-12.69%)</div>
+          <div className={css.totalPortfolioGain}>
+            {isPortfolioLoading && totalValue === 0 ? (
+              <Loader type="Oval" color="#64b5f6" height="20" width="20" />
+            ) : (
+              <Fragment>
+                {portfolioGainDollar < 0 ? '- ' : '+ '}
+                {formatPrice(Math.abs(portfolioGainDollar))} (
+                {portfolioGainPercent.toFixed(2)}%)
+              </Fragment>
+            )}
+          </div>
         </span>
       </div>
     );
@@ -52,7 +72,8 @@ class PortfolioHeader extends Component {
 }
 
 const mapStateToProps = state => ({
-  isPortfolioZero: state.tradeState.portfolio.totalValue
+  portfolioHistoricTotalValue: state.tradeState.portfolio.historicTotalValue,
+  portfolioCurrentTotalValue: state.tradeState.portfolio.currentTotalValue
 });
 
 export default connect(mapStateToProps)(PortfolioHeader);
