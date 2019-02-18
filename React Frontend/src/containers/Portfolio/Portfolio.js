@@ -31,8 +31,6 @@ class Portfolio extends Component {
 
   render() {
     const { currentPortfolioValue, isAuthenticated, portfolio } = this.props;
-    delete portfolio.currentPortfolioValue;
-    delete portfolio.historicTotalValue;
 
     const currentTotalValue = isAuthenticated
       ? currentPortfolioValue

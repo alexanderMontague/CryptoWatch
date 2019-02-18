@@ -75,6 +75,7 @@ class DetailsAdd extends Component {
       baseCurrency,
       coinDetails: { selectedCoin }
     } = this.props;
+
     getCoinPrice(selectedCoin, baseCurrency, newUnixDate).then(coinPrice => {
       if (!coinPrice) {
         console.error(
