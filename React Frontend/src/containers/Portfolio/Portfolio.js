@@ -13,9 +13,7 @@ class Portfolio extends Component {
     const { portfolio } = this.props;
 
     return Object.keys(portfolio).map(portfolioCoin => {
-      if (
-        !['historicTotalValue', 'currentTotalValue'].includes(portfolioCoin)
-      ) {
+      if (portfolioCoin !== 'meta') {
         const { ticker, imageURL, lots } = portfolio[portfolioCoin];
         return (
           <PortfolioItem
@@ -30,23 +28,25 @@ class Portfolio extends Component {
   };
 
   render() {
-    const { currentPortfolioValue, isAuthenticated, portfolio } = this.props;
+    const { portfolioMetaData, isAuthenticated, portfolio } = this.props;
 
     const currentTotalValue = isAuthenticated
-      ? currentPortfolioValue
+      ? portfolioMetaData.currentTotalValue
       : Object.keys(portfolio).reduce((totalVal, coin) => {
-          if (!['historicTotalValue', 'currentTotalValue'].includes(coin)) {
+          if (coin !== 'meta') {
             return (
               totalVal +
               portfolio[coin].currentPrice * portfolio[coin].totalCoinAmount
             );
           }
+
+          return totalVal;
         }, 0);
 
     return (
       <Fragment>
         <Header title="Portfolio" />
-        <PortfolioHeader totalValue={currentTotalValue || 0} />
+        <PortfolioHeader totalValue={currentTotalValue} />
         <div className={css.scrollBox}>{this.renderPortfolioItems()}</div>
       </Fragment>
     );
@@ -56,7 +56,7 @@ class Portfolio extends Component {
 const mapStateToProps = state => {
   return {
     portfolio: state.tradeState.portfolio,
-    currentPortfolioValue: state.tradeState.portfolio.currentTotalValue,
+    portfolioMetaData: state.tradeState.portfolio.meta,
     isAuthenticated: state.authState.isAuthenticated
   };
 };

@@ -2,8 +2,7 @@ const { getCurrentCoinPrice } = require('../helpers/requests');
 
 async function getCurrPortfolioValue(portfolio, userBaseCurrency) {
   // only get keys of coins
-  delete portfolio.historicTotalValue;
-  delete portfolio.currentTotalValue;
+  delete portfolio.meta;
 
   // get current price of single coin in portfolio
   let currCoinPrices = {};

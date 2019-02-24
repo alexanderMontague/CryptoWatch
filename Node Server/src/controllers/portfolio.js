@@ -9,7 +9,7 @@ async function savePortfolio(req, res) {
 
   // get updated current portfolio worth when new coin is added
   const newPortfolio = req.body.portfolio;
-  newPortfolio.currentTotalValue = await getCurrPortfolioValue(
+  newPortfolio.meta.currentTotalValue = await getCurrPortfolioValue(
     { ...newPortfolio },
     req.user.baseCurrency
   );

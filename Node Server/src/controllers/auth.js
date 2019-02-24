@@ -43,7 +43,7 @@ function loginUser(req, res, next) {
 
       // Add up to date portfolio price to user object
       if (userObject.portfolio) {
-        userObject.portfolio.currentTotalValue = await getCurrPortfolioValue(
+        userObject.portfolio.meta.currentTotalValue = await getCurrPortfolioValue(
           { ...userObject.portfolio },
           userObject.baseCurrency
         );
@@ -98,7 +98,7 @@ async function getStatus(req, res) {
     const { password, ...userObject } = req.user._doc;
 
     // Add up to date portfolio price to user object
-    userObject.currentTotalValue = await getCurrPortfolioValue(
+    userObject.meta.currentTotalValue = await getCurrPortfolioValue(
       { ...userObject.portfolio },
       userObject.baseCurrency
     );

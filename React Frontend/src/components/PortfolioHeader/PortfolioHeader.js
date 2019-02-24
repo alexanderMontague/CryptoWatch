@@ -18,7 +18,7 @@ class PortfolioHeader extends Component {
     this.setState({
       isPortfolioLoading:
         userData.isAuthenticated &&
-        !!userData.portfolio.currentTotalValue !== false
+        !!userData.portfolio.meta.currentTotalValue !== false
     });
   }
 
@@ -33,8 +33,10 @@ class PortfolioHeader extends Component {
     const portfolioGainDollar =
       Number(portfolioCurrentTotalValue) - Number(portfolioHistoricTotalValue);
     const portfolioGainPercent =
-      Number(portfolioCurrentTotalValue) / Number(portfolioHistoricTotalValue) -
-      1.0;
+      ((Number(portfolioCurrentTotalValue) -
+        Number(portfolioHistoricTotalValue)) /
+        Number(portfolioHistoricTotalValue)) *
+      100;
 
     return (
       <div className={css.portfolioHeaderContainer}>
@@ -61,7 +63,7 @@ class PortfolioHeader extends Component {
               <Fragment>
                 {portfolioGainDollar < 0 ? '- ' : '+ '}
                 {formatPrice(Math.abs(portfolioGainDollar))} (
-                {portfolioGainPercent.toFixed(2)}%)
+                {(portfolioGainPercent || 0).toFixed(2)}%)
               </Fragment>
             )}
           </div>
@@ -72,8 +74,9 @@ class PortfolioHeader extends Component {
 }
 
 const mapStateToProps = state => ({
-  portfolioHistoricTotalValue: state.tradeState.portfolio.historicTotalValue,
-  portfolioCurrentTotalValue: state.tradeState.portfolio.currentTotalValue
+  portfolioHistoricTotalValue:
+    state.tradeState.portfolio.meta.historicTotalValue,
+  portfolioCurrentTotalValue: state.tradeState.portfolio.meta.currentTotalValue
 });
 
 export default connect(mapStateToProps)(PortfolioHeader);
