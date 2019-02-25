@@ -51,6 +51,29 @@ export const getHistoricCoinPrice = (
     });
 };
 
+export const getCoinFullInfo = (
+  ticker,
+  baseCurrency = 'CAD',
+  display = false
+) => {
+  return axios
+    .get(
+      `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${ticker}&tsyms=${baseCurrency}`
+    )
+    .then(res => {
+      return res.data.Response === 'Error'
+        ? null
+        : {
+            ...res.data.RAW[ticker][baseCurrency],
+            fromSymbol: res.data.DISPLAY[ticker][baseCurrency].FROMSYMBOL
+          };
+    })
+    .catch(error => {
+      console.error(error.message);
+      return { error };
+    });
+};
+
 /**
  * Fetch a coin list containing the names and tickers of all supported coins
  */

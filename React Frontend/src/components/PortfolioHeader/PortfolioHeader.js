@@ -24,12 +24,32 @@ class PortfolioHeader extends Component {
 
   render() {
     const {
+      portfolio,
       totalValue,
       portfolioHistoricTotalValue,
       portfolioCurrentTotalValue,
       isAuthenticated
     } = this.props;
     const { isPortfolioLoading } = this.state;
+
+    const portfolio24HourDollarChange = Object.keys(portfolio)
+      .filter(coin => coin !== 'meta')
+      .reduce((total24HourChange, coin) => {
+        return total24HourChange + portfolio[coin].change24HourDollar;
+      }, 0);
+
+    const portfolio24HourPercentChange = Object.keys(portfolio)
+      .filter(coin => coin !== 'meta')
+      .reduce((total24HourChange, coin) => {
+        return total24HourChange + portfolio[coin].change24HourPercent;
+      }, 0);
+
+    let dailyChangeColor = 'black';
+    if (portfolio24HourDollarChange > 0) {
+      dailyChangeColor = 'green';
+    } else if (portfolio24HourDollarChange < 0) {
+      dailyChangeColor = 'red';
+    }
 
     const portfolioGainDollar =
       Number(portfolioCurrentTotalValue) - Number(portfolioHistoricTotalValue);
@@ -64,7 +84,11 @@ class PortfolioHeader extends Component {
             {isPortfolioLoading && totalValue === 0 ? (
               <Loader type="Oval" color="#64b5f6" height="20" width="20" />
             ) : isAuthenticated ? (
-              '+ $5.00 (3.56%)'
+              <span style={{ color: dailyChangeColor }}>
+                {portfolio24HourDollarChange < 0 ? '- $' : '+ $'}
+                {formatPrice(Math.abs(portfolio24HourDollarChange))} (
+                {(portfolio24HourPercentChange || 0).toFixed(2)}%)
+              </span>
             ) : (
               'Create an account to view 24hr change!'
             )}
@@ -77,7 +101,7 @@ class PortfolioHeader extends Component {
               <Loader type="Oval" color="#64b5f6" height="20" width="20" />
             ) : (
               <span style={{ color: gainColor }}>
-                {portfolioGainDollar < 0 ? '- ' : '+ '}
+                {portfolioGainDollar < 0 ? '- $' : '+ $'}
                 {formatPrice(Math.abs(portfolioGainDollar))} (
                 {(portfolioGainPercent || 0).toFixed(2)}%)
               </span>
@@ -90,6 +114,7 @@ class PortfolioHeader extends Component {
 }
 
 const mapStateToProps = state => ({
+  portfolio: state.tradeState.portfolio,
   portfolioHistoricTotalValue:
     state.tradeState.portfolio.meta.historicTotalValue,
   portfolioCurrentTotalValue: state.tradeState.portfolio.meta.currentTotalValue,

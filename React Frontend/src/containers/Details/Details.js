@@ -52,7 +52,8 @@ class Details extends Component {
             coinFullName,
             coinImageURL,
             coinPrice: 0,
-            dataAvailable: false
+            dataAvailable: false,
+            coinObject: coinObject[selectedCoin]
           }
         });
       } else {
@@ -63,7 +64,8 @@ class Details extends Component {
             coinFullName,
             coinImageURL,
             coinPrice: newCoinPrice,
-            dataAvailable: true
+            dataAvailable: true,
+            coinObject: coinObject[selectedCoin]
           }
         });
       }
@@ -78,6 +80,7 @@ class Details extends Component {
       addAnotherLot,
       showDetailsInDepth
     } = this.props;
+
     return (
       <Fragment>
         <Header title="Details" />

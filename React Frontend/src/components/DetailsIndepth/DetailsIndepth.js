@@ -1,16 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import css from './DetailsIndepth.scss';
 import { formatPrice } from '../../helpers';
+import { getCoinFullInfo } from '../../helpers/requests';
 
 import ToggleButton from 'react-toggle-button';
 
 const DetailsIndepth = props => {
+  const [coinData, setCoinData] = useState({});
+
+  useEffect(() => {
+    const { selectedCoin, baseCurrency } = props;
+    getCoinFullInfo(selectedCoin, baseCurrency).then(res => {
+      if (res !== null) {
+        setCoinData(res);
+      }
+    });
+  }, []);
+
   const {
     showGraph,
-    baseCurrency,
+    portfolio,
     addAnotherLot,
-    coinDetails: { coinImageURL, coinFullName, coinPrice }
+    coinDetails: { coinImageURL, coinFullName, coinPrice },
+    selectedCoin
   } = props;
 
   const thumbStyle = {
@@ -30,6 +43,8 @@ const DetailsIndepth = props => {
   };
 
   const showGraphHandler = () => {};
+
+  const { fromSymbol } = coinData;
 
   return (
     <div className={css.detailsContentContainer}>
@@ -66,16 +81,28 @@ const DetailsIndepth = props => {
         </div>
       </div>
       <div className={css.detailInfoRow}>
-        <div className={css.coinInfoRow}>
-          <span>Price: ${formatPrice(coinPrice)}</span>
-          <span>Market Cap: ___</span>
+        <div>
+          <span>Current Price:</span> ${formatPrice(coinPrice)}
         </div>
-        <div className={css.coinInfoRow}>
-          <span>24hr Change: ___</span>
-          <span>Volume: ___</span>
+
+        <div>
+          <span>Market Cap:</span> ${formatPrice(coinData.MKTCAP)}
         </div>
-        <div className={css.coinInfoRow}>
-          <span>Coin Ranking: ___</span>
+
+        <div>
+          <span>24hr Gain:</span>
+          {coinData.CHANGE24HOUR < 0 ? ' -$' : ' +$'}
+          {formatPrice(Math.abs(coinData.CHANGE24HOUR))}
+        </div>
+
+        <div>
+          <span>24hr Volume:</span> {fromSymbol}
+          {(coinData.VOLUME24HOUR || 0).toFixed(8)}
+        </div>
+
+        <div>
+          <span>Circulating Supply:</span> {fromSymbol}
+          {coinData.SUPPLY}
         </div>
       </div>
     </div>
@@ -85,7 +112,9 @@ const DetailsIndepth = props => {
 DetailsIndepth.propTypes = {};
 
 const mapStateToProps = state => ({
-  portfolio: state.tradeState.portfolio
+  portfolio: state.tradeState.portfolio,
+  selectedCoin: state.tradeState.selectedCoin,
+  baseCurrency: state.tradeState.baseCurrency
 });
 
 export default connect(mapStateToProps)(DetailsIndepth);
