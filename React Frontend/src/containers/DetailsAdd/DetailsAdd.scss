@@ -29,6 +29,7 @@
 
 .coinNameContainer {
   display: flex;
+  align-content: center;
   margin: auto;
   padding-right: 70px;
   font-size: 20px;
@@ -83,6 +84,8 @@ h6 {
 
 .coinName {
   //border-bottom: 1px solid black;
+  display: flex;
+  align-items: center;
 }
 
 label {
