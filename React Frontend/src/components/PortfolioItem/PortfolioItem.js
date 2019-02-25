@@ -17,11 +17,7 @@ class PortfolioItem extends Component {
 
   async componentDidMount() {
     const { ticker, baseCurrency } = this.props;
-    const currentCoinPrice = await getCoinPrice(
-      ticker,
-      baseCurrency,
-      moment().unix()
-    );
+    const currentCoinPrice = await getCoinPrice(ticker, baseCurrency);
     this.setState({ currentCoinPrice });
   }
 

@@ -7,12 +7,17 @@ import {
 
 // Selectors
 const getPortfolio = state => state.tradeState.portfolio;
+const getBaseCurrency = state => state.tradeState.baseCurrency;
 
 // SAVE USER PORTFOLIO TO DB
 function* saveUserPortfolio() {
   const updatedPortfolio = yield select(getPortfolio);
+  const baseCurrency = yield select(getBaseCurrency);
 
-  const savePortfolioResponse = yield savePortfolio(updatedPortfolio);
+  const savePortfolioResponse = yield savePortfolio(
+    updatedPortfolio,
+    baseCurrency
+  );
 
   if (savePortfolioResponse.error) {
     return yield put(updatePortfolioFailure(savePortfolioResponse));

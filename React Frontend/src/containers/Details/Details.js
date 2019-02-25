@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import css from './Details.scss';
 import { connect } from 'react-redux';
-import moment from 'moment';
 import { getCoinPrice } from '../../helpers/requests';
 
 import Header from '../../components/SectionHeader/Header';
@@ -31,7 +30,6 @@ class Details extends Component {
       selectedCoin,
       baseCurrency // see store.js for difference and reasoning between base/selectedBaseCurr
     } = this.props;
-    const unixDate = moment().unix();
 
     if (selectedCoin && selectedCoin !== prevProps.selectedCoin) {
       // Coin info Needed
@@ -44,11 +42,7 @@ class Details extends Component {
         'https://www.cryptocompare.com' + coinObject[selectedCoin].ImageUrl;
 
       // Get coin Price
-      const newCoinPrice = await getCoinPrice(
-        selectedCoin,
-        baseCurrency,
-        unixDate
-      );
+      const newCoinPrice = await getCoinPrice(selectedCoin, baseCurrency);
 
       // if the coin is listed, but has no publicly traded data available
       if (!newCoinPrice || newCoinPrice.error) {

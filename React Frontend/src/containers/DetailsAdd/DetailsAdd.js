@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import css from './DetailsAdd.scss';
 import { connect } from 'react-redux';
-import { getCoinPrice } from '../../helpers/requests';
+import { getHistoricCoinPrice } from '../../helpers/requests';
 import {
   addToPortfolio,
   updateUserPortfolio
@@ -76,17 +76,19 @@ class DetailsAdd extends Component {
       coinDetails: { selectedCoin }
     } = this.props;
 
-    getCoinPrice(selectedCoin, baseCurrency, newUnixDate).then(coinPrice => {
-      if (!coinPrice) {
-        console.error(
-          'GET updated historical coin data Error:',
-          response.error
-        );
-      } else {
-        // Update the coin price from selected day
-        this.setState({ historicCoinPrice: coinPrice });
+    getHistoricCoinPrice(selectedCoin, baseCurrency, newUnixDate).then(
+      coinPrice => {
+        if (coinPrice === null) {
+          console.error(
+            'GET updated historical coin data Error:',
+            response.error
+          );
+        } else {
+          // Update the coin price from selected day
+          this.setState({ historicCoinPrice: coinPrice });
+        }
       }
-    });
+    );
   };
 
   priceChangeHandler = input => {

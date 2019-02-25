@@ -1,6 +1,6 @@
 const User = require('../../models/User');
 const { createResponse } = require('../helpers');
-const { getCurrPortfolioValue } = require('../repositories').user;
+const { updatePortfolio } = require('../repositories').user;
 
 async function savePortfolio(req, res) {
   if (!req.isAuthenticated() || !req.user) {
@@ -8,11 +8,7 @@ async function savePortfolio(req, res) {
   }
 
   // get updated current portfolio worth when new coin is added
-  const newPortfolio = req.body.portfolio;
-  newPortfolio.meta.currentTotalValue = await getCurrPortfolioValue(
-    { ...newPortfolio },
-    req.user.baseCurrency
-  );
+  const newPortfolio = await updatePortfolio(req.body.portfolio, req.body.baseCurrency);
 
   User.findOneAndUpdate({ _id: req.user.id }, { portfolio: newPortfolio }, (err, user) => {
     if (err) {

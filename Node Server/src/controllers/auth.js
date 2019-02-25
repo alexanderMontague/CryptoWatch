@@ -1,6 +1,7 @@
 const passport = require('passport');
+const { getMultipleCoinPrices } = require('../helpers/requests');
 const { createResponse } = require('../helpers');
-const { getCurrPortfolioValue } = require('../repositories').user;
+const { updatePortfolio } = require('../repositories').user;
 
 /*
  *   POST /api/v1/public/login
@@ -41,12 +42,10 @@ function loginUser(req, res, next) {
 
       const { password, ...userObject } = user._doc;
 
-      // Add up to date portfolio price to user object
       if (userObject.portfolio) {
-        userObject.portfolio.meta.currentTotalValue = await getCurrPortfolioValue(
-          { ...userObject.portfolio },
-          userObject.baseCurrency
-        );
+        // Update portfolio current value, each coin current price, and 24 hr prices
+        // WILL mutate portfolio
+        userObject.portfolio = await updatePortfolio(userObject.portfolio, userObject.baseCurrency);
       }
 
       req.session.save(() => {
@@ -97,11 +96,9 @@ async function getStatus(req, res) {
   if (req.isAuthenticated()) {
     const { password, ...userObject } = req.user._doc;
 
-    // Add up to date portfolio price to user object
-    userObject.meta.currentTotalValue = await getCurrPortfolioValue(
-      { ...userObject.portfolio },
-      userObject.baseCurrency
-    );
+    // Update portfolio current value, each coin current price, and 24 hr prices
+    // WILL mutate portfolio
+    userObject.portfolio = await updatePortfolio(userObject.portfolio, userObject.baseCurrency);
 
     return res.json(
       createResponse(

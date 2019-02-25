@@ -91,7 +91,7 @@ const tradeState = (prevState = initialState, { type, payload }) => {
     // update portfolio if user is already logged in and refreshes
     case 'USER_STATUS_RESPONSE':
       const portfolio = payload.data.isAuthenticated
-        ? payload.data.user.portfolio || {}
+        ? payload.data.user.portfolio
         : { ...prevState.portfolio };
       return { ...prevState, portfolio };
 

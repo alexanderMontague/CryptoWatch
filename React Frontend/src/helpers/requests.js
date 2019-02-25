@@ -1,17 +1,40 @@
 import axios from 'axios';
-import moment from 'moment';
 
 // External API's
 /**
- * Fetch a coin's current price given it's ticker, base currency, and historical data
+ * Fetch a coin's current price given it's ticker and base currency
  * @param {string} ticker
  * @param {string} baseCurrency
  * @param {unix-time string} timeStamp
  */
 export const getCoinPrice = (
   ticker,
-  baseCurrency,
-  timeStamp = moment().unix()
+  baseCurrency = 'CAD'
+  //timeStamp = moment().unix()
+) => {
+  return axios
+    .get(
+      `https://min-api.cryptocompare.com/data/price?fsym=${ticker}&tsyms=${baseCurrency}`
+    )
+    .then(res => {
+      return res.data.Response === 'Error' ? null : res.data[baseCurrency];
+    })
+    .catch(error => {
+      console.error(error.message);
+      return { error };
+    });
+};
+
+/**
+ * Fetch a coin's historic price given it's ticker, base currency, and unix time stamp
+ * @param {string} ticker
+ * @param {string} baseCurrency
+ * @param {unix-time string} timeStamp
+ */
+export const getHistoricCoinPrice = (
+  ticker,
+  baseCurrency = 'CAD',
+  timeStamp
 ) => {
   return axios
     .get(
@@ -62,12 +85,13 @@ const BASE_URL = isDev ? 'http://localhost:3003/api/v1' : 'TBD';
  * Save the user's current portfolio to their account
  * @param {Object} portfolio
  */
-export const savePortfolio = portfolio => {
+export const savePortfolio = (portfolio, baseCurrency = 'CAD') => {
   return axios
     .post(
       `${BASE_URL}/auth/savePortfolio`,
       {
-        portfolio
+        portfolio,
+        baseCurrency
       },
       { withCredentials: true, credentials: 'include' }
     )

@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import css from './PortfolioHeader.scss';
 
@@ -26,7 +26,8 @@ class PortfolioHeader extends Component {
     const {
       totalValue,
       portfolioHistoricTotalValue,
-      portfolioCurrentTotalValue
+      portfolioCurrentTotalValue,
+      isAuthenticated
     } = this.props;
     const { isPortfolioLoading } = this.state;
 
@@ -37,6 +38,13 @@ class PortfolioHeader extends Component {
         Number(portfolioHistoricTotalValue)) /
         Number(portfolioHistoricTotalValue)) *
       100;
+
+    let gainColor = 'black';
+    if (portfolioGainDollar > 0) {
+      gainColor = 'green';
+    } else if (portfolioGainDollar < 0) {
+      gainColor = 'red';
+    }
 
     return (
       <div className={css.portfolioHeaderContainer}>
@@ -52,7 +60,15 @@ class PortfolioHeader extends Component {
         </span>
         <span className={css.headerItem}>
           <div className={css.headerTitle}>24hr Change</div>
-          <div className={css.dayPercentChange}>+ $5.00 (3.56%)</div>
+          <div className={css.dayPercentChange}>
+            {isPortfolioLoading && totalValue === 0 ? (
+              <Loader type="Oval" color="#64b5f6" height="20" width="20" />
+            ) : isAuthenticated ? (
+              '+ $5.00 (3.56%)'
+            ) : (
+              'Create an account to view 24hr change!'
+            )}
+          </div>
         </span>
         <span className={css.headerItem}>
           <div className={css.headerTitle}>Total Portfolio Gain</div>
@@ -60,11 +76,11 @@ class PortfolioHeader extends Component {
             {isPortfolioLoading && totalValue === 0 ? (
               <Loader type="Oval" color="#64b5f6" height="20" width="20" />
             ) : (
-              <Fragment>
+              <span style={{ color: gainColor }}>
                 {portfolioGainDollar < 0 ? '- ' : '+ '}
                 {formatPrice(Math.abs(portfolioGainDollar))} (
                 {(portfolioGainPercent || 0).toFixed(2)}%)
-              </Fragment>
+              </span>
             )}
           </div>
         </span>
@@ -76,7 +92,8 @@ class PortfolioHeader extends Component {
 const mapStateToProps = state => ({
   portfolioHistoricTotalValue:
     state.tradeState.portfolio.meta.historicTotalValue,
-  portfolioCurrentTotalValue: state.tradeState.portfolio.meta.currentTotalValue
+  portfolioCurrentTotalValue: state.tradeState.portfolio.meta.currentTotalValue,
+  isAuthenticated: state.authState.isAuthenticated
 });
 
 export default connect(mapStateToProps)(PortfolioHeader);
