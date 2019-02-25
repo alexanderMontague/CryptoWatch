@@ -4,13 +4,26 @@
 }
 
 .appBarContent {
-  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   height: 80px;
-  width: 90%;
-  margin: auto auto;
+  width: 100%;
+  padding: 0 20px;
+}
+
+menuitem {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.first {
+  margin-right: auto;
+}
+
+.last {
+  margin-left: auto;
 }
 
 .menuIcon {
@@ -23,6 +36,7 @@
   color: #3d4252;
   display: flex;
   align-items: center;
+  margin-left: 5%;
 
   @media (max-width: 375px) {
     font-size: 7vw;
@@ -31,7 +45,7 @@
   .logo {
     width: 50px;
     height: 50px;
-    padding-right: 15px;
+    padding-right: 5px;
   }
 }
 

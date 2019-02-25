@@ -10,24 +10,32 @@ const AppBar = props => {
 
   return (
     <div className={css.appBarWrapper}>
-      <span className={css.appBarContent}>
-        <span className={css.hamburgerButton} onClick={props.toggleMenu}>
+      <div className={css.appBarContent}>
+        <div
+          className={[css.hamburgerButton, css.menuItem, css.first].join(' ')}
+          onClick={props.toggleMenu}
+        >
           <img className={css.menuIcon} src={hamburgerIcon} />
-        </span>
-        <span className={css.title}>
+        </div>
+        <div className={[css.title, css.menuItem].join(' ')}>
           <img
             className={css.logo}
             src={cryptowatchLogo}
             alt="Cryptowatch Logo"
           />
           Cryptowatch
-        </span>
+        </div>
         {isAuthenticated ? (
-          <span>{`Welcome, ${user.username}!`}</span>
+          <div className={[css.menuItem, css.last].join(' ')}>{`Welcome, ${
+            user.username
+          }!`}</div>
         ) : (
-          <span />
+          <div
+            className={[css.menuItem, css.last].join(' ')}
+            style={{ width: '100px' }}
+          />
         )}
-      </span>
+      </div>
     </div>
   );
 };

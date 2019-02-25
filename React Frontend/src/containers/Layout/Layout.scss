@@ -2,6 +2,10 @@
   font-family: 'EstiloW01-TextLight';
   width: 100%;
   margin: 0 auto;
+
+  @media (min-width: 1024px) {
+    width: 90%;
+  }
 }
 
 .mainContainer {

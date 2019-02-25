@@ -27,7 +27,7 @@
 
 .label {
   display: block;
-  min-width: 50px;
+  width: 155px;
   margin-right: 25px;
 }
 
@@ -89,7 +89,7 @@
   justify-content: space-evenly;
   height: 75%;
   font-size: 20px;
-  padding: 10px;
+  padding-left: 10px;
 
   .coinInfoRow {
     display: flex;

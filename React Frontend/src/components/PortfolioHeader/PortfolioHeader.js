@@ -46,11 +46,8 @@ class PortfolioHeader extends Component {
         return total24HourChange + portfolio[coin].change24HourDollar;
       }, 0);
 
-    const portfolio24HourPercentChange = Object.keys(portfolio)
-      .filter(coin => coin !== 'meta')
-      .reduce((total24HourChange, coin) => {
-        return total24HourChange + portfolio[coin].change24HourPercent;
-      }, 0);
+    const portfolio24HourPercentChange =
+      (portfolio24HourDollarChange / totalValue) * 100;
 
     let dailyChangeColor = 'black';
     if (portfolio24HourDollarChange > 0) {
