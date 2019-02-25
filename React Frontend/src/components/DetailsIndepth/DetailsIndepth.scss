@@ -6,6 +6,7 @@
   border: 2px solid white;
   box-shadow: rgba(29, 29, 29, 0.3) 0px 0px 1.25em 0.25em;
   height: 75%;
+  background: #ffffff;
 }
 
 .detailHeaderRow {
@@ -19,18 +20,28 @@
   margin: auto 0;
 }
 
-.imageContainer {
+.image {
   height: 100%;
   margin: auto 0;
 }
 
+.label {
+  display: block;
+  min-width: 50px;
+  margin-right: 25px;
+}
+
+.detailInfo {
+  display: flex;
+}
+
 .coinNameContainer {
   display: flex;
+  align-items: center;
   margin: auto 0;
   font-size: 20px;
   font-weight: bold;
   font-style: italic;
-  border-bottom: 1px solid black;
 }
 
 .addToggleCoinContainer {
@@ -41,6 +52,7 @@
   .buttonContainers {
     display: flex;
     padding-bottom: 2px;
+    height: 30px;
 
     @media (max-width: 425px) {
       flex-direction: column;
@@ -72,6 +84,10 @@
 }
 
 .detailInfoRow {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 75%;
   font-size: 20px;
   padding: 10px;
 
@@ -83,7 +99,7 @@
 }
 
 .coinIcon {
-  height: auto;
+  height: 30px;
   width: 30px;
   padding-right: 5px;
 }

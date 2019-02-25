@@ -6,6 +6,7 @@
   border-radius: 5px;
   border: 2px solid white;
   box-shadow: rgba(29, 29, 29, 0.3) 0px 0px 1.25em 0.25em;
+  background: #ffffff;
 }
 
 .detailHeaderRow {
@@ -23,7 +24,7 @@
 .imageContainer {
   height: 100%;
   margin: auto 0;
-  border-bottom: 1px solid black;
+  // border-bottom: 1px solid black;
 }
 
 .coinNameContainer {
@@ -38,7 +39,7 @@
 .addButton {
   height: 25px;
   border-radius: 5px;
-  border: 2px solid #616161;
+  border: none;
   background-color: #64b5f6;
 }
 .addButton:hover {
@@ -52,8 +53,8 @@
   border-color: white;
 }
 .addButton:disabled {
-  border: black;
-  background-color: #616161;
+  background-color: #bdbdbd;
+  cursor: not-allowed;
 }
 
 h6 {
@@ -81,7 +82,7 @@ h6 {
 }
 
 .coinName {
-  border-bottom: 1px solid black;
+  //border-bottom: 1px solid black;
 }
 
 label {
@@ -91,9 +92,9 @@ label {
 }
 
 .addFormInput {
+  border: none;
   height: 20px;
-  border-radius: 5px;
-  border: 2px solid #616161;
+  border-bottom: 1px solid #616161;
   font-size: 80%;
   margin-left: 5px;
   text-indent: 10px;
@@ -104,7 +105,7 @@ label {
 }
 
 .requiredBorder {
-  border: 2px ridge red;
+  border-bottom: 1px ridge red;
 }
 
 .coinDisclaimer {

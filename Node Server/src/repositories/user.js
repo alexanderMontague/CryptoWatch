@@ -30,6 +30,11 @@ async function updatePortfolio(portfolio, userBaseCurrency = 'CAD') {
   const currCoinPrices = {};
   const currCoinAmounts = {};
 
+  // if the user does not have any coins in their portfolio
+  if (currCoinInfo === null) {
+    return portfolio;
+  }
+
   // calculate current coin prices
   Object.keys(currCoinInfo).forEach(coin => {
     currCoinPrices[coin] = currCoinInfo[coin][userBaseCurrency].PRICE;

@@ -14,12 +14,20 @@ class PortfolioHeader extends Component {
 
   async componentDidMount() {
     const userData = (await seeUserReq()).data;
-
     this.setState({
       isPortfolioLoading:
         userData.isAuthenticated &&
         !!userData.portfolio.meta.currentTotalValue !== false
     });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.isAuthenticated === true &&
+      this.props.isAuthenticated === false
+    ) {
+      this.setState({ isPortfolioLoading: false });
+    }
   }
 
   render() {

@@ -5,10 +5,13 @@ import { formatPrice } from '../../helpers';
 import { getCoinFullInfo } from '../../helpers/requests';
 
 import ToggleButton from 'react-toggle-button';
+import Loader from 'react-loader-spinner';
 
 const DetailsIndepth = props => {
-  const [coinData, setCoinData] = useState({});
+  const [coinData, setCoinData] = useState(null);
+  const [showGraph, toggleGraph] = useState(false);
 
+  // fetch coin details when selected coin changes
   useEffect(() => {
     const { selectedCoin, baseCurrency } = props;
     getCoinFullInfo(selectedCoin, baseCurrency).then(res => {
@@ -16,14 +19,11 @@ const DetailsIndepth = props => {
         setCoinData(res);
       }
     });
-  }, []);
+  }, [props.selectedCoin]);
 
   const {
-    showGraph,
-    portfolio,
     addAnotherLot,
-    coinDetails: { coinImageURL, coinFullName, coinPrice },
-    selectedCoin
+    coinDetails: { coinImageURL, coinFullName, coinPrice }
   } = props;
 
   const thumbStyle = {
@@ -33,7 +33,9 @@ const DetailsIndepth = props => {
   };
   const buttonStyle = {
     borderRadius: 5,
-    border: '2px solid #616161'
+    border: '2px solid #616161',
+    height: '25px',
+    width: '58px'
   };
   const toggleColors = {
     active: {
@@ -42,9 +44,9 @@ const DetailsIndepth = props => {
     }
   };
 
-  const showGraphHandler = () => {};
-
-  const { fromSymbol } = coinData;
+  const showGraphHandler = () => {
+    toggleGraph(!showGraph);
+  };
 
   return (
     <div className={css.detailsContentContainer}>
@@ -56,14 +58,12 @@ const DetailsIndepth = props => {
           {/* CAD {baseCurrency} */}
         </div>
         <div className={css.coinNameContainer}>
-          <div className={css.imageContainer}>
-            <img className={css.coinIcon} src={coinImageURL} alt="Coin Icon" />
-          </div>
+          <img className={css.coinIcon} src={coinImageURL} alt="Coin Icon" />
           <div>{coinFullName}</div>
         </div>
         <div className={css.addToggleCoinContainer}>
           <div className={css.buttonContainers}>
-            <h6>Toggle Graph: </h6>
+            <h6 style={{ paddingRight: '12px' }}>Toggle Graph: </h6>
             <ToggleButton
               value={showGraph}
               colors={toggleColors}
@@ -80,31 +80,46 @@ const DetailsIndepth = props => {
           </div>
         </div>
       </div>
-      <div className={css.detailInfoRow}>
-        <div>
-          <span>Current Price:</span> ${formatPrice(coinPrice)}
+      {coinData === null ? (
+        <div style={{ textAlign: 'center', paddingTop: '40px' }}>
+          <Loader type="Oval" color="#64b5f6" height="75" width="75" />
         </div>
+      ) : (
+        <div className={css.detailInfoRow}>
+          <div className={css.detailInfo}>
+            <div className={css.label}>Current Price:</div>{' '}
+            <div>${formatPrice(coinPrice)}</div>
+          </div>
 
-        <div>
-          <span>Market Cap:</span> ${formatPrice(coinData.MKTCAP)}
-        </div>
+          <div className={css.detailInfo}>
+            <div className={css.label}>Market Cap:</div>{' '}
+            <div>${formatPrice(coinData.MKTCAP)}</div>
+          </div>
 
-        <div>
-          <span>24hr Gain:</span>
-          {coinData.CHANGE24HOUR < 0 ? ' -$' : ' +$'}
-          {formatPrice(Math.abs(coinData.CHANGE24HOUR))}
-        </div>
+          <div className={css.detailInfo}>
+            <div className={css.label}>24hr Gain:</div>
+            <div>
+              {coinData.CHANGE24HOUR < 0 ? ' -$' : ' +$'}
+              {formatPrice(Math.abs(coinData.CHANGE24HOUR))}
+            </div>
+          </div>
 
-        <div>
-          <span>24hr Volume:</span> {fromSymbol}
-          {(coinData.VOLUME24HOUR || 0).toFixed(8)}
-        </div>
+          <div className={css.detailInfo}>
+            <div className={css.label}>24hr Volume:</div> (
+            <div>
+              {(coinData || {}).fromSymbol})
+              {(coinData.VOLUME24HOUR || 0).toFixed(8)}
+            </div>
+          </div>
 
-        <div>
-          <span>Circulating Supply:</span> {fromSymbol}
-          {coinData.SUPPLY}
+          <div className={css.detailInfo}>
+            <div className={css.label}>Circulating Supply:</div> (
+            <div>
+              {(coinData || {}).fromSymbol}){formatPrice(coinData.SUPPLY)}
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

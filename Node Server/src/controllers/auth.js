@@ -1,5 +1,4 @@
 const passport = require('passport');
-const { getMultipleCoinPrices } = require('../helpers/requests');
 const { createResponse } = require('../helpers');
 const { updatePortfolio } = require('../repositories').user;
 
