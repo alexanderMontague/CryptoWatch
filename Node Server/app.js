@@ -83,10 +83,6 @@ app.use(
     saveUninitialized: true,
     secret: process.env.SESSION_SECRET,
     cookie: { maxAge: 3.6e6, httpOnly: false, secure: false }, // expires after 1 hour
-    // store: new MongoStore({
-    //   url: process.env.MONGODB_URI,
-    //   autoReconnect: true,
-    // }),
   })
 );
 app.use(passport.initialize());
@@ -97,6 +93,9 @@ app.disable('x-powered-by');
 
 app.use((req, res, next) => {
   console.log('session', req.session, 'id', req.session.id);
+  // Refresh user cookie with every request
+  req.session._garbage = Date();
+  req.session.touch();
   //res.locals.user = req.user || null;
   // no idea but may be useful
   // After successful login, redirect back to the intended page
