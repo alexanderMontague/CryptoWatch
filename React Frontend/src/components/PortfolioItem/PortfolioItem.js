@@ -68,7 +68,7 @@ class PortfolioItem extends Component {
             </div>
           </div>
         </div>
-        {this.state.showLots && <CoinLots lots={lots} />}
+        {this.state.showLots && <CoinLots lots={lots} ticker={ticker} />}
       </Fragment>
     );
   }

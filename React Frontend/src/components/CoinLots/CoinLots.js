@@ -4,10 +4,15 @@ import css from './CoinLots.scss';
 import CoinLotItem from '../CoinSingleLot/CoinLot';
 
 const CoinLots = props => {
-  const { lots } = props;
+  const { lots, ticker } = props;
   const coinLotArray = lots.map((lotDetails, index) => {
     return (
-      <CoinLotItem {...lotDetails} key={lotDetails.dateBought} index={index} />
+      <CoinLotItem
+        {...lotDetails}
+        ticker={ticker}
+        key={lotDetails.dateBought}
+        index={index}
+      />
     );
   });
 

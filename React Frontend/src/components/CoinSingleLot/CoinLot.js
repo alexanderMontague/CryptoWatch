@@ -1,11 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import css from './CoinLot.scss';
 import moment from 'moment';
 
 import { formatPrice } from '../../helpers';
 
 const CoinLot = props => {
-  const { dateBought, priceBought, amountBought, totalLotWorth, index } = props;
+  const {
+    dateBought,
+    priceBought,
+    amountBought,
+    index,
+    currentCoinPrice
+  } = props;
+
+  const lotGainAmountPercentage =
+    ((currentCoinPrice - priceBought) / priceBought) * 100;
+
+  const gainColour = lotGainAmountPercentage < 0 ? 'red' : 'green';
 
   let lotStyle =
     index % 2 === 0
@@ -19,9 +31,17 @@ const CoinLot = props => {
       </div>
       <div className={css.lotItem}>{`$${formatPrice(priceBought)}`}</div>
       <div className={css.lotItem}>{parseFloat(amountBought).toFixed(8)}</div>
-      <div className={css.lotItem}>WIP</div>
+      <div className={css.lotItem}>
+        <span style={{ color: gainColour }}>
+          {lotGainAmountPercentage.toFixed(2)}%
+        </span>
+      </div>
     </div>
   );
 };
 
-export default CoinLot;
+const mapStateToProps = (state, ownProps) => ({
+  currentCoinPrice: state.tradeState.portfolio[ownProps.ticker].currentPrice
+});
+
+export default connect(mapStateToProps)(CoinLot);
