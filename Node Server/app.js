@@ -44,7 +44,7 @@ const BASE_URL = '/api/v1';
 
 const whitelist = [
   'http://localhost:3000',
-  'https://cryptowatch-d0d48.firebaseapp.com/',
+  'https://cryptowatch-d0d48.firebaseapp.com',
   'https://crypto-watch.ca',
   undefined,
 ]; // Undefined for Postman
