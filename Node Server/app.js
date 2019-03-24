@@ -42,7 +42,12 @@ const publicRoutes = require('./src/routesPublic');
 const app = express();
 const BASE_URL = '/api/v1';
 
-const whitelist = ['http://localhost:3000', undefined]; // Undefined for Postman
+const whitelist = [
+  'http://localhost:3000',
+  'https://cryptowatch-d0d48.firebaseapp.com/',
+  'https://crypto-watch.ca',
+  undefined,
+]; // Undefined for Postman
 const corsOptions = {
   origin: function(origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
