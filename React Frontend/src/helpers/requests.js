@@ -101,8 +101,10 @@ export const getCoinList = () => {
  *     }
  *   }
  */
-const isDev = true;
-const BASE_URL = isDev ? 'http://localhost:3003/api/v1' : 'TBD';
+const isDev = process.env.NODE_ENV !== 'production';
+const BASE_URL = isDev
+  ? 'http://localhost:3003/api/v1'
+  : 'https://crypto-watch.herokuapp.com/api/v1';
 
 /**
  * Save the user's current portfolio to their account

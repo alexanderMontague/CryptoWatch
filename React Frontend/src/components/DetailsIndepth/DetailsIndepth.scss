@@ -1,11 +1,11 @@
 .detailsContentContainer {
   display: flex;
   flex-direction: column;
-  margin: 5%;
+  margin: 2% 2% 0 2%;
   border-radius: 5px;
   border: 2px solid white;
   box-shadow: rgba(29, 29, 29, 0.3) 0px 0px 1.25em 0.25em;
-  height: 75%;
+  height: 80%;
   background: #ffffff;
 }
 
@@ -33,6 +33,7 @@
 
 .detailInfo {
   display: flex;
+  justify-content: space-between;
 }
 
 .coinNameContainer {
@@ -46,13 +47,13 @@
 
 .addToggleCoinContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin: auto 0;
 
   .buttonContainers {
-    display: flex;
     padding-bottom: 2px;
     height: 30px;
+    margin: 0 5px;
 
     @media (max-width: 425px) {
       flex-direction: column;
@@ -64,6 +65,7 @@
     border-radius: 5px;
     border: 2px solid #616161;
     background-color: #64b5f6;
+    color: #ffffff;
   }
   .addButton:hover {
     background-color: #2196f3;
@@ -89,7 +91,11 @@
   justify-content: space-evenly;
   height: 75%;
   font-size: 20px;
-  padding-left: 10px;
+  margin: 0 15%;
+
+  @media (max-width: 1200px) {
+    margin: 0 5%;
+  }
 
   .coinInfoRow {
     display: flex;
@@ -102,4 +108,30 @@
   height: 30px;
   width: 30px;
   padding-right: 5px;
+}
+
+.chartButtonContainer {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 7px 0;
+
+  .chartButton {
+    height: 20px;
+    width: 75px;
+    border-radius: 5px;
+    border: 2px solid #616161;
+    font-size: 15px;
+  }
+  .chartButton:hover {
+    cursor: pointer;
+    background-color: #2196f3;
+    color: #ffffff;
+  }
+  .chartButton:focus {
+    outline: none;
+  }
+}
+
+.active {
+  background-color: #64b5f6;
 }

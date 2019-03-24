@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import css from './DetailsIndepth.scss';
 import { formatPrice } from '../../helpers';
 import { getCoinFullInfo } from '../../helpers/requests';
-
+import Chart from '../Chart';
 import ToggleButton from 'react-toggle-button';
 import Loader from 'react-loader-spinner';
 
 const DetailsIndepth = props => {
   const [coinData, setCoinData] = useState(null);
   const [showGraph, toggleGraph] = useState(false);
+  const [chartPeriod, setChartPeriod] = useState('day');
 
   // fetch coin details when selected coin changes
   useEffect(() => {
@@ -23,7 +24,9 @@ const DetailsIndepth = props => {
 
   const {
     addAnotherLot,
-    coinDetails: { coinImageURL, coinFullName, coinPrice }
+    coinDetails: { coinImageURL, coinFullName, coinPrice },
+    baseCurrency,
+    selectedCoin
   } = props;
 
   const thumbStyle = {
@@ -48,6 +51,10 @@ const DetailsIndepth = props => {
     toggleGraph(!showGraph);
   };
 
+  const chartPeriodHandler = e => {
+    setChartPeriod(e.target.id);
+  };
+
   return (
     <div className={css.detailsContentContainer}>
       <div className={css.detailHeaderRow}>
@@ -63,7 +70,7 @@ const DetailsIndepth = props => {
         </div>
         <div className={css.addToggleCoinContainer}>
           <div className={css.buttonContainers}>
-            <h6 style={{ paddingRight: '12px' }}>Toggle Graph: </h6>
+            <h6 style={{ paddingBottom: '2px' }}>Toggle Graph: </h6>
             <ToggleButton
               value={showGraph}
               colors={toggleColors}
@@ -73,14 +80,77 @@ const DetailsIndepth = props => {
             />
           </div>
           <div className={css.buttonContainers}>
-            <h6>Add another lot: </h6>
+            <h6 style={{ paddingBottom: '2px' }}>Add another lot: </h6>
             <button className={css.addButton} onClick={addAnotherLot}>
               ADD
             </button>
           </div>
         </div>
       </div>
-      {coinData === null ? (
+      {showGraph ? (
+        <Fragment>
+          <Chart
+            id="cryptoChart"
+            width="100%"
+            fsym={selectedCoin}
+            tsym={baseCurrency}
+            span={chartPeriod}
+            borderColor="#64b5f6"
+          />
+          <div className={css.chartButtonContainer}>
+            <button
+              id="day"
+              className={[
+                css.chartButton,
+                chartPeriod === 'day' && css.active
+              ].join(' ')}
+              onClick={chartPeriodHandler}
+            >
+              Day
+            </button>
+            <button
+              id="week"
+              className={[
+                css.chartButton,
+                chartPeriod === 'week' && css.active
+              ].join(' ')}
+              onClick={chartPeriodHandler}
+            >
+              Week
+            </button>
+            <button
+              id="month"
+              className={[
+                css.chartButton,
+                chartPeriod === 'month' && css.active
+              ].join(' ')}
+              onClick={chartPeriodHandler}
+            >
+              Month
+            </button>
+            <button
+              id="year"
+              className={[
+                css.chartButton,
+                chartPeriod === 'year' && css.active
+              ].join(' ')}
+              onClick={chartPeriodHandler}
+            >
+              Year
+            </button>
+            <button
+              id="all"
+              className={[
+                css.chartButton,
+                chartPeriod === 'all' && css.active
+              ].join(' ')}
+              onClick={chartPeriodHandler}
+            >
+              All
+            </button>
+          </div>
+        </Fragment>
+      ) : coinData === null ? (
         <div style={{ textAlign: 'center', paddingTop: '40px' }}>
           <Loader type="Oval" color="#64b5f6" height="75" width="75" />
         </div>
@@ -105,17 +175,17 @@ const DetailsIndepth = props => {
           </div>
 
           <div className={css.detailInfo}>
-            <div className={css.label}>24hr Volume:</div> (
+            <div className={css.label}>24hr Volume:</div>
             <div>
-              {(coinData || {}).fromSymbol})
+              ({(coinData || {}).fromSymbol})
               {(coinData.VOLUME24HOUR || 0).toFixed(8)}
             </div>
           </div>
 
           <div className={css.detailInfo}>
-            <div className={css.label}>Circulating Supply:</div> (
+            <div className={css.label}>Circulating Supply:</div>
             <div>
-              {(coinData || {}).fromSymbol}){formatPrice(coinData.SUPPLY)}
+              ({(coinData || {}).fromSymbol}){formatPrice(coinData.SUPPLY)}
             </div>
           </div>
         </div>
