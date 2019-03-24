@@ -1,4 +1,17 @@
-@import url(//db.onlinewebfonts.com/c/d60c32b147d2aacca5346c17f4496fc9?family=EstiloW01-TextLight);
+@font-face {
+  font-family: 'EstiloW01-TextLight';
+  src: url('https://db.onlinewebfonts.com/t/d60c32b147d2aacca5346c17f4496fc9.eot');
+  src: url('https://db.onlinewebfonts.com/t/d60c32b147d2aacca5346c17f4496fc9.eot?#iefix')
+      format('embedded-opentype'),
+    url('https://db.onlinewebfonts.com/t/d60c32b147d2aacca5346c17f4496fc9.woff2')
+      format('woff2'),
+    url('https://db.onlinewebfonts.com/t/d60c32b147d2aacca5346c17f4496fc9.woff')
+      format('woff'),
+    url('https://db.onlinewebfonts.com/t/d60c32b147d2aacca5346c17f4496fc9.ttf')
+      format('truetype'),
+    url('https://db.onlinewebfonts.com/t/d60c32b147d2aacca5346c17f4496fc9.svg#EstiloW01-TextLight')
+      format('svg');
+}
 
 .appWrapper {
   font-family: 'EstiloW01-TextLight';
