@@ -235,8 +235,8 @@ export const seeUserReq = () => {
  * IT WILL LITERALLY DELETE ALL USERS IN THE USERS TABLE
  * USE FOR DEV WORK ONLY AND DELETE ASAP
  */
-export const deleteAllUsers = () => {
-  return axios
-    .get(`${BASE_URL}/public/deleteAllUsers`)
-    .then(alert('Deleted all users. I hope you meant to do that.'));
-};
+// export const deleteAllUsers = () => {
+//   return axios
+//     .get(`${BASE_URL}/public/deleteAllUsers`)
+//     .then(alert('Deleted all users. I hope you meant to do that.'));
+// };

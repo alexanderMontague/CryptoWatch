@@ -64,7 +64,7 @@ class Slider extends Component {
               )}
 
               {/* TODO: Delete DEV stuff */}
-              <div>
+              {/* <div>
                 <button
                   className={[css.reqButton, css.button].join(' ')}
                   onClick={async () => {
@@ -82,7 +82,7 @@ class Slider extends Component {
                 >
                   DELETE ALL USERS FROM DB. SERIOUSLY.
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
