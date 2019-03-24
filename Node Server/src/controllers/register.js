@@ -26,6 +26,9 @@ const { requiredFields, validateEmailAndUsername } = require('../helpers/validat
  *   }
  */
 async function registerUser(req, res) {
+  if (!req.body.register) {
+    return res.json(createResponse(500, 'No register data given', null, true));
+  }
   const registerFields = decodeBody(req.body.register);
   const requiredErrors = requiredFields(registerFields);
 

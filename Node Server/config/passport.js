@@ -18,6 +18,10 @@ passport.deserializeUser((id, done) => {
  */
 passport.use(
   new LocalStrategy({ passReqToCallback: true }, (req, dummyUsername, dummyPassword, done) => {
+    if (!req.body.login) {
+      return done(null, false, { message: 'No login info given!' });
+    }
+
     const { identifier, password } = decodeBody(req.body.login);
 
     if (!identifier) {
