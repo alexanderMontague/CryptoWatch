@@ -30,7 +30,7 @@ Alex Montague 2019
 ![](https://i.imgur.com/tjU9WL3.png)
 
 ### First UI rendition 
-![](https://i.imgur.com/3RwZNlK.gifv)
+![](https://i.imgur.com/3RwZNlK.gif)
 
 #### Right before the current UI updated
 ![](https://i.imgur.com/1OIO4up.png)
