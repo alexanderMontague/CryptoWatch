@@ -1,12 +1,15 @@
 # 📈&nbsp; CryptoWatch &nbsp; 💸
 _An all in one crypto asset tracking application_
-![](https://i.imgur.com/1OIO4up.png)
+![](https://i.imgur.com/uZDoDwT.png)
 
 ### Details
 - Cryptowatch was created as an easy intuitive way to track and manage your crypto assets
 - No actual money is involved, so you can rest easy knowing your investments are actually held wherever you choose
 - Use Cryptowatch as an investment sandbox to test the waters before actually investing
 - Track your overall portfolio performance in one single place at the glance of an eye
+
+### Live Link
+[Cryptowatch Web App](https://cryptowatch-d0d48.firebaseapp.com/)
 
 ### Usage
 - Register an account to keep your portfolio on reoccuring visits
@@ -23,3 +26,17 @@ _An all in one crypto asset tracking application_
 - Any additions are welcome via a PR
 
 Alex Montague 2019
+
+### Legacy Pictures
+
+#### The first mockup
+![](https://i.imgur.com/tjU9WL3.png)
+
+### First UI rendition 
+![](https://i.imgur.com/3RwZNlK.gif)
+
+#### Right before the current UI update
+![](https://i.imgur.com/1OIO4up.png)
+
+#### Current UI
+![](https://i.imgur.com/uZDoDwT.png)
