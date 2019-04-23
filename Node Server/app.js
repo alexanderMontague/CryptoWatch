@@ -65,8 +65,6 @@ const corsOptions = {
 /**
  * Connect to MongoDB.
  */
-console.log('MONGO URI', process.env.MONGODB_URI);
-
 mongoose.set('useCreateIndex', true);
 mongoose
   .connect(
