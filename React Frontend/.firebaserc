@@ -1,1 +1,14 @@
-{}
+{
+  "projects": {
+    "default": "cryptowatch-d0d48"
+  },
+  "targets": {
+    "cryptowatch-d0d48": {
+      "hosting": {
+        "Cryptowatch": [
+          "Cryptowatch"
+        ]
+      }
+    }
+  }
+}

@@ -46,8 +46,10 @@ const whitelist = [
   'http://localhost:3000',
   'https://cryptowatch-d0d48.firebaseapp.com',
   'https://crypto-watch.ca',
-  undefined,
-]; // Undefined for Postman
+  'https://cryptowatch.firebaseapp.com/',
+  'https://cryptowatch.web.app/',
+  undefined, // Undefined for Postman
+];
 const corsOptions = {
   origin: function(origin, callback) {
     console.log('origin', origin);
