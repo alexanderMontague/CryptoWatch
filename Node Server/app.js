@@ -47,7 +47,8 @@ const whitelist = [
   'https://cryptowatch-d0d48.firebaseapp.com',
   'https://crypto-watch.ca',
   'https://cryptowatch.firebaseapp.com/',
-  'https://cryptowatch.web.app/',
+  'https://cryptowatch.web.app',
+  'cryptowatch.web.app',
   undefined, // Undefined for Postman
 ];
 const corsOptions = {
