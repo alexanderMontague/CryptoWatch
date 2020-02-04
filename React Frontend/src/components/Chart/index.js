@@ -25,7 +25,7 @@ class Chart extends Component {
   componentDidMount() {
     this.getData();
   }
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     let state = {};
     let changed = false;
     let resized = false;

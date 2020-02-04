@@ -25,7 +25,7 @@ class DetailsAdd extends Component {
     selectedCoinCurrentPrice: this.props.coinDetails.coinPrice // current coin price from today
   };
 
-  componentWillReceiveProps = newProps => {
+  UNSAFE_componentWillReceiveProps = newProps => {
     // if the selected coin gets updated in anyway, reflect those changes right away
     const {
       coinDetails: { selectedCoin, coinPrice, dataAvailable }

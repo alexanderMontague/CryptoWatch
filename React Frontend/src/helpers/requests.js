@@ -10,7 +10,6 @@ import axios from 'axios';
 export const getCoinPrice = (
   ticker,
   baseCurrency = 'CAD'
-  //timeStamp = moment().unix()
 ) => {
   return axios
     .get(
@@ -102,8 +101,9 @@ export const getCoinList = () => {
  *   }
  */
 const isDev = process.env.NODE_ENV !== 'production';
+const LOCAL_PORT = '3003';
 const BASE_URL = isDev
-  ? 'http://localhost:3003/api/v1'
+  ? `http://localhost:${LOCAL_PORT}/api/v1`
   : 'https://crypto-watch.herokuapp.com/api/v1';
 
 /**
