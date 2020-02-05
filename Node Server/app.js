@@ -80,7 +80,7 @@ mongoose
 /**
  * Express configuration.
  */
-app.set('port', process.env.PORT || 3210);
+app.set('port', process.env.PORT || 3003);
 app.use(expressStatusMonitor());
 app.use(compression());
 app.use(logger('dev'));
