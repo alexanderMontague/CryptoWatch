@@ -53,8 +53,6 @@ const whitelist = [
 ];
 const corsOptions = {
   origin: function(origin, callback) {
-    console.log('origin', origin);
-
     if (whitelist.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
@@ -98,24 +96,13 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-app.use(cors(corsOptions)); // todo set CORS up
+app.use(cors(corsOptions));
 app.disable('x-powered-by');
 
 app.use((req, res, next) => {
-  console.log('session', req.session, 'id', req.session.id);
   // Refresh user cookie with every request
   req.session._garbage = Date();
   req.session.touch();
-  //res.locals.user = req.user || null;
-  // no idea but may be useful
-  // After successful login, redirect back to the intended page
-  //console.log('req user: ', req.user, 'req.session: ', req.session, 'res locals', res.locals);
-  // if (!req.user && req.path !== '/login' && !req.path.match(/^\/auth/) && !req.path.match(/\./)) {
-  //   console.log('HERE ONE');
-  //   req.session.returnTo = req.originalUrl;
-  // } else if (req.user && (req.path === '/account' || req.path.match(/^\/api/))) {
-  //   req.session.returnTo = req.originalUrl;
-  // }
   next();
 });
 

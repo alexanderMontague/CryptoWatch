@@ -12,6 +12,6 @@ router.route('/login').post(auth.loginUser);
 router.route('/getStatus').get(auth.getStatus);
 
 // TODO: DELETE WARNING DONT FUCK WITH THIS DEV STUFF ONLY IT WILL DELETE ALL USERS
-router.route('/deleteAllUsers').get(home.deleteAllUsers);
+// router.route('/deleteAllUsers').get(home.deleteAllUsers);
 
 module.exports = router;

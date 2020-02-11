@@ -50,8 +50,8 @@ async function updatePortfolio(portfolio, userBaseCurrency = 'CAD') {
       currCoinAmounts[coin] = portfolio[coin].totalCoinAmount;
 
       // update 24 hour change for each coin
-      portfolio[coin].change24HourDollar = currCoinInfo[coin][userBaseCurrency].CHANGE24HOUR;
-      portfolio[coin].change24HourPercent = currCoinInfo[coin][userBaseCurrency].CHANGEPCT24HOUR;
+      portfolio[coin].change24HourDollar = currCoinAmounts[coin] * currCoinInfo[coin][userBaseCurrency].CHANGE24HOUR;
+      portfolio[coin].change24HourPercent = currCoinAmounts[coin] * currCoinInfo[coin][userBaseCurrency].CHANGEPCT24HOUR;
     }
   }
 
