@@ -14,7 +14,7 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-polyfill": "^6.26.0",
-    "chart.js": "^2.8.0",
+    "chart.js": "^2.9.4",
     "es6-promise": "^4.2.6",
     "eslint": "^5.9.0",
     "file-loader": "^1.1.11",
