@@ -37,7 +37,7 @@
     "passport-openid": "^0.4.0",
     "prettier": "^1.15.3",
     "request": "^2.88.0",
-    "validator": "^10.9.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "eslint": "^5.15.3",
