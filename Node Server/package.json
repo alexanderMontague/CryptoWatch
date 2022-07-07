@@ -25,7 +25,7 @@
     "express-session": "^1.15.6",
     "express-status-monitor": "^1.2.8",
     "express-validator": "^5.3.0",
-    "moment": "^2.23.0",
+    "moment": "^2.29.4",
     "mongoose": "^5.8.11",
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
